@@ -121,20 +121,8 @@
         <div class="panel glow">
           <h2 class="serif">Stay in the loop.</h2>
           <p class="sub">Sign up to receive project updates and join our small group of early beta testers.</p>
-          <form id="signup-form" novalidate>
-            <div class="row">
-              <input name="name" type="text" placeholder="Name" aria-label="Name" autocomplete="name" />
-              <input id="email" name="email" type="email" placeholder="Email address" aria-label="Email address" autocomplete="email" required />
-              <button class="btn" type="submit">Join Beta</button>
-            </div>
-            <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
-            <p class="small">We’ll only email you about Good Grief Circle. No spam, and you can leave the list any time.</p>
-            <div id="signup-error" class="msg" role="alert"></div>
-          </form>
-          <div id="signup-thanks" class="msg" role="status">
-            <strong>Thank you — you’re on the list.</strong><br />
-            We’ll be in touch as soon as there’s a place for you.
-          </div>
+          <a class="btn" style="display: inline-block; text-decoration: none" href="https://www.goodgriefcircle.com/">Join the list at goodgriefcircle.com</a>
+          <p class="small">Sign-ups are kept in one place, on our main site.</p>
         </div>
       </div>
     </section>
@@ -149,40 +137,7 @@
     </div>
   </footer>
 
-  <script>
-    // Formspree form address, e.g. 'https://formspree.io/f/abcdwxyz'. Sign-ups go nowhere until this is set.
-    const FORM_ENDPOINT = 'https://formspree.io/f/mqpebppz';
-
-    const form = document.getElementById('signup-form');
-    const thanks = document.getElementById('signup-thanks');
-    const error = document.getElementById('signup-error');
-    const isLocal = ['localhost', '127.0.0.1', ''].includes(location.hostname);
-
-    const fail = (text) => { error.textContent = text; error.className = 'msg err'; };
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      error.className = 'msg';
-      const email = form.email.value.trim();
-      if (!/^\S+@\S+\.\S+$/.test(email)) return fail('That email address doesn’t look quite right — could you check it?');
-
-      const button = form.querySelector('button');
-      button.disabled = true;
-      try {
-        if (FORM_ENDPOINT) {
-          const res = await fetch(FORM_ENDPOINT, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
-          if (!res.ok) throw new Error('Sign-up failed: ' + res.status);
-        } else if (!isLocal) {
-          throw new Error('FORM_ENDPOINT is not set');
-        }
-        form.style.display = 'none';
-        thanks.className = 'msg ok fade';
-      } catch (err) {
-        console.error(err);
-        fail('Sorry — that didn’t go through. Please try again in a moment.');
-        button.disabled = false;
-      }
-    });
-  </script>
+  <!-- Sign-up form switched off 2026-10-10: sign-ups go through goodgriefcircle.com (Wix) for now.
+       The Formspree form (mqpebppz) and its script are in git history: see the commit before this one. -->
 </body>
 </html>
