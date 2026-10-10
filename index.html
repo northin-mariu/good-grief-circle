@@ -3,171 +3,150 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Good Grief Circle — Not a legal will. A human one.</title>
-  <meta name="description" content="Record your wishes, organise what matters, and choose who you trust with it — so the people you love don't have to guess. Join the early access list." />
+  <title>Good Grief Circle — Honour your story. Protect their peace.</title>
+  <meta name="description" content="Record your wishes, support the people you love, and celebrate a life. Join the early beta list." />
   <meta property="og:title" content="Good Grief Circle" />
-  <meta property="og:description" content="Not a legal will. A human one. Join the early access list." />
+  <meta property="og:description" content="Honour your story. Protect their peace. Join the early beta list." />
   <meta property="og:type" content="website" />
-  <meta name="theme-color" content="#faf5ec" />
+  <meta name="theme-color" content="#fffbff" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='14' r='11.5' fill='%23e07a4d' opacity='.82'/%3E%3Ccircle cx='34' cy='24' r='11.5' fill='%234a9e90' opacity='.82'/%3E%3Ccircle cx='24' cy='34' r='11.5' fill='%239cbf86' opacity='.82'/%3E%3Ccircle cx='14' cy='24' r='11.5' fill='%23eab64a' opacity='.82'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,800;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: 'Hanken Grotesk', -apple-system, sans-serif;
-      background: #faf5ec;
-      color: #26324a;
-      -webkit-font-smoothing: antialiased;
-    }
+    body { margin: 0; font-family: 'Plus Jakarta Sans', -apple-system, sans-serif; background: #fffbff; color: #393834; -webkit-font-smoothing: antialiased; }
     .serif { font-family: 'Newsreader', serif; }
-    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
-
-    @keyframes ggcFade {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: none; }
-    }
-    .fade { animation: ggcFade 0.5s ease both; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+    @keyframes ggcFade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    .fade { animation: ggcFade 0.6s ease both; }
     @media (prefers-reduced-motion: reduce) { .fade { animation: none; } html { scroll-behavior: auto; } }
+    .glow { background: linear-gradient(135deg, #b23d10 0%, #ff794a 100%); }
 
-    /* ── HERO ── */
-    .hero {
-      background: linear-gradient(180deg, #fdf8f0 0%, #f7ecdd 100%);
-      text-align: center;
-      padding: 72px 0 64px;
-    }
-    .hero h1 { font-size: 44px; font-weight: 600; line-height: 1.08; letter-spacing: -0.5px; margin: 24px 0 0; }
-    .tagline { font-style: italic; font-size: 23px; color: #c8623a; line-height: 1.45; margin: 16px 0 0; }
-    .lede { font-size: 17px; line-height: 1.62; color: #6c6456; max-width: 460px; margin: 22px auto 0; }
+    nav { position: sticky; top: 0; z-index: 10; background: rgba(253,249,242,.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    nav .wrap { display: flex; align-items: center; justify-content: space-between; padding-top: 14px; padding-bottom: 14px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-style: italic; font-weight: 500; font-size: 23px; color: #b23d10; }
+    .cta { display: inline-block; color: #fff; font-weight: 700; font-size: 15px; text-decoration: none; padding: 11px 22px; border-radius: 999px; box-shadow: 0 10px 24px rgba(178,61,16,.26); }
 
-    /* ── SIGN-UP ── */
-    .signup { max-width: 460px; margin: 34px auto 0; }
-    .signup label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; }
-    .row { display: flex; gap: 10px; }
-    .row input[type=email] {
-      flex: 1; min-width: 0;
-      font: inherit; font-size: 16px; color: #26324a;
-      padding: 16px; border-radius: 16px;
-      border: 1px solid #e6dac6; background: #fff;
-    }
-    .row input[type=email]:focus { outline: 2px solid #e07a4d; outline-offset: 1px; border-color: transparent; }
-    .btn {
-      border: none; cursor: pointer; white-space: nowrap;
-      font-family: inherit; font-size: 16px; font-weight: 600;
-      background: #e07a4d; color: #fff;
-      padding: 16px 22px; border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(224,122,77,0.32);
-    }
-    .btn:disabled { opacity: 0.6; cursor: default; }
-    .small { font-size: 13.5px; color: #9a8d79; line-height: 1.5; margin: 14px 0 0; }
+    .hero { position: relative; overflow: hidden; text-align: center; padding: 96px 0 104px; }
+    .orb { position: absolute; width: 760px; height: 760px; border-radius: 50%; pointer-events: none; }
+    .chip { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #005f2e; background: #6dfe9c; border-radius: 999px; padding: 6px 15px; }
+    .hero h1 { position: relative; font-size: clamp(46px, 9vw, 104px); line-height: .98; letter-spacing: -2px; margin: 30px 0 0; }
+    .hero h1 i { font-weight: 500; color: #b23d10; }
+    .hero h1 b { font-weight: 800; }
+    .lede { position: relative; font-size: clamp(18px, 2.2vw, 23px); line-height: 1.5; color: #666460; max-width: 640px; margin: 34px auto 0; }
+
+    .what { background: #fdf9f2; padding: 80px 0; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .card { background: #fff; border-radius: 32px; padding: 40px; box-shadow: 0 18px 40px rgba(57,56,52,.06); transition: transform .4s ease, box-shadow .4s ease; }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 28px 56px rgba(57,56,52,.10); }
+    .ico { width: 60px; height: 60px; border-radius: 14px; display: flex; align-items: center; justify-content: center; }
+    .card h3 { font-style: italic; font-weight: 500; font-size: 31px; margin: 30px 0 14px; }
+    .card p { font-size: 16px; line-height: 1.65; color: #666460; margin: 0; }
+    @media (max-width: 820px) { .cards { grid-template-columns: 1fr; } .card { padding: 32px; } }
+
+    .join { padding: 112px 0; }
+    .panel { position: relative; overflow: hidden; max-width: 980px; margin: 0 auto; border-radius: 40px; padding: 88px 56px; text-align: center; color: #fff; box-shadow: 0 24px 48px -12px rgba(178,61,16,.3); }
+    .panel::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at center, rgba(255,255,255,.2), transparent 62%); pointer-events: none; }
+    .panel > * { position: relative; }
+    .panel h2 { font-style: italic; font-weight: 500; font-size: clamp(34px, 5vw, 50px); margin: 0; }
+    .panel .sub { font-size: clamp(16px, 2vw, 20px); font-weight: 500; line-height: 1.5; opacity: .93; max-width: 680px; margin: 20px auto 40px; }
+    .row { display: flex; gap: 14px; max-width: 740px; margin: 0 auto; }
+    .row input { flex: 1; min-width: 0; font: inherit; font-size: 16px; color: #fff; padding: 16px 24px; border-radius: 999px; border: 1px solid rgba(255,255,255,.28); background: rgba(255,255,255,.14); }
+    .row input::placeholder { color: rgba(255,255,255,.72); }
+    .row input:focus { outline: 2px solid #fff; outline-offset: 1px; }
+    .btn { border: none; cursor: pointer; white-space: nowrap; font-family: inherit; font-size: 17px; font-weight: 800; background: #fff; color: #b23d10; padding: 16px 36px; border-radius: 999px; box-shadow: 0 10px 24px rgba(70,16,0,.2); }
+    .btn:disabled { opacity: .6; cursor: default; }
+    .small { font-size: 13.5px; line-height: 1.5; opacity: .85; margin: 20px 0 0; }
     .hp { position: absolute; left: -9999px; }
-    .msg { display: none; border-radius: 16px; padding: 18px 20px; font-size: 15.5px; line-height: 1.55; margin-top: 4px; }
-    .msg.ok { display: block; background: #e9f4f0; border: 1px solid #d3e9e2; color: #3a8275; }
-    .msg.err { display: block; background: #fbe6da; border: 1px solid #f3d0bd; color: #a94e2b; margin-top: 14px; }
-    @media (max-width: 520px) {
-      .hero { padding: 56px 0 48px; }
-      .hero h1 { font-size: 36px; }
-      .tagline { font-size: 20px; }
-      .row { flex-direction: column; }
-    }
+    .msg { display: none; border-radius: 20px; padding: 18px 22px; font-size: 16px; line-height: 1.55; max-width: 740px; margin: 0 auto; }
+    .msg.ok { display: block; background: #fff; color: #005f2e; }
+    .msg.err { display: block; background: #fff; color: #9f0519; margin-top: 16px; }
+    @media (max-width: 720px) { .hero { padding: 64px 0 72px; } .join { padding: 64px 0; } .panel { padding: 56px 24px; border-radius: 32px; } .row { flex-direction: column; } }
 
-    /* ── WHAT IT IS ── */
-    .what { padding: 64px 0 24px; }
-    .what h2, .not h2 { font-size: 28px; font-weight: 600; letter-spacing: -0.3px; text-align: center; margin: 0; }
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
-    .card { background: #fff; border-radius: 20px; padding: 26px 24px; box-shadow: 0 2px 10px rgba(60,45,20,0.05); }
-    .dot { width: 12px; height: 12px; border-radius: 50%; }
-    .card h3 { font-size: 21px; font-weight: 600; margin: 16px 0 8px; }
-    .card p { font-size: 15px; line-height: 1.6; color: #6c6456; margin: 0; }
-    @media (max-width: 760px) { .cards { grid-template-columns: 1fr; } }
-
-    /* ── WHAT IT ISN'T ── */
-    .not { padding: 40px 0 64px; text-align: center; }
-    .not p { font-size: 16px; line-height: 1.65; color: #6c6456; max-width: 540px; margin: 16px auto 0; }
-    .not a { display: inline-block; margin-top: 26px; color: #c8623a; font-weight: 600; text-decoration: none; border-bottom: 1.5px solid #f0c8b4; padding-bottom: 2px; }
-
-    footer { border-top: 1px solid #efe5d3; padding: 26px 0 36px; text-align: center; font-size: 13px; color: #9a8d79; line-height: 1.6; }
+    footer { background: #fdf9f2; padding: 40px 0 48px; }
+    footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+    footer .name { font-style: italic; font-size: 20px; color: #b23d10; }
+    footer p { font-size: 13.5px; color: #666460; margin: 4px 0 0; }
   </style>
 </head>
 <body>
 
-  <header class="hero" id="top">
-    <div class="wrap fade">
-      <svg width="78" height="78" viewBox="0 0 48 48" role="img" aria-label="Good Grief Circle logo">
-        <g style="mix-blend-mode: multiply">
-          <circle cx="24" cy="14" r="11.5" fill="#e07a4d" opacity="0.82" />
-          <circle cx="34" cy="24" r="11.5" fill="#4a9e90" opacity="0.82" />
-          <circle cx="24" cy="34" r="11.5" fill="#9cbf86" opacity="0.82" />
-          <circle cx="14" cy="24" r="11.5" fill="#eab64a" opacity="0.82" />
-        </g>
-      </svg>
-      <h1 class="serif">Good Grief Circle</h1>
-      <p class="tagline serif">Not a legal will.<br />A human one.</p>
-      <p class="lede">
-        Record your wishes, organise what matters, and leave behind something that truly reflects you —
-        so the people you love don't have to guess.
-      </p>
-
-      <div class="signup">
-        <form id="signup-form" novalidate>
-          <label for="email">We're opening to a small first group. Want to be in it?</label>
-          <div class="row">
-            <input id="email" name="email" type="email" placeholder="Your email address" autocomplete="email" required />
-            <button class="btn" type="submit">Get early access</button>
-          </div>
-          <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
-          <p class="small">We'll only email you about Good Grief Circle. No spam, and you can leave the list any time.</p>
-          <div id="signup-error" class="msg" role="alert"></div>
-        </form>
-        <div id="signup-thanks" class="msg" role="status">
-          <strong>Thank you — you're on the list.</strong><br />
-          We'll be in touch as soon as there's a place for you.
-        </div>
+  <nav>
+    <div class="wrap">
+      <div class="brand serif">
+        <svg width="30" height="30" viewBox="0 0 48 48" role="img" aria-label="Good Grief Circle logo"><g style="mix-blend-mode: multiply"><circle cx="24" cy="14" r="11.5" fill="#e07a4d" opacity="0.82" /><circle cx="34" cy="24" r="11.5" fill="#4a9e90" opacity="0.82" /><circle cx="24" cy="34" r="11.5" fill="#9cbf86" opacity="0.82" /><circle cx="14" cy="24" r="11.5" fill="#eab64a" opacity="0.82" /></g></svg>
+        Good Grief Circle
       </div>
+      <a class="cta glow" href="#join">Get started</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="orb" style="top: -10%; left: -300px; background: radial-gradient(circle, rgba(255,121,74,.24), rgba(255,121,74,0) 68%)"></div>
+    <div class="orb" style="bottom: -30%; right: -300px; background: radial-gradient(circle, rgba(255,201,101,.32), rgba(255,201,101,0) 68%)"></div>
+    <div class="wrap" style="position: relative">
+      <span class="chip">Early access</span>
+      <h1 class="serif"><i>Honour your story.</i><br /><b>Protect their peace.</b></h1>
+      <p class="lede">Most legacy planning is cold and complicated. We’re on a mission to change that, with one warm place to:</p>
     </div>
   </header>
 
   <main>
     <section class="what">
       <div class="wrap">
-        <h2 class="serif">Three things, kept in one place</h2>
         <div class="cards">
           <div class="card">
-            <div class="dot" style="background:#e07a4d"></div>
-            <h3 class="serif">Your wishes</h3>
-            <p>The send-off you'd actually want, the songs, the letters, who gets the ring and who looks after the dog. In your own words.</p>
+            <div class="ico" style="background: rgba(255,121,74,.2)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#b23d10" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><polyline points="14 3 14 8 19 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="16.500" x2="13" y2="16.500"/></svg></div>
+            <h3 class="serif">Document Wishes</h3>
+            <p>From funeral preferences to where the important papers are kept. Everything organised, and easy to find when it’s needed.</p>
           </div>
           <div class="card">
-            <div class="dot" style="background:#4a9e90"></div>
-            <h3 class="serif">Your vault</h3>
-            <p>Where the will is held, the insurance, the bank accounts, the online accounts — so nobody is left hunting through drawers.</p>
+            <div class="ico" style="background: rgba(255,201,101,.3)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#845d00" stroke-width="1.8" stroke-linejoin="round"><path d="M12 20s-7-4.400-7-9.500A4 4 0 0 1 12 7a4 4 0 0 1 7 3.500C19 15.600 12 20 12 20z"/></svg></div>
+            <h3 class="serif">Support the Living</h3>
+            <p>Grief support resources for your family. Guidance and warmth for those you leave behind.</p>
           </div>
           <div class="card">
-            <div class="dot" style="background:#9cbf86"></div>
-            <h3 class="serif">Your circle</h3>
-            <p>The few people you trust. You choose who they are and what each of them gets to see, and when.</p>
+            <div class="ico" style="background: rgba(109,254,156,.25)"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#007439" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4l1.800 4.700L16.500 10.500 11.800 12.300 10 17l-1.800-4.700L3.500 10.500 8.200 8.700z"/><path d="M18 14l.900 2.100L21 17l-2.100.900L18 20l-.900-2.100L15 17l2.100-.900z"/></svg></div>
+            <h3 class="serif">Celebrate Life</h3>
+            <p>Create a beautiful memorial page for friends and family to gather and share memories.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="not">
+    <section class="join" id="join">
       <div class="wrap">
-        <h2 class="serif">Not a replacement for a will</h2>
-        <p>
-          A legal will says who gets what. It rarely says what you'd want played, said or kept — or where anything is.
-          Good Grief Circle is for that part. Start with two minutes, stop whenever you like, come back when you're ready.
-        </p>
-        <a href="#top">Get early access</a>
+        <div class="panel glow">
+          <h2 class="serif">Stay in the loop.</h2>
+          <p class="sub">Sign up to receive project updates and join our small group of early beta testers.</p>
+          <form id="signup-form" novalidate>
+            <div class="row">
+              <input name="name" type="text" placeholder="Name" aria-label="Name" autocomplete="name" />
+              <input id="email" name="email" type="email" placeholder="Email address" aria-label="Email address" autocomplete="email" required />
+              <button class="btn" type="submit">Join Beta</button>
+            </div>
+            <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <p class="small">We’ll only email you about Good Grief Circle. No spam, and you can leave the list any time.</p>
+            <div id="signup-error" class="msg" role="alert"></div>
+          </form>
+          <div id="signup-thanks" class="msg" role="status">
+            <strong>Thank you — you’re on the list.</strong><br />
+            We’ll be in touch as soon as there’s a place for you.
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <div class="wrap">© 2026 Good Grief Circle</div>
+    <div class="wrap">
+      <div>
+        <div class="name serif">Good Grief Circle</div>
+        <p>© 2026 Good Grief Circle</p>
+      </div>
+    </div>
   </footer>
 
   <script>
