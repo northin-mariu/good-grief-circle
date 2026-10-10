@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Good Grief Circle — Not a legal will. A human one.</title>
+  <meta name="description" content="Record your wishes, organise what matters, and choose who you trust with it — so the people you love don't have to guess. Join the early access list." />
+  <meta property="og:title" content="Good Grief Circle" />
+  <meta property="og:description" content="Not a legal will. A human one. Join the early access list." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#faf5ec" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='14' r='11.5' fill='%23e07a4d' opacity='.82'/%3E%3Ccircle cx='34' cy='24' r='11.5' fill='%234a9e90' opacity='.82'/%3E%3Ccircle cx='24' cy='34' r='11.5' fill='%239cbf86' opacity='.82'/%3E%3Ccircle cx='14' cy='24' r='11.5' fill='%23eab64a' opacity='.82'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: 'Hanken Grotesk', -apple-system, sans-serif;
+      background: #faf5ec;
+      color: #26324a;
+      -webkit-font-smoothing: antialiased;
+    }
+    .serif { font-family: 'Newsreader', serif; }
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+    @keyframes ggcFade {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: none; }
+    }
+    .fade { animation: ggcFade 0.5s ease both; }
+    @media (prefers-reduced-motion: reduce) { .fade { animation: none; } html { scroll-behavior: auto; } }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(180deg, #fdf8f0 0%, #f7ecdd 100%);
+      text-align: center;
+      padding: 72px 0 64px;
+    }
+    .hero h1 { font-size: 44px; font-weight: 600; line-height: 1.08; letter-spacing: -0.5px; margin: 24px 0 0; }
+    .tagline { font-style: italic; font-size: 23px; color: #c8623a; line-height: 1.45; margin: 16px 0 0; }
+    .lede { font-size: 17px; line-height: 1.62; color: #6c6456; max-width: 460px; margin: 22px auto 0; }
+
+    /* ── SIGN-UP ── */
+    .signup { max-width: 460px; margin: 34px auto 0; }
+    .signup label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 10px; }
+    .row { display: flex; gap: 10px; }
+    .row input[type=email] {
+      flex: 1; min-width: 0;
+      font: inherit; font-size: 16px; color: #26324a;
+      padding: 16px; border-radius: 16px;
+      border: 1px solid #e6dac6; background: #fff;
+    }
+    .row input[type=email]:focus { outline: 2px solid #e07a4d; outline-offset: 1px; border-color: transparent; }
+    .btn {
+      border: none; cursor: pointer; white-space: nowrap;
+      font-family: inherit; font-size: 16px; font-weight: 600;
+      background: #e07a4d; color: #fff;
+      padding: 16px 22px; border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(224,122,77,0.32);
+    }
+    .btn:disabled { opacity: 0.6; cursor: default; }
+    .small { font-size: 13.5px; color: #9a8d79; line-height: 1.5; margin: 14px 0 0; }
+    .hp { position: absolute; left: -9999px; }
+    .msg { display: none; border-radius: 16px; padding: 18px 20px; font-size: 15.5px; line-height: 1.55; margin-top: 4px; }
+    .msg.ok { display: block; background: #e9f4f0; border: 1px solid #d3e9e2; color: #3a8275; }
+    .msg.err { display: block; background: #fbe6da; border: 1px solid #f3d0bd; color: #a94e2b; margin-top: 14px; }
+    @media (max-width: 520px) {
+      .hero { padding: 56px 0 48px; }
+      .hero h1 { font-size: 36px; }
+      .tagline { font-size: 20px; }
+      .row { flex-direction: column; }
+    }
+
+    /* ── WHAT IT IS ── */
+    .what { padding: 64px 0 24px; }
+    .what h2, .not h2 { font-size: 28px; font-weight: 600; letter-spacing: -0.3px; text-align: center; margin: 0; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+    .card { background: #fff; border-radius: 20px; padding: 26px 24px; box-shadow: 0 2px 10px rgba(60,45,20,0.05); }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .card h3 { font-size: 21px; font-weight: 600; margin: 16px 0 8px; }
+    .card p { font-size: 15px; line-height: 1.6; color: #6c6456; margin: 0; }
+    @media (max-width: 760px) { .cards { grid-template-columns: 1fr; } }
+
+    /* ── WHAT IT ISN'T ── */
+    .not { padding: 40px 0 64px; text-align: center; }
+    .not p { font-size: 16px; line-height: 1.65; color: #6c6456; max-width: 540px; margin: 16px auto 0; }
+    .not a { display: inline-block; margin-top: 26px; color: #c8623a; font-weight: 600; text-decoration: none; border-bottom: 1.5px solid #f0c8b4; padding-bottom: 2px; }
+
+    footer { border-top: 1px solid #efe5d3; padding: 26px 0 36px; text-align: center; font-size: 13px; color: #9a8d79; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+  <header class="hero" id="top">
+    <div class="wrap fade">
+      <svg width="78" height="78" viewBox="0 0 48 48" role="img" aria-label="Good Grief Circle logo">
+        <g style="mix-blend-mode: multiply">
+          <circle cx="24" cy="14" r="11.5" fill="#e07a4d" opacity="0.82" />
+          <circle cx="34" cy="24" r="11.5" fill="#4a9e90" opacity="0.82" />
+          <circle cx="24" cy="34" r="11.5" fill="#9cbf86" opacity="0.82" />
+          <circle cx="14" cy="24" r="11.5" fill="#eab64a" opacity="0.82" />
+        </g>
+      </svg>
+      <h1 class="serif">Good Grief Circle</h1>
+      <p class="tagline serif">Not a legal will.<br />A human one.</p>
+      <p class="lede">
+        Record your wishes, organise what matters, and leave behind something that truly reflects you —
+        so the people you love don't have to guess.
+      </p>
+
+      <div class="signup">
+        <form id="signup-form" novalidate>
+          <label for="email">We're opening to a small first group. Want to be in it?</label>
+          <div class="row">
+            <input id="email" name="email" type="email" placeholder="Your email address" autocomplete="email" required />
+            <button class="btn" type="submit">Get early access</button>
+          </div>
+          <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <p class="small">We'll only email you about Good Grief Circle. No spam, and you can leave the list any time.</p>
+          <div id="signup-error" class="msg" role="alert"></div>
+        </form>
+        <div id="signup-thanks" class="msg" role="status">
+          <strong>Thank you — you're on the list.</strong><br />
+          We'll be in touch as soon as there's a place for you.
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="what">
+      <div class="wrap">
+        <h2 class="serif">Three things, kept in one place</h2>
+        <div class="cards">
+          <div class="card">
+            <div class="dot" style="background:#e07a4d"></div>
+            <h3 class="serif">Your wishes</h3>
+            <p>The send-off you'd actually want, the songs, the letters, who gets the ring and who looks after the dog. In your own words.</p>
+          </div>
+          <div class="card">
+            <div class="dot" style="background:#4a9e90"></div>
+            <h3 class="serif">Your vault</h3>
+            <p>Where the will is held, the insurance, the bank accounts, the online accounts — so nobody is left hunting through drawers.</p>
+          </div>
+          <div class="card">
+            <div class="dot" style="background:#9cbf86"></div>
+            <h3 class="serif">Your circle</h3>
+            <p>The few people you trust. You choose who they are and what each of them gets to see, and when.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="not">
+      <div class="wrap">
+        <h2 class="serif">Not a replacement for a will</h2>
+        <p>
+          A legal will says who gets what. It rarely says what you'd want played, said or kept — or where anything is.
+          Good Grief Circle is for that part. Start with two minutes, stop whenever you like, come back when you're ready.
+        </p>
+        <a href="#top">Get early access</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">© 2026 Good Grief Circle</div>
+  </footer>
+
+  <script>
+    // Formspree form address, e.g. 'https://formspree.io/f/abcdwxyz'. Sign-ups go nowhere until this is set.
+    const FORM_ENDPOINT = 'https://formspree.io/f/mqpebppz';
+
+    const form = document.getElementById('signup-form');
+    const thanks = document.getElementById('signup-thanks');
+    const error = document.getElementById('signup-error');
+    const isLocal = ['localhost', '127.0.0.1', ''].includes(location.hostname);
+
+    const fail = (text) => { error.textContent = text; error.className = 'msg err'; };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      error.className = 'msg';
+      const email = form.email.value.trim();
+      if (!/^\S+@\S+\.\S+$/.test(email)) return fail('That email address doesn’t look quite right — could you check it?');
+
+      const button = form.querySelector('button');
+      button.disabled = true;
+      try {
+        if (FORM_ENDPOINT) {
+          const res = await fetch(FORM_ENDPOINT, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+          if (!res.ok) throw new Error('Sign-up failed: ' + res.status);
+        } else if (!isLocal) {
+          throw new Error('FORM_ENDPOINT is not set');
+        }
+        form.style.display = 'none';
+        thanks.className = 'msg ok fade';
+      } catch (err) {
+        console.error(err);
+        fail('Sorry — that didn’t go through. Please try again in a moment.');
+        button.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
