@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ten-Minute Funeral Wishes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,800;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#FDF9F2; --surface:#FFFBFF; --nest:#F7F3EC; --card:#FFFFFF; --field:#F1EDE6;
+  --ink:#393834; --text:#3E362C; --muted:#5C5247; --soft:#7A6E5E; --faint:#A0937F;
+  --accent:#F26B3C; --deep:#B23D10; --glow:#FF794A;
+  --grad:linear-gradient(135deg,#B23D10 0%,#FF794A 100%);
+  --sun:#FFC965; --onSun:#5F4200; --mint:#6DFE9C; --onMint:#005F2E; --green:#2F8B62;
+  --tA:#FCE7DD; --tG:#E2F0E6; --tY:#FFF1D2;
+  --lift:0 18px 40px rgba(57,56,52,.06); --glowShadow:0 24px 48px -12px rgba(178,61,16,.14);
+  --btnShadow:0 10px 24px rgba(178,61,16,.26);
+  --serif:'Newsreader',Georgia,serif; --sans:'Plus Jakarta Sans',-apple-system,system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#FDF9F2;color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:900px;margin:0 auto;padding:20px 16px 48px}
+
+/* route card */
+.route{background:var(--nest);border-radius:28px;padding:18px 20px;margin-bottom:22px}
+.route summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.route summary::-webkit-details-marker{display:none}
+.route .num{font-family:var(--serif);font-weight:800;font-size:15px;color:var(--deep)}
+.route h1{font-family:var(--serif);font-weight:500;font-size:22px;letter-spacing:-.3px;margin:0;color:var(--ink)}
+.route .toggle{margin-left:auto;font-size:12.5px;font-weight:600;color:var(--deep)}
+.route[open] .toggle .show{display:none} .route:not([open]) .toggle .hide{display:none}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.field{background:var(--card);border-radius:20px;padding:12px 15px;box-shadow:var(--lift)}
+.field b{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);font-weight:700;margin-bottom:3px}
+.field p{margin:0;font-size:13.5px;line-height:1.5;color:var(--text)}
+.field.wide{grid-column:1/-1}
+@media (max-width:640px){.fields{grid-template-columns:1fr}}
+
+/* phone */
+.phone{max-width:420px;margin:0 auto;background:var(--surface);border-radius:34px;box-shadow:0 30px 70px rgba(57,56,52,.12);overflow:hidden;min-height:760px;display:flex;flex-direction:column;position:relative}
+@media (max-width:460px){.phone{border-radius:0;box-shadow:none;margin:0 -16px;min-height:100vh}}
+.bar{display:flex;align-items:center;gap:10px;padding:16px 18px 10px;background:var(--surface)}
+.back{border:0;background:var(--field);color:var(--ink);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600}
+.back[disabled]{opacity:.35;cursor:default}
+.logo{display:flex;align-items:center;gap:7px;font-family:var(--serif);font-style:italic;font-weight:500;color:#B23D10;font-size:16px}
+.step{margin-left:auto;font-size:11.5px;font-weight:600;color:var(--muted);background:var(--nest);border-radius:999px;padding:5px 10px;white-space:nowrap}
+.screen{display:none;flex:1;flex-direction:column;padding:6px 22px 26px}
+.screen.on{display:flex}
+
+.chip{display:inline-block;background:var(--mint);color:var(--onMint);font-size:11.5px;font-weight:700;letter-spacing:.04em;border-radius:999px;padding:5px 11px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--deep)}
+h2.big{font-family:var(--serif);font-weight:500;font-size:38px;line-height:1.04;letter-spacing:-.8px;color:var(--ink);margin:14px 0 12px}
+h2.big em{font-style:italic;color:var(--deep)} h2.big strong{font-weight:800}
+h2.q{font-family:var(--serif);font-weight:500;font-size:27px;line-height:1.12;letter-spacing:-.4px;color:var(--ink);margin:8px 0 6px}
+.helper{color:var(--muted);font-size:14.5px;margin:0 0 16px}
+.lead{color:var(--muted);font-size:16px;margin:0 0 18px}
+.btn{border:0;border-radius:999px;padding:16px 22px;font-size:16px;font-weight:700;width:100%}
+.btn.main{background:var(--grad);color:#fff;box-shadow:var(--btnShadow)}
+.btn.quiet{background:transparent;color:var(--muted);font-weight:600;padding:12px}
+.btn.sun{background:var(--sun);color:var(--onSun)}
+.foot{margin-top:auto;padding-top:16px;display:flex;flex-direction:column;gap:4px}
+.note{background:var(--tY);border-radius:18px;padding:11px 14px;font-size:13px;color:var(--text);line-height:1.5}
+.note b{color:var(--ink)}
+.preview{background:var(--nest);border-radius:14px;padding:9px 12px;font-size:12.5px;color:var(--muted);margin-top:10px}
+.small{font-size:12.5px;color:var(--soft)}
+
+/* landing */
+.paper{position:relative;margin:6px 6px 20px;height:190px}
+.paper .sheet{position:absolute;inset:0;background:var(--card);border-radius:24px;box-shadow:var(--glowShadow);padding:18px 20px;transform:rotate(-2.2deg)}
+.paper .sheet.b{transform:rotate(2.5deg);background:var(--nest);box-shadow:none}
+.sheet .t{font-family:var(--serif);font-weight:800;font-size:19px;color:var(--ink)}
+.sheet .t em{font-weight:500;color:var(--deep)}
+.sheet .ln{display:flex;gap:8px;align-items:center;margin-top:11px;font-size:11px;color:var(--soft);font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.sheet .ln i{flex:1;height:7px;border-radius:9px;background:var(--field)}
+.sheet .stamp{position:absolute;right:16px;bottom:14px;width:58px;height:58px;border-radius:50%;background:var(--sun);color:var(--onSun);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:var(--serif);font-weight:800;font-size:22px;line-height:1;transform:rotate(8deg)}
+.sheet .stamp small{font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:.08em}
+.ticks{list-style:none;padding:0;margin:0 0 16px;display:flex;flex-direction:column;gap:8px}
+.ticks li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--text)}
+.ticks li span{flex:none;width:22px;height:22px;border-radius:50%;background:var(--tG);color:var(--green);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;margin-top:1px}
+
+/* the filling card + timer (signature) */
+.fill{background:var(--card);border-radius:24px;box-shadow:var(--lift);padding:12px 13px 13px;margin-bottom:16px}
+.fillhead{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.fillhead .ttl{font-family:var(--serif);font-weight:800;font-size:15px;color:var(--ink);line-height:1.1}
+.fillhead .ttl em{font-weight:500;color:var(--deep)}
+.fillhead .left{font-size:11.5px;color:var(--muted);font-weight:600}
+.ring{margin-left:auto;flex:none}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.tile{border-radius:12px;padding:6px 9px;background:var(--nest);min-height:40px;transition:background .35s}
+.tile .k{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--faint)}
+.tile .v{font-family:var(--serif);font-style:italic;font-size:13px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3}
+.tile .v.empty{height:6px;border-radius:9px;background:var(--field);margin-top:5px;width:70%}
+.tile.done{background:var(--tG)} .tile.done .k{color:var(--green)}
+.tile.now{background:var(--sun)} .tile.now .k{color:var(--onSun)}
+.tile.pop{animation:pop .5s ease}
+@keyframes pop{0%{transform:scale(.96)}60%{transform:scale(1.03)}100%{transform:scale(1)}}
+
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{text-align:left;border:0;background:var(--card);box-shadow:var(--lift);border-radius:18px;padding:13px 16px;color:var(--ink)}
+.opt b{display:block;font-size:15px;font-weight:600}
+.opt span{font-size:13px;color:var(--muted)}
+.opt.on{background:var(--sun)} .opt.on span{color:var(--onSun)}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{border:0;background:var(--card);box-shadow:var(--lift);border-radius:999px;padding:10px 15px;font-size:14px;font-weight:600;color:var(--ink)}
+.pill.on{background:var(--sun);color:var(--onSun)}
+.inp{width:100%;border:0;border-bottom:2px solid rgba(178,61,16,.25);background:var(--field);border-radius:12px 12px 4px 4px;padding:13px 14px;font-family:var(--sans);font-size:15.5px;color:var(--ink);line-height:1.55;resize:none;outline:none}
+.inp:focus{background:#fff;border-bottom-color:var(--accent)}
+.qnav{display:flex;gap:8px}
+.qnav .btn{flex:1}
+
+/* the finished card */
+.wcard{background:var(--card);border-radius:28px;box-shadow:var(--glowShadow);padding:22px 22px 18px;position:relative;overflow:hidden}
+.wcard:before{content:"";position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;background:radial-gradient(circle,rgba(255,201,101,.45),rgba(255,201,101,0) 70%)}
+.wcard .who{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--deep)}
+.wcard h3{font-family:var(--serif);font-weight:800;font-size:31px;line-height:1.02;letter-spacing:-.6px;color:var(--ink);margin:6px 0 14px}
+.wcard h3 em{font-weight:500;color:var(--deep)}
+.wsec{background:var(--nest);border-radius:20px;padding:12px 14px;margin-bottom:8px}
+.wsec .h{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--soft);margin-bottom:4px}
+.row{display:flex;gap:10px;padding:4px 0;font-size:13.5px}
+.row .l{flex:none;width:92px;color:var(--muted);font-size:12.5px;padding-top:1px}
+.row .a{flex:1;font-family:var(--serif);font-size:15.5px;color:var(--ink);line-height:1.35}
+.row .a.skip{font-family:var(--sans);font-size:12.5px;color:var(--faint);font-style:italic}
+.quote{font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.4;color:var(--ink);padding:4px 2px}
+.wfoot{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-top:10px;font-size:11.5px;color:var(--soft)}
+.legal{background:var(--tA);border-radius:16px;padding:10px 13px;font-size:12.5px;color:var(--text);margin-top:10px;line-height:1.5}
+.legal b{color:var(--deep)}
+.done-chip{display:inline-flex;gap:6px;align-items:center}
+
+/* share */
+.people{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.person{display:flex;align-items:center;gap:12px;border:0;background:var(--card);box-shadow:var(--lift);border-radius:18px;padding:11px 14px;text-align:left;width:100%}
+.av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--deep);background:var(--tA);flex:none}
+.person .nm{font-weight:700;color:var(--ink);font-size:15px} .person .rl{font-size:12.5px;color:var(--muted)}
+.check{margin-left:auto;width:26px;height:26px;border-radius:50%;background:var(--field);display:flex;align-items:center;justify-content:center;color:transparent;font-weight:800;font-size:13px}
+.person.on .check{background:var(--green);color:#fff}
+.via{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 14px}
+
+/* booklet (radiant panel) */
+.radiant{background:var(--grad);border-radius:28px;padding:22px 20px 20px;color:#fff;box-shadow:var(--btnShadow);margin:4px 0 16px;position:relative;overflow:hidden}
+.radiant .price{font-family:var(--serif);font-weight:800;font-size:40px;line-height:1}
+.radiant .price small{font-family:var(--sans);font-size:13px;font-weight:600;opacity:.9}
+.book{display:flex;gap:14px;align-items:center;margin-bottom:16px}
+.cover{flex:none;width:96px;height:132px;border-radius:6px 14px 14px 6px;background:#FDF9F2;box-shadow:-6px 0 0 #F1EDE6 inset,0 12px 26px rgba(0,0,0,.25);padding:12px 10px;color:var(--ink);display:flex;flex-direction:column;transform:rotate(-4deg)}
+.cover .ct{font-family:var(--serif);font-weight:800;font-size:13px;line-height:1.05}
+.cover .ct em{font-weight:500;color:var(--deep);display:block}
+.cover .cn{margin-top:auto;font-family:var(--serif);font-style:italic;font-size:10px;color:var(--deep)}
+.spec{list-style:none;margin:0;padding:0;font-size:13.5px;line-height:1.5}
+.spec li{padding:2px 0} .spec li:before{content:"·  ";font-weight:800}
+.voucher{display:flex;gap:8px;margin:2px 0 10px}
+.voucher .inp{flex:1;text-transform:uppercase;letter-spacing:.08em}
+.voucher button{border:0;border-radius:999px;padding:0 16px;background:var(--ink);color:#fff;font-weight:700;font-size:14px}
+.ok{background:var(--tG);color:var(--green);border-radius:14px;padding:9px 12px;font-size:13px;font-weight:600;display:none}
+
+/* family view */
+.msg{background:var(--nest);border-radius:20px 20px 20px 6px;padding:12px 14px;font-size:14px;color:var(--text);margin-bottom:12px}
+.msg .from{font-size:11.5px;font-weight:700;color:var(--muted);margin-bottom:3px}
+.loop{background:var(--nest);border-radius:22px;padding:14px 16px;margin-top:14px}
+.loop b{font-family:var(--serif);font-weight:500;font-size:18px;color:var(--ink);display:block;margin-bottom:2px}
+.crisis{font-size:12px;color:var(--soft);text-align:center;margin-top:12px}
+
+.toast{position:absolute;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);opacity:0;background:var(--ink);color:#fff;font-size:13px;font-weight:600;border-radius:999px;padding:10px 16px;transition:all .3s;pointer-events:none;width:max-content;max-width:88%;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<details class="route" id="route" open>
+  <summary><span class="num">02</span><h1>Ten-Minute Funeral Wishes</h1><span class="toggle"><span class="hide">Hide route card</span><span class="show">Show route card</span></span></summary>
+  <div class="fields">
+    <div class="field wide"><b>Thesis</b><p>Most people will never "start an end-of-life plan", but they will spend ten minutes writing down the funeral they want: do that one job beautifully, free, and sell the printed keepsake.</p></div>
+    <div class="field"><b>Who it's for</b><p>Anyone 40+ planning ahead, healthy, who has thought "I should tell them what I want" and searched for a funeral wishes template.</p></div>
+    <div class="field"><b>What's cut</b><p>Vault and documents, legal matters guide, will interview, circle and release, memorial, grief support, diagnosis path, directory, own song, song search, reflection, bucket list, messages, dashboard and accounts. About 85% of today's demo.</p></div>
+    <div class="field"><b>What's kept</b><p>Mari's ten Farewell &amp; Ceremony and Personal Touches questions, one per screen; the "not a legal will" boundary; sharing with family.</p></div>
+    <div class="field"><b>MVP for the Christmas vouchers</b><p>One landing page, ten questions, a shareable card link. Each of the 100 vouchers carries a code for one free printed booklet, printed and posted by us by hand.</p></div>
+    <div class="field"><b>How it makes money</b><p>The card is free forever. A printed keepsake booklet, £24 one-off including two copies, extra copies £8 (draft prices). Later: funeral directors and hospices hand it out under their name.</p></div>
+    <div class="field"><b>The one metric</b><p>Share rate: % of finished cards sent to at least one family member within 7 days.</p></div>
+    <div class="field wide"><b>The biggest risk</b><p>Ten minutes is a one-visit product: if few buy the booklet, there is no second reason to come back, and paid ads cost more than £24 per buyer.</p></div>
+  </div>
+</details>
+
+<div class="phone" id="phone">
+  <div class="bar">
+    <button class="back" id="back" onclick="goBack()">&larr; Back</button>
+    <div class="logo" aria-label="Good Grief Circle">
+      <svg width="30" height="22" viewBox="0 0 30 22" aria-hidden="true"><g opacity=".82"><circle cx="7" cy="11" r="6.5" fill="#e07a4d"/><circle cx="13" cy="11" r="6.5" fill="#4a9e90"/><circle cx="18" cy="11" r="6.5" fill="#9cbf86"/><circle cx="23" cy="11" r="6.5" fill="#eab64a"/></g></svg>
+      <span class="wm">Good Grief Circle</span>
+    </div>
+    <span class="step" id="step">Screen 1 of 6</span>
+  </div>
+
+  <!-- 1 · LANDING -->
+  <section class="screen on" data-s="1">
+    <span class="chip" style="align-self:flex-start">Free · no sign-up · about 10 minutes</span>
+    <h2 class="big">Your funeral wishes, <em>written down</em> in <strong>ten minutes.</strong></h2>
+    <p class="lead">Ten gentle questions, one at a time. At the end you have a one-page card your family can keep, so nobody ever has to guess.</p>
+    <div class="paper" aria-hidden="true">
+      <div class="sheet b"></div>
+      <div class="sheet">
+        <div class="t">My funeral <em>wishes</em></div>
+        <div class="ln">Laid to rest <i></i></div>
+        <div class="ln">The gathering <i></i></div>
+        <div class="ln">Music <i></i></div>
+        <div class="ln">What to wear <i></i></div>
+        <div class="stamp">10<small>MINUTES</small></div>
+      </div>
+    </div>
+    <ul class="ticks">
+      <li><span>&#10003;</span>One question per screen. Skip anything.</li>
+      <li><span>&#10003;</span>Watch your card fill in as you go.</li>
+      <li><span>&#10003;</span>Send it to family by text or email. Free, always.</li>
+    </ul>
+    <div class="note"><b>Not a legal will. A human one.</b> This records how you'd like your farewell to feel. Money, property and guardians belong in a will.</div>
+    <div class="foot">
+      <button class="btn main" onclick="go(2)">Start my ten minutes</button>
+    </div>
+  </section>
+
+  <!-- 2 · QUESTIONS (one per screen, card fills in) -->
+  <section class="screen" data-s="2">
+    <div class="fill" aria-label="Your card so far">
+      <div class="fillhead">
+        <div>
+          <div class="ttl">My funeral <em>wishes</em></div>
+          <div class="left" id="left">About 10 minutes left</div>
+        </div>
+        <svg class="ring" width="46" height="46" viewBox="0 0 46 46" aria-hidden="true">
+          <circle cx="23" cy="23" r="19" fill="none" stroke="#F1EDE6" stroke-width="5"/>
+          <circle id="arc" cx="23" cy="23" r="19" fill="none" stroke="url(#g)" stroke-width="5" stroke-linecap="round" stroke-dasharray="119.4" stroke-dashoffset="119.4" transform="rotate(-90 23 23)" style="transition:stroke-dashoffset .5s"/>
+          <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#B23D10"/><stop offset="1" stop-color="#FF794A"/></linearGradient></defs>
+          <text id="ringtxt" x="23" y="27" text-anchor="middle" font-family="Newsreader,serif" font-weight="800" font-size="13" fill="#393834">0/10</text>
+        </svg>
+      </div>
+      <div class="tiles" id="tiles"></div>
+    </div>
+    <div class="eyebrow" id="qeye">Farewell &amp; Ceremony · 1 of 10</div>
+    <h2 class="q" id="qprompt"></h2>
+    <p class="helper" id="qhelper"></p>
+    <div id="qbody"></div>
+    <div class="foot">
+      <button class="btn main" id="qnext" onclick="nextQ()">Next</button>
+      <button class="btn quiet" id="qskip" onclick="skipQ()">Skip for now</button>
+    </div>
+  </section>
+
+  <!-- 3 · THE CARD -->
+  <section class="screen" data-s="3">
+    <span class="chip" style="align-self:flex-start">Done in 8 minutes 40</span>
+    <h2 class="q" style="font-size:30px;margin:12px 0 4px">That's it, Carol. <em style="color:var(--deep)">It's written down.</em></h2>
+    <p class="helper">Here is your card. You can change any answer, whenever you like.</p>
+    <div id="fullcard"></div>
+    <div class="foot">
+      <button class="btn main" onclick="go(4)">Send it to my family</button>
+      <button class="btn quiet" onclick="editFrom(0)">Change an answer</button>
+    </div>
+  </section>
+
+  <!-- 4 · SHARE -->
+  <section class="screen" data-s="4">
+    <div class="eyebrow">Free · private until you send it</div>
+    <h2 class="q">Who should <em style="color:var(--deep)">have a copy?</em></h2>
+    <p class="helper">They get a link to your card. Nobody can change it but you.</p>
+    <div class="people" id="people"></div>
+    <div class="small" style="font-weight:600;color:var(--muted)">A note with it</div>
+    <textarea class="inp" rows="4" id="covernote" style="margin-top:6px">I've written down what I'd like, so you never have to guess. No need to talk about it today. Just keep it somewhere safe. Love, Mum x</textarea>
+    <div class="via" role="group" aria-label="Send by">
+      <button class="pill on" onclick="via(this)">Text</button><button class="pill" onclick="via(this)">WhatsApp</button><button class="pill" onclick="via(this)">Email</button>
+    </div>
+    <div class="legal"><b>Your card sits beside a will, not instead of it.</b> Tell whoever holds your will that this card exists. No will yet? Several charities fund free simple wills.</div>
+    <div class="foot">
+      <button class="btn main" onclick="sendCard()">Send to 2 people</button>
+    </div>
+  </section>
+
+  <!-- 5 · BOOKLET (the paid thing) -->
+  <section class="screen" data-s="5">
+    <span class="chip" style="align-self:flex-start;background:var(--tG);color:var(--green)">&#10003; Sent to Hannah and Liam</span>
+    <h2 class="q" style="margin-top:12px">Keep it in the drawer, <em style="color:var(--deep)">not just on a phone.</em></h2>
+    <p class="helper">Phones get replaced. A printed copy sits with the will and the birth certificates, where people look first.</p>
+    <div class="radiant">
+      <div class="book">
+        <div class="cover"><div class="ct">My funeral<em>wishes</em></div><div class="cn">Carol Whitfield</div></div>
+        <div>
+          <div class="price">£24 <small>one-off</small></div>
+          <ul class="spec" style="margin-top:8px">
+            <li>A5 keepsake booklet, 16 pages</li>
+            <li>Your answers, set in type</li>
+            <li>Blank pages for anything in your own hand</li>
+            <li>Two copies posted, extra copies £8</li>
+          </ul>
+        </div>
+      </div>
+      <div style="font-size:12.5px;opacity:.92">Printed and posted within 7 days in the UK. Change your answers later and order a fresh one.</div>
+    </div>
+    <div class="small" style="font-weight:600;color:var(--muted);margin-bottom:6px">Got a Christmas card with a code?</div>
+    <div class="voucher"><input class="inp" id="code" value="GGC-XMAS-0417" aria-label="Voucher code"><button onclick="redeem()">Use it</button></div>
+    <div class="ok" id="ok">&#10003; Code accepted: your booklet is free. Just add the address.</div>
+    <div class="preview">Preview: prices are a draft and nothing is charged. Payment will be by card through Stripe.</div>
+    <div class="foot">
+      <button class="btn main" id="buy" onclick="buy()">Order my booklet · £24</button>
+      <button class="btn quiet" onclick="go(6)">Not now, the card is enough</button>
+    </div>
+  </section>
+
+  <!-- 6 · WHAT HANNAH SEES -->
+  <section class="screen" data-s="6">
+    <div class="eyebrow">What Hannah sees on her phone</div>
+    <div class="msg" style="margin-top:10px"><div class="from">Mum · Text message</div>I've written down what I'd like, so you never have to guess. No need to talk about it today. Just keep it somewhere safe. Love, Mum x<br><span style="color:var(--deep);font-weight:600">goodgriefcircle.com/c/carol-w</span></div>
+    <div id="familycard"></div>
+    <div class="foot" style="padding-top:14px">
+      <button class="btn sun" onclick="toast('Preview: saved to Hannah\'s phone.')">Keep Mum's card on my phone</button>
+    </div>
+    <div class="loop"><b>Write your own, in ten minutes.</b><span class="small" style="color:var(--muted)">The same ten questions. Free, no sign-up.</span><br><button class="btn quiet" style="padding:8px 0;text-align:left;color:var(--deep)" onclick="restart()">Start mine &rarr;</button></div>
+    <div class="crisis">If this brings up something hard, Samaritans are there any time: 116 123.</div>
+  </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+</div>
+
+<script>
+// Mari's Farewell & Ceremony + Personal Touches questions, word for word (app/src/mariContent.js)
+var Q = [
+  {id:'rest',sec:'Farewell & Ceremony',k:'Laid to rest',type:'single',prompt:'When the time comes, how would you like to be laid to rest?',helper:'There is no wrong answer here — only what feels right to you. You can change this whenever you like.',options:[['burial','Burial','A traditional resting place'],['cremation','Cremation','Ashes to keep, scatter or plant'],['natural','Natural burial','Returning gently to the earth'],['unsure',"I'm not sure yet","That's completely okay"]]},
+  {id:'gathering',sec:'Farewell & Ceremony',k:'The gathering',type:'single',prompt:'What kind of gathering would you like?',helper:'Think about the feeling in the room more than the format.',options:[['celebration','A celebration of life','Joyful, full of stories'],['traditional','A traditional service','Familiar and grounding'],['small','Small & private','Just the closest few'],['none','No formal event','Remember me your own way']]},
+  {id:'atmosphere',sec:'Farewell & Ceremony',k:'The feeling',type:'multi',prompt:'What should the day feel like?',helper:'Choose anything that feels like you — pick as many as you wish.',options:[['music','Music & singing'],['flowers','Flowers'],['candles','Candlelight'],['photos','Photos & memories'],['food','Food & drink'],['stories','Shared stories'],['readings','Readings & poems'],['outdoors','Open air & nature']]},
+  {id:'music',sec:'Farewell & Ceremony',k:'Music',type:'longtext',prompt:'Are there songs that should be playing?',helper:'A song that makes people smile, or one that always meant something to you. List as many as you like.'},
+  {id:'speakers',sec:'Farewell & Ceremony',k:'Who speaks',type:'text',prompt:"Is there anyone you'd like to speak?",helper:'You can name people, or simply describe who. Entirely up to you.'},
+  {id:'words',sec:'Farewell & Ceremony',k:'A few words',type:'longtext',prompt:'A few words for the people who will gather',helper:"Not everyone writes this — but if there's something you'd want said, this is a gentle place to leave it."},
+  {id:'wear',sec:'Personal Touches',k:'What to wear',type:'text',prompt:"Is there something you'd like to wear?",helper:'A favourite outfit, a colour, jewellery — or nothing in particular.'},
+  {id:'withyou',sec:'Personal Touches',k:'Kept with you',type:'text',prompt:"Anything you'd like kept with you?",helper:'A letter, a photo, a small object that mattered.'},
+  {id:'look',sec:'Personal Touches',k:'Look & feel',type:'multi',prompt:'How should it look and feel?',helper:'Pick the details that matter to you.',options:[['wildflowers','Wildflowers'],['bright','Bright colours'],['simple','Simple & understated'],['tree','Plant a tree'],['donations','Donations, not flowers'],['handwritten','Handwritten notes']]},
+  {id:'note',sec:'Personal Touches',k:'Anything else',type:'longtext',prompt:'Anything else that would make it feel like you?',helper:"A detail we didn't ask about. This space is yours."}
+];
+// Carol Whitfield, 61, Stockport (invented for this route). Husband Pete, children Hannah and Liam, brother Graham.
+var A = {
+  rest:'natural', gathering:'celebration', atmosphere:['music','photos','food','stories'],
+  music:'"Dancing Queen" to go out to. "Abide With Me" for my mum, who sang it every Sunday.',
+  speakers:'Hannah, and my brother Graham if he can get through it',
+  words:"Don't spend a fortune on me. Have a proper drink, tell the caravan story, and look after each other.",
+  wear:'My blue wrap dress and Mum’s pearls',
+  withyou:'The photo of Pete and me at Llandudno, 1987',
+  look:['wildflowers','donations'],
+  note:'The wake at the Railway in Heaton Mersey, with a buffet. Donations to the hospice that looked after Mum.'
+};
+var qi = 0, cur = 1, maxDone = -1, sendTo = {Pete:false,Hannah:true,Liam:true};
+var TOTAL = 6, started = false;
+
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function label(q,v){var o=(q.options||[]).filter(function(x){return x[0]===v})[0];return o?o[1]:v}
+function answered(q){var v=A[q.id];return Array.isArray(v)?v.length>0:!!(v&&String(v).trim())}
+function short(q){var v=A[q.id]; if(!answered(q))return ''; if(q.type==='single')return label(q,v); if(q.type==='multi')return v.map(function(x){return label(q,x)}).join(', '); return v;}
+
+function go(n){
+  cur=n;
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.toggle('on',+s.dataset.s===n)});
+  document.getElementById('step').textContent='Screen '+n+' of '+TOTAL;
+  document.getElementById('back').disabled=(n===1);
+  if(n===2)renderQ(); if(n===3)renderCard('fullcard',false); if(n===4)renderPeople(); if(n===6)renderCard('familycard',true);
+  if(started)document.getElementById('phone').scrollIntoView({block:'start',behavior:'smooth'});
+  started=true;
+}
+function goBack(){ if(cur===2&&qi>0){qi--;renderQ();return} if(cur>1)go(cur-1) }
+function editFrom(i){qi=i;go(2)}
+function restart(){qi=0;maxDone=-1;go(2)}
+
+function renderTiles(pop){
+  var h=''; Q.forEach(function(q,i){
+    var done=i<=maxDone&&answered(q)&&i!==qi, now=i===qi;
+    var cls='tile'+(now?' now':done?' done':'')+(pop===i?' pop':'');
+    h+='<div class="'+cls+'"><div class="k">'+esc(q.k)+'</div>'+(done||(now&&answered(q))?'<div class="v">'+esc(short(q))+'</div>':'<div class="v empty"></div>')+'</div>';
+  });
+  document.getElementById('tiles').innerHTML=h;
+  var n=Q.filter(function(q,i){return i<=maxDone&&answered(q)}).length;
+  var left=Math.max(1,10-qi);
+  document.getElementById('left').textContent=qi===9?'Last one. About a minute.':'About '+left+' minutes left';
+  document.getElementById('ringtxt').textContent=n+'/10';
+  document.getElementById('arc').setAttribute('stroke-dashoffset',(119.4*(1-n/10)).toFixed(1));
+}
+function renderQ(pop){
+  var q=Q[qi];
+  document.getElementById('qeye').textContent=q.sec+' · '+(qi+1)+' of 10';
+  document.getElementById('qprompt').textContent=q.prompt;
+  document.getElementById('qhelper').textContent=q.helper;
+  var b='';
+  if(q.type==='single'){b='<div class="opts">'+q.options.map(function(o){return '<button class="opt'+(A[q.id]===o[0]?' on':'')+'" aria-pressed="'+(A[q.id]===o[0])+'" onclick="pick(\''+o[0]+'\')"><b>'+esc(o[1])+'</b><span>'+esc(o[2])+'</span></button>'}).join('')+'</div>'}
+  else if(q.type==='multi'){var m=A[q.id]||[];b='<div class="pills">'+q.options.map(function(o){var on=m.indexOf(o[0])>-1;return '<button class="pill'+(on?' on':'')+'" aria-pressed="'+on+'" onclick="toggle(\''+o[0]+'\')">'+esc(o[1])+'</button>'}).join('')+'</div>'}
+  else if(q.type==='text'){b='<input class="inp" id="qin" value="'+esc(A[q.id]||'')+'" oninput="typed(this.value)">'}
+  else {b='<textarea class="inp" rows="4" id="qin" oninput="typed(this.value)">'+esc(A[q.id]||'')+'</textarea>'}
+  document.getElementById('qbody').innerHTML=b;
+  document.getElementById('qnext').textContent=qi===9?'Finish my card':'Next';
+  renderTiles(pop);
+}
+function pick(v){A[Q[qi].id]=v;renderQ()}
+function toggle(v){var m=(A[Q[qi].id]||[]).slice(),i=m.indexOf(v);if(i>-1)m.splice(i,1);else m.push(v);A[Q[qi].id]=m;renderQ()}
+function typed(v){A[Q[qi].id]=v;renderTiles()}
+function nextQ(){ if(qi>maxDone)maxDone=qi; if(qi===9){go(3);return} var done=qi; qi++; renderQ(done); }
+function skipQ(){ var q=Q[qi]; A[q.id]=q.type==='multi'?[]:''; nextQ(); }
+
+function renderCard(el,family){
+  function rows(list){return list.map(function(i){var q=Q[i];return '<div class="row"><div class="l">'+esc(q.k)+'</div><div class="a'+(answered(q)?'':' skip')+'">'+(answered(q)?esc(short(q)):'Left for my family to decide')+'</div></div>'}).join('')}
+  var words=answered(Q[5])?'<div class="wsec"><div class="h">A few words for the people who will gather</div><div class="quote">&ldquo;'+esc(A.words)+'&rdquo;</div></div>':'';
+  var h='<div class="wcard"><div class="who">'+(family?'Kept for when it’s needed':'Carol Whitfield · Stockport')+'</div>'+
+    '<h3>'+(family?'Mum’s funeral <em>wishes</em>':'My funeral <em>wishes</em>')+'</h3>'+
+    '<div class="wsec"><div class="h">The farewell</div>'+rows([0,1,2])+'</div>'+
+    '<div class="wsec"><div class="h">Music &amp; who speaks</div>'+rows([3,4])+'</div>'+words+
+    '<div class="wsec"><div class="h">Personal touches</div>'+rows([6,7,8,9])+'</div>'+
+    '<div class="legal"><b>Not a legal will.</b> These are Carol’s wishes for her farewell. Her will decides everything else; Pete knows where it is kept.</div>'+
+    '<div class="wfoot"><span>Written 16 October 2026'+(family?' · sent by Carol':' · updated any time')+'</span>'+
+    '<svg width="34" height="20" viewBox="0 0 30 22" aria-hidden="true"><g opacity=".82"><circle cx="7" cy="11" r="6.5" fill="#e07a4d"/><circle cx="13" cy="11" r="6.5" fill="#4a9e90"/><circle cx="18" cy="11" r="6.5" fill="#9cbf86"/><circle cx="23" cy="11" r="6.5" fill="#eab64a"/></g></svg></div></div>';
+  document.getElementById(el).innerHTML=h;
+}
+
+var REL={Pete:'Husband · 07700 900412',Hannah:'Daughter · 07700 900188',Liam:'Son · liam.whitfield@example.com'};
+function renderPeople(){
+  var h='';Object.keys(sendTo).forEach(function(n){h+='<button class="person'+(sendTo[n]?' on':'')+'" aria-pressed="'+sendTo[n]+'" onclick="who(\''+n+'\')"><span class="av">'+n[0]+'</span><span><span class="nm" style="display:block">'+n+'</span><span class="rl">'+REL[n]+'</span></span><span class="check">&#10003;</span></button>'});
+  h+='<button class="person" onclick="toast(\'Preview: adding someone new isn\\\'t built yet.\')"><span class="av" style="background:var(--nest);color:var(--muted)">+</span><span class="nm">Add someone</span></button>';
+  document.getElementById('people').innerHTML=h;
+  var c=Object.keys(sendTo).filter(function(n){return sendTo[n]}).length;
+  var btn=document.querySelector('[data-s="4"] .btn.main');btn.textContent=c?'Send to '+c+(c===1?' person':' people'):'Choose someone first';
+}
+function who(n){sendTo[n]=!sendTo[n];renderPeople()}
+function via(el){el.parentNode.querySelectorAll('.pill').forEach(function(p){p.classList.remove('on')});el.classList.add('on')}
+function sendCard(){
+  var names=Object.keys(sendTo).filter(function(n){return sendTo[n]});
+  if(!names.length){toast('Choose at least one person.');return}
+  document.querySelector('[data-s="5"] .chip').innerHTML='&#10003; Sent to '+names.join(' and ').replace(/ and (?=.* and )/g,', ');
+  toast('Preview: nothing is really sent.');go(5);
+}
+var free=false;
+function redeem(){var v=document.getElementById('code').value.trim();if(!v){toast('Type the code from your card.');return}free=true;document.getElementById('ok').style.display='block';document.getElementById('buy').textContent='Send my free booklet'}
+function buy(){toast(free?'Preview: the booklet would be posted to you.':'Preview: Stripe checkout would open here.');setTimeout(function(){go(6)},1300)}
+
+var tt;function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},2400)}
+
+try{ if(window.matchMedia('(max-width:640px)').matches)document.getElementById('route').open=false }catch(e){}
+go(1);
+</script>
+</body>
+</html>

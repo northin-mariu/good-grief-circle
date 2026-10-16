@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>After Someone Dies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,800;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#FDF9F2; --surface:#FFFBFF; --nest:#F7F3EC; --card:#FFFFFF; --field:#F1EDE6;
+  --ink:#393834; --text:#3E362C; --muted:#5C5247; --soft:#7A6E5E; --faint:#A0937F;
+  --accent:#F26B3C; --deep:#B23D10; --grad:linear-gradient(135deg,#B23D10 0%,#FF794A 100%);
+  --sun:#FFC965; --onSun:#5F4200; --mint:#6DFE9C; --onMint:#005F2E; --green:#2F8B62;
+  --tA:#FCE7DD; --tG:#E2F0E6; --tY:#FFF1D2;
+  --lift:0 18px 40px rgba(57,56,52,.06); --glow:0 24px 48px -12px rgba(178,61,16,.14); --btn:0 10px 24px rgba(178,61,16,.26);
+  --serif:'Newsreader',Georgia,serif; --sans:'Plus Jakarta Sans',-apple-system,system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#FDF9F2;color:var(--text);font-family:var(--sans);font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:420px;margin:0 auto;padding:16px 16px 40px}
+
+/* route card */
+.route{background:var(--nest);border-radius:28px;padding:4px 18px;margin-bottom:18px}
+.route summary{list-style:none;cursor:pointer;padding:14px 0;display:flex;align-items:center;justify-content:space-between;gap:10px;font-weight:700;color:var(--ink);font-size:14px}
+.route summary::-webkit-details-marker{display:none}
+.route summary .tag{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--deep)}
+.route summary .chev{transition:transform .2s;color:var(--deep)}
+.route[open] summary .chev{transform:rotate(180deg)}
+.route dl{margin:0 0 14px;display:grid;gap:10px}
+.route dt{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--deep)}
+.route dd{margin:2px 0 0;font-size:13.5px;line-height:1.5;color:var(--text)}
+
+/* phone */
+.phone{background:var(--page);border-radius:32px;box-shadow:var(--lift);overflow:hidden;min-height:640px;display:flex;flex-direction:column}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;background:var(--surface)}
+.logo{display:flex;align-items:center;gap:8px}
+.logo span{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--deep);font-size:17px;white-space:nowrap}
+.back{border:0;background:var(--field);color:var(--ink);border-radius:999px;padding:7px 13px;font-size:13px;font-weight:600}
+.back[disabled]{opacity:.35;cursor:default}
+.count{font-size:12px;color:var(--soft);font-weight:600;text-align:center;padding:8px 0 0;background:var(--surface)}
+.dots{display:flex;gap:6px;justify-content:center;padding:6px 0 12px;background:var(--surface)}
+.dots i{width:7px;height:7px;border-radius:50%;background:#E6DED2;display:block}
+.dots i.on{background:var(--accent);width:20px;border-radius:999px}
+.screen{display:none;padding:22px 18px 28px;flex:1}
+.screen.on{display:block;animation:in .35s ease}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* type */
+.chip{display:inline-block;background:var(--mint);color:var(--onMint);font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:4px 11px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);margin:0 0 6px}
+h1{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:36px;line-height:1.06;letter-spacing:-.6px;margin:12px 0 10px}
+h1 em{font-style:italic;color:var(--deep);font-weight:500}
+h1 b{font-weight:800}
+h2{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:23px;line-height:1.2;letter-spacing:-.3px;margin:0 0 6px}
+h3{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:19px;line-height:1.25;margin:0}
+p{margin:0 0 12px}
+.lede{font-size:16.5px;color:var(--muted);line-height:1.6}
+.small{font-size:13px;color:var(--soft);line-height:1.55}
+
+/* parts */
+.card{background:var(--card);border-radius:28px;padding:18px;box-shadow:var(--lift);margin:0 0 12px}
+.nest{background:var(--nest);border-radius:22px;padding:14px 16px;margin:0 0 12px}
+.radiant{background:var(--grad);color:#fff;border-radius:28px;padding:20px;box-shadow:var(--glow);margin:0 0 14px}
+.radiant h2,.radiant h3{color:#fff}
+.radiant p{color:rgba(255,255,255,.92)}
+.btn{display:block;width:100%;border:0;border-radius:999px;padding:15px 20px;font-size:16px;font-weight:700;color:#fff;background:var(--grad);box-shadow:var(--btn);text-align:center}
+.btn.ghost{background:var(--card);color:var(--ink);box-shadow:var(--lift)}
+.btn.sun{background:var(--sun);color:var(--onSun);box-shadow:none}
+.btn.small{display:inline-block;width:auto;padding:9px 15px;font-size:13.5px}
+.crisis{background:var(--tA);color:var(--deep);border-radius:18px;padding:12px 14px;font-size:13.5px;line-height:1.5;margin:14px 0 0}
+.crisis b{color:var(--deep)}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 16px}
+.opt{border:0;background:var(--field);color:var(--ink);border-radius:999px;padding:9px 15px;font-size:14px;font-weight:600}
+.opt.on{background:var(--sun);color:var(--onSun)}
+.label{font-size:13px;font-weight:700;color:var(--ink);margin:4px 0 0}
+.fee{display:inline-block;background:var(--tY);color:var(--onSun);font-size:11.5px;font-weight:700;border-radius:999px;padding:3px 9px}
+.preview{background:var(--tY);color:var(--onSun);border-radius:16px;padding:10px 13px;font-size:12.5px;line-height:1.5;margin:12px 0}
+
+/* the ordered list */
+.step{background:var(--card);border-radius:24px;padding:16px;box-shadow:var(--lift);margin:0 0 10px;display:grid;grid-template-columns:34px 1fr;gap:12px}
+.num{width:34px;height:34px;border-radius:50%;background:var(--tA);color:var(--deep);font-family:var(--serif);font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center}
+.step.done .num{background:var(--tG);color:var(--green)}
+.step h3{font-size:18px}
+.step p{font-size:14px;color:var(--muted);margin:5px 0 8px}
+.due{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;border-radius:999px;padding:4px 10px;background:var(--tA);color:var(--deep)}
+.due.ok{background:var(--tG);color:var(--green)}
+.due.later{background:var(--nest);color:var(--muted)}
+.who{font-size:12.5px;color:var(--soft);margin-top:6px}
+
+/* signature: task board */
+.family{display:flex;gap:8px;overflow-x:auto;padding:2px 0 12px;margin:0 -2px}
+.person{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:4px;border:0;background:none;padding:2px}
+.av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:15px;box-shadow:0 0 0 3px transparent;transition:box-shadow .2s}
+.person.me .av{box-shadow:0 0 0 3px var(--sun)}
+.person small{font-size:11.5px;color:var(--muted);font-weight:600}
+.task{background:var(--card);border-radius:22px;padding:14px;box-shadow:var(--lift);margin:0 0 10px}
+.task-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.task h3{font-size:17px}
+.task .meta{font-size:12.5px;color:var(--soft);margin-top:3px}
+.take{flex:0 0 auto;border:0;border-radius:999px;padding:8px 13px;font-size:13px;font-weight:700;background:var(--grad);color:#fff;box-shadow:var(--btn);white-space:nowrap}
+.taken{display:flex;align-items:center;gap:8px;margin-top:10px;background:var(--tG);border-radius:999px;padding:5px 12px 5px 5px;font-size:13px;color:var(--onMint);font-weight:600}
+.taken .av{width:24px;height:24px;font-size:11px}
+.taken button{margin-left:auto;border:0;background:none;color:var(--green);font-size:12px;font-weight:700;padding:2px 4px}
+.tally{display:flex;gap:10px;align-items:center;margin:2px 0 14px}
+.meter{flex:1;height:8px;border-radius:999px;background:var(--field);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--grad);border-radius:999px;transition:width .35s}
+
+/* listings */
+.filter{display:flex;gap:8px;overflow-x:auto;margin:6px 0 12px;padding-bottom:2px}
+.fd h3{font-size:18px}
+.fd .row{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
+.pill{font-size:12px;background:var(--nest);color:var(--muted);border-radius:999px;padding:3px 10px;font-weight:600}
+.fd .actions{display:flex;gap:8px;flex-wrap:wrap}
+
+.org{display:grid;grid-template-columns:40px 1fr;gap:12px;align-items:start}
+.org .ic{width:40px;height:40px;border-radius:14px;background:var(--tG);display:flex;align-items:center;justify-content:center}
+.phoneNum{font-family:var(--serif);font-weight:800;font-size:28px;color:#fff;letter-spacing:.5px}
+
+.letter{background:var(--surface);border-radius:28px;padding:20px;box-shadow:var(--glow);margin-bottom:14px}
+.letter .date{font-size:12px;color:var(--soft);font-weight:600}
+.boundary{background:var(--nest);border-radius:18px;padding:12px 14px;font-size:13px;color:var(--muted);margin:12px 0}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(30px);opacity:0;background:var(--ink);color:#fff;border-radius:999px;padding:10px 18px;font-size:13.5px;font-weight:600;transition:.3s;pointer-events:none;max-width:90vw;text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (max-width:440px){ .wrap{padding:12px 10px 32px} .phone{border-radius:26px} h1{font-size:33px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <details class="route" open>
+    <summary><span><span class="tag">Route 10</span><br>After Someone Dies</span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+    <dl>
+      <div><dt>Thesis</dt><dd>When someone dies, the family needs one calm, ordered list with deadlines that they can split between them — and that's the whole product, free.</dd></div>
+      <div><dt>Who it's for</dt><dd>A family in the first days and weeks after a death, usually the adult child who ends up "doing the admin".</dd></div>
+      <div><dt>What's cut</dt><dd>All planning for yourself (only offered gently, six weeks on), the gift, the vault, keyholders, reflection, wishes &amp; farewells, songs and own song, will interview, memorial, diagnosis path, pricing pages. About 80% of today's demo.</dd></div>
+      <div><dt>What's kept</dt><dd>Mari's first steps and help organisations, "find help nearby" (as funeral director listings), Grief Support, and a shared family task list.</dd></div>
+      <div><dt>MVP for the Christmas vouchers</dt><dd>No voucher needed: it's free. The 100 cards become "keep this for when you need it" cards. MVP = the list for England &amp; Wales, sharing by link, a hand-picked set of local listings, the support page and one six-week email.</dd></div>
+      <div><dt>How it makes money</dt><dd>Free to families. Referral fees from funeral directors, probate services and will-writers, always labelled "we earn a fee" — never ranked by who pays.</dd></div>
+      <div><dt>The one metric</dt><dd>Lists shared with at least one other family member who takes a task within 7 days.</dd></div>
+      <div><dt>The biggest risk</dt><dd>Search is dominated by GOV.UK, the Co-op and funeral comparison sites; and referral money can look like profiting from grief if the labelling ever slips.</dd></div>
+    </dl>
+  </details>
+
+  <div class="phone">
+    <div class="bar">
+      <button class="back" id="back" disabled aria-label="Back">&larr; Back</button>
+      <div class="logo" aria-label="Good Grief Circle">
+        <svg width="34" height="24" viewBox="0 0 34 24" aria-hidden="true"><g opacity=".82"><circle cx="8" cy="12" r="7" fill="#e07a4d"/><circle cx="14" cy="12" r="7" fill="#4a9e90"/><circle cx="20" cy="12" r="7" fill="#9cbf86"/><circle cx="26" cy="12" r="7" fill="#eab64a"/></g></svg>
+        <span>Good Grief Circle</span>
+      </div>
+      <span style="width:62px"></span>
+    </div>
+    <div class="count" id="count">Screen 1 of 6</div>
+    <div class="dots" id="dots"></div>
+
+    <!-- 1 · Arrive from search -->
+    <section class="screen on" data-title="Arrive">
+      <span class="chip">What to do when someone dies</span>
+      <h1>We're so sorry. <em>Here's what comes first.</em></h1>
+      <p class="lede">Two quick questions and we'll put the next few weeks in order — with the dates that matter. Nothing to sign up for.</p>
+
+      <div class="card">
+        <p class="label">Who has died?</p>
+        <div class="opts" data-group="who">
+          <button class="opt on">My dad</button><button class="opt">My mum</button><button class="opt">My partner</button><button class="opt">Someone else</button>
+        </div>
+        <p class="label">Where did they die?</p>
+        <div class="opts" data-group="where">
+          <button class="opt">At home</button><button class="opt on">In hospital</button><button class="opt">In a hospice or care home</button>
+        </div>
+        <p class="label">Where in the UK?</p>
+        <div class="opts" data-group="nation" style="margin-bottom:6px">
+          <button class="opt on">England or Wales</button><button class="opt">Scotland</button><button class="opt">Northern Ireland</button>
+        </div>
+      </div>
+
+      <button class="btn" data-go="1">Show me the steps</button>
+      <p class="small" style="text-align:center;margin-top:10px">Free for families. No account needed to see your list.</p>
+      <div class="crisis">If you are in crisis or worried about your safety, call 999 or <b>Samaritans on 116 123</b>, free, any time.</div>
+    </section>
+
+    <!-- 2 · The ordered list -->
+    <section class="screen" data-title="Your list">
+      <p class="eyebrow">For Dad · Brian Ashworth · died Thu 8 Oct</p>
+      <h2>What to do, <em style="font-family:var(--serif);color:var(--deep)">in order</em></h2>
+      <p class="small">Dates worked out for England &amp; Wales, from Thursday 8 October.</p>
+
+      <div class="step done">
+        <div class="num">&#10003;</div>
+        <div><h3>Get a medical certificate</h3>
+          <p>A doctor confirms the cause of death. If it happened at home, call their GP; in hospital, the staff will guide you.</p>
+          <span class="due ok">Done · Stepping Hill Hospital sent it to the register office</span></div>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <div><h3>Register the death</h3>
+          <p>Within five days in England &amp; Wales. You will receive the certificates needed for almost everything that follows.</p>
+          <span class="due">By Tue 13 Oct · 2 days left</span>
+          <div class="who">Tip: ask for 5–6 copies of the certificate. Banks and insurers each want one.</div></div>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <div><h3>Tell the right people</h3>
+          <p>The government’s “Tell Us Once” service can notify most departments — tax, pensions, benefits — in a single step.</p>
+          <span class="due">Use the code within 28 days of registering</span></div>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <div><h3>Choose a funeral director</h3>
+          <p>There is no legal deadline. Most funerals happen two to three weeks after a death.</p>
+          <span class="due later">This week if you can</span>
+          <div style="margin-top:10px"><button class="btn small ghost" data-go="3">See local listings &rarr;</button></div></div>
+      </div>
+      <div class="step">
+        <div class="num">5</div>
+        <div><h3>Find the will &amp; wishes</h3>
+          <p>A will names the executor who is responsible. If they used Good Grief Circle, their wishes for the farewell may be waiting here too.</p>
+          <span class="due later">Before the funeral, ideally</span></div>
+      </div>
+      <div class="step">
+        <div class="num">6</div>
+        <div><h3>Apply for probate, if needed</h3>
+          <p>Only the executor does this, once the money and property are known. It can wait until after the funeral.</p>
+          <span class="due later">In the coming months</span></div>
+      </div>
+
+      <div class="nest"><p class="small" style="margin:0"><b>What this list doesn't cover:</b> the rules in Scotland and Northern Ireland, deaths reported to a coroner, or deaths abroad. It isn't legal advice. For those, GOV.UK and Citizens Advice have full guidance.</p></div>
+      <button class="btn" data-go="2">Share the list with the family</button>
+    </section>
+
+    <!-- 3 · Signature: the family task list -->
+    <section class="screen" data-title="Share it out">
+      <span class="chip">Shared with 4 people</span>
+      <h1 style="font-size:32px">Nobody has to <em>do it all.</em></h1>
+      <p class="lede" style="font-size:15.5px">Tap “I'll do this” and everyone sees who has it. You're viewing as <b>Claire</b>.</p>
+
+      <div class="family" id="family"></div>
+      <div class="tally"><div class="meter"><i id="meter" style="width:0"></i></div><span class="small" id="tallyTxt" style="margin:0;white-space:nowrap"></span></div>
+      <div id="tasks"></div>
+
+      <div class="preview">Preview: in this concept nothing is sent. In the real thing, family join from a link in WhatsApp or a text — no account, no password.</div>
+      <button class="btn" data-go="3">Next: find a funeral director</button>
+    </section>
+
+    <!-- 4 · Funeral directors: listings, not recommendations -->
+    <section class="screen" data-title="Funeral directors">
+      <p class="eyebrow">Near SK7 · Hazel Grove, Stockport</p>
+      <h2>Funeral directors near you</h2>
+      <p class="small">Listed by distance, not by who pays us. We don't rank or recommend. Where we earn a fee if you choose them, it says so.</p>
+      <div class="filter">
+        <button class="opt on">All</button><button class="opt">Direct cremation</button><button class="opt">Burial</button><button class="opt">Green / woodland</button>
+      </div>
+
+      <div class="card fd">
+        <div class="task-top"><h3>Torkington Lane Funerals</h3><span class="small" style="margin:0;white-space:nowrap">0.8 mi</span></div>
+        <div class="row"><span class="pill">Family-run</span><span class="pill">Funerals from £3,450</span><span class="pill">Open today till 6pm</span></div>
+        <p class="small">Prices published online. Member of a trade association (NAFD).</p>
+        <div class="actions"><button class="btn small" data-toast="In the real app this would ring them.">Call</button><button class="btn small ghost" data-toast="Saved to the family list for Mark to look at.">Add to family list</button></div>
+      </div>
+      <div class="card fd">
+        <div class="task-top"><h3>Hollins &amp; Webb</h3><span class="small" style="margin:0;white-space:nowrap">1.6 mi</span></div>
+        <div class="row"><span class="pill">Independent</span><span class="pill">Funerals from £3,890</span><span class="fee">We earn a fee</span></div>
+        <p class="small">If you choose them through us, they pay Good Grief Circle a set fee. Your price is the same either way.</p>
+        <div class="actions"><button class="btn small" data-toast="In the real app this would ring them.">Call</button><button class="btn small ghost" data-toast="Saved to the family list for Mark to look at.">Add to family list</button></div>
+      </div>
+      <div class="card fd">
+        <div class="task-top"><h3>Calm Passage Direct Cremation</h3><span class="small" style="margin:0;white-space:nowrap">Nationwide</span></div>
+        <div class="row"><span class="pill">No service at the crematorium</span><span class="pill">From £1,395</span><span class="fee">We earn a fee</span></div>
+        <p class="small">You can still hold your own gathering, anywhere, on another day.</p>
+        <div class="actions"><button class="btn small" data-toast="In the real app this would ring them.">Call</button><button class="btn small ghost" data-toast="Saved to the family list for Mark to look at.">Add to family list</button></div>
+      </div>
+      <div class="nest"><p class="small" style="margin:0"><b>Worried about the cost?</b> Down to Earth (run by Quaker Social Action) helps people facing funeral costs they cannot afford. You may also be able to get a Funeral Expenses Payment.</p></div>
+      <button class="btn" data-go="4">Next: support for you</button>
+    </section>
+
+    <!-- 5 · Grief support -->
+    <section class="screen" data-title="Support">
+      <p class="eyebrow" style="color:var(--green)">For you, not the paperwork</p>
+      <h2>Someone to talk to</h2>
+      <p class="small">Free, confidential support by phone, chat or one-to-one sessions. Choose one and we will pass on your details so they can get in touch, or show you how to reach them directly.</p>
+
+      <div class="radiant">
+        <h3>Samaritans</h3>
+        <p style="margin:4px 0 8px;font-size:14px">A listening ear any time of day or night, for anyone who is struggling.</p>
+        <div class="phoneNum">116 123</div>
+        <p class="small" style="color:rgba(255,255,255,.88);margin:2px 0 0">Free · 24/7 · If you are in danger now, call 999.</p>
+      </div>
+
+      <div class="card org">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F8B62" stroke-width="2" stroke-linecap="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></div>
+        <div><h3>Cruse Bereavement Support</h3><p class="small" style="margin:4px 0 8px">The UK’s leading bereavement charity. Free helpline, webchat and one-to-one support with trained volunteers.</p>
+          <div class="row" style="display:flex;gap:6px;flex-wrap:wrap"><span class="pill">Phone</span><span class="pill">Webchat</span><span class="pill">One-to-one</span></div></div>
+      </div>
+      <div class="card org">
+        <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F8B62" stroke-width="2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div>
+        <div><h3>Marie Curie Support Line</h3><p class="small" style="margin:4px 0 0">Bereavement support from trained staff, including a series of free telephone sessions.</p></div>
+      </div>
+
+      <div class="nest" style="background:var(--tG)">
+        <p style="font-size:14.5px;color:#2F5A45;margin:0">Grief isn’t a checklist. It doesn’t move in neat stages, and it doesn’t end on a schedule. It can arrive as exhaustion, anger, numbness — or unexpected laughter. All of it is normal. Be patient with yourself, and let people help.</p>
+      </div>
+      <button class="btn ghost" data-toast="We'll check in once, in six weeks. Nothing else." style="margin-bottom:10px">Check in on me in six weeks</button>
+      <button class="btn" data-go="5">See the six-week check-in</button>
+    </section>
+
+    <!-- 6 · Six weeks later -->
+    <section class="screen" data-title="Six weeks on">
+      <p class="eyebrow">Thursday 19 November · six weeks on</p>
+      <div class="letter">
+        <p class="date">A note from Good Grief Circle</p>
+        <h2 style="margin-top:6px">Hello Claire. <em style="font-family:var(--serif);color:var(--deep)">How are you doing?</em></h2>
+        <p style="font-size:15px">Your family ticked off 9 of 11 things on Brian's list. The two left are the executor's — probate and closing the last bank account — and they can take their time.</p>
+        <p style="font-size:15px;margin:0">If grief is heavier now than at the start, that's common. Cruse and Samaritans (116 123) are still there.</p>
+      </div>
+
+      <div class="radiant">
+        <h3>Would you like to make this easier for your own family?</h3>
+        <p style="font-size:14.5px;margin:8px 0 14px">Ten minutes, when you're ready: who to call, where things are kept, and what you'd want for a farewell. Free. No rush — this note won't come again unless you ask.</p>
+        <button class="btn sun" data-toast="This would open Planning: ten minutes, one question at a time.">Start when I'm ready</button>
+      </div>
+
+      <div class="card">
+        <div class="task-top"><h3>Making or updating a will</h3><span class="fee">We earn a fee</span></div>
+        <p class="small" style="margin:6px 0 10px">Many people write one after a loss. We list will-writers and solicitors regulated in England &amp; Wales; if you choose one through us, they pay us a set fee.</p>
+        <button class="btn small ghost" data-toast="This would show local will-writers, by distance.">See will-writers</button>
+      </div>
+      <div class="boundary">Your wishes in Good Grief Circle are not a legal will. They sit alongside one, and help your family find it.</div>
+      <button class="btn ghost" data-go="0">Start again</button>
+    </section>
+  </div>
+  <p class="small" style="text-align:center;margin-top:14px">Concept prototype · Brian, Claire and family are invented · listings are made up</p>
+</div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+  var screens = Array.prototype.slice.call(document.querySelectorAll('.screen'));
+  var cur = 0, hist = [];
+  var dots = document.getElementById('dots');
+  screens.forEach(function(){ dots.appendChild(document.createElement('i')); });
+  function show(i, push){
+    if(push !== false && i !== cur) hist.push(cur);
+    screens[cur].classList.remove('on'); cur = i; screens[cur].classList.add('on');
+    document.getElementById('count').textContent = 'Screen ' + (i+1) + ' of ' + screens.length + ' · ' + screens[i].getAttribute('data-title');
+    Array.prototype.forEach.call(dots.children, function(d,k){ d.className = k===i ? 'on' : ''; });
+    document.getElementById('back').disabled = hist.length === 0;
+    try { window.scrollTo({top:document.querySelector('.phone').offsetTop - 8, behavior:'smooth'}); } catch(e){}
+  }
+  document.getElementById('back').addEventListener('click', function(){ if(hist.length) show(hist.pop(), false); });
+  document.addEventListener('click', function(e){
+    var g = e.target.closest('[data-go]');
+    if(g){ var n = +g.getAttribute('data-go'); if(n===0) hist = []; show(n, n!==0); if(n===0) document.getElementById('back').disabled = true; return; }
+    var t = e.target.closest('[data-toast]'); if(t){ toast(t.getAttribute('data-toast')); return; }
+    var o = e.target.closest('.opts .opt, .filter .opt');
+    if(o){ Array.prototype.forEach.call(o.parentNode.children, function(b){ b.classList.remove('on'); }); o.classList.add('on'); }
+  });
+  var tt;
+  function toast(msg){ var el = document.getElementById('toast'); el.textContent = msg; el.classList.add('on'); clearTimeout(tt); tt = setTimeout(function(){ el.classList.remove('on'); }, 2400); }
+
+  // Signature: the shared family task list
+  var people = [
+    {id:'claire', name:'Claire', role:'daughter', c:'#e07a4d', me:true},
+    {id:'mark', name:'Mark', role:'son', c:'#4a9e90'},
+    {id:'jean', name:'Auntie Jean', role:'his sister', c:'#9cbf86'},
+    {id:'sam', name:'Sam', role:'grandson', c:'#eab64a'}
+  ];
+  var tasks = [
+    {t:'Register the death', m:'By Tue 13 Oct · Stockport Register Office, book a slot', by:'claire'},
+    {t:'Use Tell Us Once', m:'Code arrives after registering · 20 minutes online', by:null},
+    {t:'Choose a funeral director', m:'This week · see the listings', by:'mark'},
+    {t:'Look for the will', m:'Dad’s bureau, or ask Hargreaves the solicitor', by:null},
+    {t:'Ring Dad’s friends from the bowls club', m:'Jean has the numbers', by:'jean'},
+    {t:'Cancel the newspaper and the window cleaner', m:'Small, but one less thing', by:null},
+    {t:'Pick the music for the service', m:'When the date is set', by:null}
+  ];
+  function p(id){ for(var i=0;i<people.length;i++) if(people[i].id===id) return people[i]; }
+  function initials(n){ return n.split(' ').map(function(w){return w[0];}).join('').slice(0,2); }
+  function render(){
+    var fam = document.getElementById('family'); fam.innerHTML = '';
+    people.forEach(function(x){
+      var n = tasks.filter(function(k){return k.by===x.id;}).length;
+      var b = document.createElement('div'); b.className = 'person' + (x.me?' me':'');
+      b.innerHTML = '<span class="av" style="background:'+x.c+'">'+initials(x.name)+'</span><small>'+x.name+(x.me?' (you)':'')+' · '+n+'</small>';
+      fam.appendChild(b);
+    });
+    var add = document.createElement('div'); add.className='person';
+    add.innerHTML = '<span class="av" style="background:#F1EDE6;color:#B23D10;font-size:20px">+</span><small>Invite</small>';
+    add.style.cursor='pointer'; add.setAttribute('data-toast','Preview: this would make a link to send in WhatsApp or a text.');
+    fam.appendChild(add);
+    var box = document.getElementById('tasks'); box.innerHTML = '';
+    tasks.forEach(function(k,i){
+      var d = document.createElement('div'); d.className='task';
+      var who = k.by ? p(k.by) : null;
+      d.innerHTML = '<div class="task-top"><div><h3>'+k.t+'</h3><div class="meta">'+k.m+'</div></div>' +
+        (who ? '' : '<button class="take" data-take="'+i+'">I’ll do this</button>') + '</div>' +
+        (who ? '<div class="taken"><span class="av" style="background:'+who.c+'">'+initials(who.name)+'</span>'+(who.me?'You’re doing this':who.name+' is doing this')+(who.me?'<button data-drop="'+i+'">Hand back</button>':'')+'</div>' : '');
+      box.appendChild(d);
+    });
+    var taken = tasks.filter(function(k){return k.by;}).length;
+    document.getElementById('meter').style.width = (taken/tasks.length*100)+'%';
+    document.getElementById('tallyTxt').textContent = taken+' of '+tasks.length+' taken';
+  }
+  document.getElementById('tasks').addEventListener('click', function(e){
+    var a = e.target.closest('[data-take]'), d = e.target.closest('[data-drop]');
+    if(a){ tasks[+a.getAttribute('data-take')].by='claire'; render(); toast('Mark, Jean and Sam can now see you’ve got this.'); }
+    if(d){ tasks[+d.getAttribute('data-drop')].by=null; render(); toast('Handed back. Anyone can pick it up.'); }
+  });
+  render();
+  show(0, false);
+})();
+</script>
+</body>
+</html>

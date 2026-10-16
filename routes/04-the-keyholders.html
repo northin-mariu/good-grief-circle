@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Keyholders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,800;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#FDF9F2; --surface:#FFFBFF; --nest:#F7F3EC; --card:#FFFFFF; --field:#F1EDE6;
+  --ink:#393834; --text:#3E362C; --muted:#5C5247; --soft:#7A6E5E; --faint:#A0937F;
+  --accent:#F26B3C; --deep:#B23D10; --glow:#FF794A; --grad:linear-gradient(135deg,#B23D10 0%,#FF794A 100%);
+  --sun:#FFC965; --onSun:#5F4200; --mint:#6DFE9C; --onMint:#005F2E; --green:#2F8B62;
+  --tA:#FCE7DD; --tG:#E2F0E6; --tS:#FFF1D2;
+  --lift:0 18px 40px rgba(57,56,52,.06); --sunglow:0 24px 48px -12px rgba(178,61,16,.14); --btn:0 10px 24px rgba(178,61,16,.26);
+  --serif:'Newsreader',Georgia,serif; --sans:'Plus Jakarta Sans',-apple-system,system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:#F7F3EC;color:var(--text);font-family:var(--sans);font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:420px;margin:0 auto;padding:16px 16px 40px}
+
+/* route card */
+.route{background:var(--surface);border-radius:28px;box-shadow:var(--lift);padding:18px 20px;margin-bottom:18px}
+.route summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.route summary::-webkit-details-marker{display:none}
+.route .rt{font-family:var(--serif);font-weight:500;font-size:21px;color:var(--ink);margin:0;line-height:1.2}
+.route .rt em{color:var(--deep)}
+.route .tog{font-size:12px;font-weight:700;color:var(--deep);white-space:nowrap}
+.route[open] .tog .o{display:none}.route:not([open]) .tog .c{display:none}
+.route dl{margin:14px 0 0;display:grid;gap:10px}
+.route dt{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--deep)}
+.route dd{margin:2px 0 0;font-size:14px;line-height:1.55;color:var(--text)}
+
+/* phone */
+.phone{background:var(--page);border-radius:34px;box-shadow:0 30px 60px -20px rgba(57,56,52,.18);overflow:hidden;min-height:760px;display:flex;flex-direction:column}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 6px;gap:8px}
+.logo{display:flex;align-items:center;gap:8px}
+.logo span{font-family:var(--serif);font-style:italic;font-weight:500;font-size:17px;color:var(--deep);white-space:nowrap}
+.who{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:99px;padding:5px 11px;white-space:nowrap}
+.who.owner{background:var(--tA);color:var(--deep)}
+.who.kh{background:var(--tG);color:var(--onMint)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:4px 18px 0}
+.back{background:none;border:none;color:var(--soft);font-weight:600;font-size:14px;padding:6px 0}
+.back[disabled]{opacity:.35;cursor:default}
+.count{font-size:12px;font-weight:600;color:var(--soft)}
+.dots{display:flex;gap:5px}
+.dots i{width:6px;height:6px;border-radius:99px;background:#E4DCCE;display:block}
+.dots i.on{background:var(--accent);width:18px}
+
+.screen{display:none;padding:10px 20px 28px;flex:1}
+.screen.on{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.chip{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--onMint);background:var(--mint);border-radius:99px;padding:5px 12px;margin:8px 0 12px}
+h1{font-family:var(--serif);font-weight:500;font-size:34px;line-height:1.08;letter-spacing:-.5px;color:var(--ink);margin:0 0 10px}
+h1 em{font-style:italic;color:var(--deep)}
+h1 b{font-weight:800}
+h2{font-family:var(--serif);font-weight:500;font-size:22px;line-height:1.2;color:var(--ink);margin:0 0 6px}
+.lead{color:var(--muted);margin:0 0 18px;font-size:15.5px;line-height:1.65}
+.small{font-size:13px;color:var(--soft);line-height:1.55}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);margin:0 0 8px}
+
+.card{background:var(--card);border-radius:28px;box-shadow:var(--lift);padding:20px;margin:0 0 14px}
+.nest{background:var(--nest);border-radius:20px;padding:14px 16px;margin:0 0 12px}
+.radiant{background:var(--grad);color:#fff;border-radius:28px;padding:22px;box-shadow:var(--sunglow);margin:0 0 14px}
+.radiant h2{color:#fff}
+.radiant p{color:rgba(255,255,255,.9);margin:0}
+.radiant .eyebrow{color:#FFE3D4}
+
+.btn{display:block;width:100%;border:none;border-radius:999px;padding:16px 22px;font-size:15.5px;font-weight:700;background:var(--grad);color:#fff;box-shadow:var(--btn);margin:18px 0 10px}
+.btn.done{background:var(--green);box-shadow:none}
+.btn2{display:block;width:100%;border:none;border-radius:999px;padding:13px 20px;font-size:14.5px;font-weight:700;background:#fff;color:var(--ink);box-shadow:var(--lift)}
+.link{background:none;border:none;color:#B23A0E;font-weight:600;font-size:14px;padding:6px 0}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.pill{border:none;border-radius:999px;padding:10px 16px;font-size:13.5px;font-weight:700;background:#fff;color:var(--soft);box-shadow:var(--lift)}
+.pill.on{background:var(--sun);color:var(--onSun);box-shadow:none}
+
+/* the ring */
+.ringwrap{position:relative;width:250px;height:250px;margin:6px auto 14px}
+.ringwrap svg{display:block;width:100%;height:100%;overflow:visible}
+.key{transition:all .5s ease}
+.k-ghost .kbg{fill:var(--nest)}
+.k-ghost .kglyph{stroke:#C9BFAF}
+.k-chosen .kbg{fill:#fff}
+.k-chosen .kglyph{stroke:var(--soft)}
+.k-held .kbg{fill:var(--sun)}
+.k-held .kglyph{stroke:var(--onSun)}
+.k-lit .kbg{fill:url(#kg)}
+.k-lit .kglyph{stroke:#fff}
+.k-lit .halo{opacity:.55}
+.halo{opacity:0;transition:opacity .6s}
+.ringlabel{font-family:var(--sans);font-size:11.5px;font-weight:700;fill:var(--text)}
+.ringsub{font-family:var(--sans);font-size:10.5px;font-weight:600;fill:var(--soft)}
+.centre{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;text-align:center}
+.centre b{font-family:var(--serif);font-weight:800;font-size:34px;color:var(--ink);line-height:1}
+.centre span{font-size:11.5px;font-weight:600;color:var(--soft);max-width:110px;line-height:1.35;margin-top:4px}
+
+/* lists */
+.person{display:flex;align-items:center;gap:12px;padding:12px 0}
+.person+.person{box-shadow:0 -1px 0 rgba(188,185,179,.18)}
+.av{width:40px;height:40px;border-radius:99px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex:none}
+.person .nm{font-weight:700;color:var(--ink);font-size:15px}
+.person .rl{font-size:13px;color:var(--soft)}
+.person .st{margin-left:auto;font-size:11.5px;font-weight:700;border-radius:99px;padding:4px 10px;white-space:nowrap}
+.st.held{background:var(--tS);color:var(--onSun)}
+.st.wait{background:var(--nest);color:var(--soft)}
+.st.lit{background:var(--tA);color:var(--deep)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cols .nest{margin:0}
+.cols ul{margin:6px 0 0;padding:0 0 0 16px;font-size:13.5px;line-height:1.5;color:var(--text)}
+.cols li+li{margin-top:5px}
+.field{width:100%;border:none;border-bottom:2px solid #E2D9CB;background:var(--field);border-radius:12px 12px 4px 4px;padding:12px 14px;font:inherit;font-size:15px;color:var(--ink);margin:4px 0 12px}
+.field:focus{outline:none;border-bottom-color:var(--accent);background:#fff}
+label.lb{font-size:13px;font-weight:700;color:var(--ink)}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{display:flex;gap:12px;padding:10px 0}
+.steps li::before{counter-increment:s;content:counter(s);font-family:var(--serif);font-style:italic;font-size:26px;color:var(--deep);line-height:1;width:20px;flex:none}
+.steps b{display:block;color:var(--ink);font-size:14.5px}
+.steps span{font-size:13.5px;color:var(--muted)}
+.note{background:var(--tS);border-radius:18px;padding:13px 15px;font-size:13.5px;line-height:1.55;color:#5F4200;margin:0 0 12px}
+.note.g{background:var(--tG);color:#1F5A40}
+.note.w{background:var(--tA);color:#7A3A1C}
+.bubble{background:#fff;border-radius:22px 22px 22px 6px;box-shadow:var(--lift);padding:16px 18px;font-size:14.5px;line-height:1.6;color:var(--text);margin:0 0 14px}
+.bubble .from{font-size:12px;font-weight:700;color:var(--soft);margin-bottom:6px}
+.timer{display:flex;gap:8px;margin:14px 0 4px}
+.timer div{flex:1;background:rgba(255,255,255,.18);border-radius:16px;padding:10px 4px;text-align:center}
+.timer b{display:block;font-family:var(--serif);font-weight:800;font-size:26px;line-height:1}
+.timer small{font-size:11px;font-weight:600;opacity:.9}
+.ownerbox{background:var(--ink);color:#F6EFE3;border-radius:24px;padding:18px;margin:0 0 14px}
+.ownerbox .eyebrow{color:var(--sun)}
+.ownerbox p{margin:0 0 12px;font-size:14px;line-height:1.55;color:#E9E1D3}
+.ownerbox button{border:none;border-radius:999px;padding:12px 18px;font-weight:700;font-size:14px;background:var(--sun);color:var(--onSun)}
+.hide{display:none!important}
+.wish{padding:12px 0}
+.wish+.wish{box-shadow:0 -1px 0 rgba(188,185,179,.18)}
+.wish .q{font-size:12px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.06em}
+.wish .a{font-family:var(--serif);font-size:18px;line-height:1.35;color:var(--ink);margin-top:3px}
+.foot{padding:0 20px 22px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<details class="route" id="route">
+  <summary><p class="rt">Route 04 · <em>The Keyholders</em></p><span class="tog"><span class="o">Show the route ▾</span><span class="c">Hide ▴</span></span></summary>
+  <dl>
+    <dt>Thesis</dt><dd>Most people don't need another planner; they need one dependable answer to "who can open this, and when?" — three keys, two of which open it, after a wait you can stop.</dd>
+    <dt>Who it's for</dt><dd>Someone 55+ who has some wishes written down (or will write a few) and wants them reaching the right people at the right time — plus the three people they choose, who are the next customers.</dd>
+    <dt>What's cut</dt><dd>Reflection, memorial, grief support space, songs and own song, will interview, the directory, the legal guide, the three-step Planning journey and the dashboard. Wishes shrink to one short card; documents shrink to "where things are kept" (no uploads).</dd>
+    <dt>What's kept</dt><dd>Choosing the circle (now exactly three keyholders), invitations, a short wishes card, a "where things are kept" list, a note to the keyholders, and Mari's first steps after a death on the released page.</dd>
+    <dt>MVP for the Christmas vouchers</dt><dd>The voucher switches on the release service free. Owner picks three keyholders, invites by text/WhatsApp/email, keyholders accept in one tap. Release is run by hand: two confirm, a person at Good Grief Circle checks the registration, owner is messaged every day of the wait.</dd>
+    <dt>How it makes money</dt><dd>A one-off release fee (draft: £39, test against £29), paid by the owner when they switch the release on — or by one of their children as a gift. No subscription; nothing ever locks once paid.</dd>
+    <dt>The one metric</dt><dd>Rings completed: the share of owners whose three keyholders have all accepted within 14 days.</dd>
+    <dt>The biggest risk</dt><dd>It's a promise that's tested years later: people may not pay for something that does nothing visible today, and we must still exist (and be trusted) when it fires.</dd>
+  </dl>
+</details>
+
+<div class="phone">
+  <div class="bar">
+    <div class="logo">
+      <svg width="30" height="22" viewBox="0 0 60 44" aria-hidden="true"><g opacity=".82"><circle cx="16" cy="16" r="12" fill="#e07a4d"/><circle cx="30" cy="16" r="12" fill="#4a9e90"/><circle cx="23" cy="28" r="12" fill="#9cbf86"/><circle cx="37" cy="28" r="12" fill="#eab64a"/></g></svg>
+      <span>Good Grief Circle</span>
+    </div>
+    <span class="who owner" id="who">Helen's side</span>
+  </div>
+  <div class="nav">
+    <button class="back" id="back" aria-label="Back">‹ Back</button>
+    <div class="dots" id="dots"></div>
+    <span class="count" id="count">Screen 1 of 7</span>
+  </div>
+
+  <!-- 1 · choose three -->
+  <section class="screen on" data-who="owner">
+    <span class="chip">Your keyholders</span>
+    <h1>Three people. <em>Two keys</em> open it.</h1>
+    <p class="lead">Your wishes stay closed while you're alive. Choose three people you trust; when you die, any two of them can ask for them to open.</p>
+    <div class="ringwrap" data-ring="1"></div>
+    <div class="card" id="pickList">
+      <p class="eyebrow">Who holds a key</p>
+      <div class="person"><div class="av" style="background:var(--tA);color:var(--deep)">T</div><div><div class="nm">Tom Ashworth</div><div class="rl">Son · Leeds</div></div></div>
+      <div class="person"><div class="av" style="background:var(--tG);color:var(--onMint)">L</div><div><div class="nm">Lucy Ashworth</div><div class="rl">Daughter · Stockport</div></div></div>
+      <div class="person" id="third"><div class="av" style="background:var(--nest);color:var(--faint)">+</div><div style="flex:1;min-width:0">
+        <div id="thirdForm">
+          <label class="lb" for="kname">A third person</label>
+          <input class="field" id="kname" value="Bev Okafor" autocomplete="off">
+          <div class="small" style="margin:-4px 0 6px">Someone outside the family works well — a friend who'd tell the truth if it came to it.</div>
+        </div>
+      </div></div>
+    </div>
+    <button class="btn" id="addThird">Add Bev as my third keyholder</button>
+    <p class="small" style="text-align:center">You can change your keyholders at any time. They're told when you do.</p>
+  </section>
+
+  <!-- 2 · the rule, now vs later -->
+  <section class="screen" data-who="owner">
+    <span class="chip">The rule</span>
+    <h1>What they see <em>now</em>, and what they see later.</h1>
+    <p class="lead">Being a keyholder is quiet. Nothing of yours is visible to them until two of them confirm you've died and the wait has passed.</p>
+    <div class="cols" style="margin-bottom:14px">
+      <div class="nest"><p class="eyebrow" style="margin:0">Now</p><ul><li>That you chose them</li><li>Who the other two are</li><li>How the release works</li></ul></div>
+      <div class="nest" style="background:var(--tS)"><p class="eyebrow" style="margin:0;color:var(--onSun)">After release</p><ul><li>Your wishes for the farewell</li><li>Where things are kept</li><li>Your note to them</li></ul></div>
+    </div>
+    <div class="card">
+      <h2>How long should the wait be?</h2>
+      <p class="small" style="margin:0 0 12px">After two keyholders confirm, we wait this long and message you every day. If you're alive and well, one tap stops it.</p>
+      <div class="pills" id="waitPills">
+        <button class="pill" data-d="3">3 days</button><button class="pill on" data-d="7">7 days</button><button class="pill" data-d="14">14 days</button><button class="pill" data-d="30">30 days</button>
+      </div>
+    </div>
+    <div class="card">
+      <p class="eyebrow">What's behind the keys</p>
+      <div class="person"><div class="av" style="background:var(--tA);color:var(--deep)">♡</div><div><div class="nm">Wishes for the farewell</div><div class="rl">5 answered</div></div></div>
+      <div class="person"><div class="av" style="background:var(--tG);color:var(--onMint)">⌂</div><div><div class="nm">Where things are kept</div><div class="rl">6 places noted</div></div></div>
+      <div class="person"><div class="av" style="background:var(--tS);color:var(--onSun)">✉</div><div><div class="nm">A note to the three of them</div><div class="rl">Written 2 Dec</div></div></div>
+    </div>
+    <div class="note"><b>Not a legal will.</b> This tells the people you trust what you'd like and where to look. It can't decide who inherits — for that you need a will. Write down where yours is kept, so they can find it.</div>
+    <button class="btn" data-next>Keep 7 days</button>
+  </section>
+
+  <!-- 3 · invite + switch on release (paid) -->
+  <section class="screen" data-who="owner">
+    <span class="chip">Invitations</span>
+    <h1>Ask them <em>in your own words.</em></h1>
+    <p class="lead">Each keyholder gets a short message from you and one link. They say yes in a tap — no account needed until it matters.</p>
+    <div class="bubble"><div class="from">To Bev · by WhatsApp</div><span id="msg" contenteditable="true" spellcheck="false">Bev, I've written down a few things for when I go — what I'd like, and where the paperwork is. Would you be one of the three people who can open it? Tom and Lucy are the other two. Love, H x</span></div>
+    <div class="card">
+      <div class="person"><div class="av" style="background:var(--tA);color:var(--deep)">T</div><div><div class="nm">Tom</div><div class="rl">Said yes · 3 Dec</div></div><span class="st held">Holds a key</span></div>
+      <div class="person"><div class="av" style="background:var(--tG);color:var(--onMint)">L</div><div><div class="nm">Lucy</div><div class="rl">Said yes · 3 Dec</div></div><span class="st held">Holds a key</span></div>
+      <div class="person"><div class="av" style="background:var(--nest);color:var(--soft)">B</div><div><div class="nm">Bev</div><div class="rl" id="bevRl">Not sent yet</div></div><span class="st wait" id="bevSt">Waiting</span></div>
+    </div>
+    <div class="radiant">
+      <p class="eyebrow">The release · one-off</p>
+      <h2>£39, once. Your Christmas voucher covers it.</h2>
+      <p>We keep the promise for as long as you need it: a person on our team checks every release before anything opens. No yearly fee, and nothing ever locks.</p>
+    </div>
+    <button class="btn" id="sendBev">Send Bev's invitation</button>
+    <p class="small" style="text-align:center">Voucher GGC-XMAS-0417 applied · you won't be charged</p>
+  </section>
+
+  <!-- 4 · keyholder: Bev receives -->
+  <section class="screen" data-who="kh" data-name="Bev's side">
+    <span class="chip">You've been asked</span>
+    <h1>Helen would like you to <em>hold a key.</em></h1>
+    <div class="bubble"><div class="from">From Helen Ashworth</div><span id="msgIn">Bev, I've written down a few things for when I go — what I'd like, and where the paperwork is. Would you be one of the three people who can open it? Tom and Lucy are the other two. Love, H x</span></div>
+    <div class="card">
+      <p class="eyebrow">What it means</p>
+      <ol class="steps">
+        <li><div><b>Nothing, for now</b><span>You won't see her wishes today. You just hold a key.</span></div></li>
+        <li><div><b>If Helen dies, tell us</b><span>When two of the three of you have told us, we check, then wait 7 days. Helen is messaged every day of that wait.</span></div></li>
+        <li><div><b>Then it opens</b><span>Her wishes, where things are kept and her note to you open to all three keyholders at once.</span></div></li>
+      </ol>
+    </div>
+    <p class="small">You don't need a password or an account to say yes. We'll only write to you if Helen changes something, or once a year to check this number still reaches you.</p>
+    <button class="btn" id="bevYes">Yes, I'll hold a key</button>
+    <button class="btn2" id="bevNo">I'd rather not — tell Helen kindly</button>
+    <p class="small hide" id="bevNoMsg" style="margin-top:10px;text-align:center">That's alright. We'll let Helen know you'd rather not, without making it a thing, so she can ask someone else.</p>
+  </section>
+
+  <!-- 5 · keyholder: Lucy tells us -->
+  <section class="screen" data-who="kh" data-name="Lucy's side">
+    <span class="chip" style="background:var(--tA);color:var(--deep)">Three years later</span>
+    <h1>We're <em>so sorry,</em> Lucy.</h1>
+    <p class="lead">If your mum has died, you can tell us here. Nothing opens yet — first another keyholder confirms, and we check.</p>
+    <div class="ringwrap" data-ring="5"></div>
+    <div class="card" id="lucyForm">
+      <label class="lb" for="dod">Date Helen died</label>
+      <input class="field" id="dod" value="14 March 2029">
+      <label class="lb">The death certificate or registration reference</label>
+      <div class="pills" style="margin:6px 0 4px"><button class="pill on">I'll add it later</button><button class="pill">Add a photo now</button></div>
+      <p class="small" style="margin:6px 0 0">Register the death within five days in England &amp; Wales. You'll receive the certificates needed for almost everything that follows. We need one before anything opens.</p>
+    </div>
+    <button class="btn" id="lucyConfirm">Tell Good Grief Circle</button>
+    <div class="note g hide" id="lucyDone">Thank you. We've let Tom and Bev know gently, and asked one of them to confirm. You don't need to do anything else today.</div>
+    <div class="note w"><b>If today is too much</b>, Samaritans listen any time of day or night: call free on <b>116 123</b>. Cruse Bereavement Support is there too.</div>
+  </section>
+
+  <!-- 6 · two keys + waiting + owner can stop -->
+  <section class="screen" data-who="kh" data-name="The wait">
+    <span class="chip">Two of three</span>
+    <h1>Two keys turned. <em>Now we wait.</em></h1>
+    <div class="ringwrap" data-ring="6"></div>
+    <div class="radiant" id="waitPanel">
+      <p class="eyebrow">Opens on 22 March, unless Helen stops it</p>
+      <h2 style="margin:0">Waiting 7 days</h2>
+      <div class="timer"><div><b>6</b><small>days</small></div><div><b>23</b><small>hours</small></div><div><b>41</b><small>mins</small></div></div>
+    </div>
+    <div class="note g hide" id="stoppedNote"><b>Helen stopped this.</b> Nothing has opened. Tom and Lucy have been told it was a mistake, and their keys are back as they were.</div>
+    <div class="card">
+      <p class="eyebrow">What's happening now</p>
+      <ol class="steps">
+        <li><div><b>Lucy and Tom confirmed</b><span>14 and 15 March</span></div></li>
+        <li><div><b>A person at Good Grief Circle checks</b><span>We match the registration with the General Register Office before the wait ends.</span></div></li>
+        <li><div><b>Helen is messaged every day</b><span>By text and email. Bev doesn't need to do anything.</span></div></li>
+      </ol>
+    </div>
+    <div class="ownerbox" id="ownerBox">
+      <p class="eyebrow">What Helen sees, if she's here</p>
+      <p>"Tom and Lucy have asked to open your plan. If you're alive and well, stop this now — nothing has been shown to anyone."</p>
+      <button id="stopIt">I'm here — stop this</button>
+    </div>
+  </section>
+
+  <!-- 7 · released -->
+  <section class="screen" data-who="kh" data-name="Lucy's side">
+    <span class="chip">Opened 22 March</span>
+    <h1>Your mum's wishes, <em>as she wrote them.</em></h1>
+    <p class="lead">Tom, Bev and you can all see this now. Take it one thing at a time.</p>
+    <div class="ringwrap" data-ring="7"></div>
+    <div class="radiant">
+      <p class="eyebrow">Her note to the three of you</p>
+      <p style="font-family:var(--serif);font-size:19px;line-height:1.4;color:#fff">"Don't argue about the hymns. Have the do at the cricket club, put Bev in charge of the sandwiches, and go for a walk up Werneth Low afterwards. I loved you all very much. Mum (and H)."</p>
+    </div>
+    <div class="card">
+      <p class="eyebrow">Wishes for the farewell</p>
+      <div class="wish"><div class="q">Burial or cremation</div><div class="a">Cremation, ashes scattered on Werneth Low.</div></div>
+      <div class="wish"><div class="q">The service</div><div class="a">Short, not religious. Wear whatever you like.</div></div>
+      <div class="wish"><div class="q">Who decides</div><div class="a">Lucy, with Tom.</div></div>
+    </div>
+    <div class="card">
+      <p class="eyebrow">Where things are kept</p>
+      <div class="wish"><div class="q">Will &amp; legal documents</div><div class="a">Grey box file, top of the spare-room wardrobe. The solicitor's card is clipped inside the lid.</div></div>
+      <div class="wish"><div class="q">Insurance policies</div><div class="a">Funeral plan letter in the same box, blue folder.</div></div>
+      <div class="wish"><div class="q">Digital accounts &amp; passwords</div><div class="a">Lucy is my Apple legacy contact. Nothing else is written down here, on purpose.</div></div>
+    </div>
+    <div class="note"><b>Not a legal will.</b> These are Helen's wishes, not her will. Her will names the executor, who is responsible for her estate.</div>
+    <div class="card">
+      <p class="eyebrow">First steps</p>
+      <ol class="steps">
+        <li><div><b>Register the death</b><span>Within five days in England &amp; Wales.</span></div></li>
+        <li><div><b>Tell the right people</b><span>The government's "Tell Us Once" service can notify most departments — tax, pensions, benefits — in a single step.</span></div></li>
+        <li><div><b>Find the will &amp; wishes</b><span>A will names the executor who is responsible. Helen's is in the grey box file.</span></div></li>
+      </ol>
+    </div>
+    <div class="note w">Samaritans: <b>116 123</b>, free, any time. Cruse Bereavement Support offers a free helpline and one-to-one support.</div>
+  </section>
+
+  <div class="foot"><button class="btn2" id="next">Next screen ›</button></div>
+</div>
+</div>
+
+<script>
+(function(){
+  var screens=[].slice.call(document.querySelectorAll('.screen'));
+  var total=screens.length, cur=0;
+  var who=document.getElementById('who'), count=document.getElementById('count'), dots=document.getElementById('dots');
+  var back=document.getElementById('back'), next=document.getElementById('next');
+  var S={third:false, bevInvited:false, bevYes:false, lucy:false, tom:false, stopped:false, wait:7};
+
+  for(var i=0;i<total;i++){dots.appendChild(document.createElement('i'));}
+
+  // open the route card on wide screens
+  if(window.matchMedia && window.matchMedia('(min-width: 700px)').matches){document.getElementById('route').open=true;}
+
+  // ---- the ring of three keys ----
+  var people=[{n:'Tom',a:-90},{n:'Lucy',a:150},{n:'Bev',a:30}];
+  function keyState(i,ring){
+    if(ring===1){ if(i<2) return 'chosen'; return S.third?'chosen':'ghost'; }
+    if(ring===5){ if(i===1 && S.lucy) return 'lit'; return 'held'; }
+    if(ring===6){ if(S.stopped) return 'held'; if(i===1||i===0) return 'lit'; return 'held'; }
+    if(ring===7){ return i===2?'held':'lit'; }
+    return 'held';
+  }
+  function centre(ring){
+    if(ring===1) return [S.third?'3':'2','of three chosen'];
+    if(ring===5) return [S.lucy?'1':'0','of two needed'];
+    if(ring===6) return S.stopped?['—','stopped by Helen']:['2','of two needed'];
+    if(ring===7) return ['Open','to all three'];
+    return ['',''];
+  }
+  function sub(i,st,ring){
+    if(st==='ghost') return 'not chosen';
+    if(st==='chosen') return 'chosen';
+    if(st==='lit') return ring===7?'opened':'confirmed';
+    return 'holds a key';
+  }
+  function keyGlyph(){
+    return '<g class="kglyph" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="-5" cy="0" r="5.5"/><path d="M0.5 0 H12 M8 0 v4.5 M12 0 v3.5"/></g>';
+  }
+  function drawRing(el){
+    var ring=+el.getAttribute('data-ring'), R=92, c=125;
+    var svg='<svg viewBox="0 0 250 250" role="img" aria-label="Ring of three keyholders"><defs><linearGradient id="kg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B23D10"/><stop offset="1" stop-color="#FF794A"/></linearGradient><radialGradient id="hg"><stop offset="0" stop-color="#FF794A" stop-opacity=".6"/><stop offset="1" stop-color="#FF794A" stop-opacity="0"/></radialGradient></defs>';
+    svg+='<circle cx="'+c+'" cy="'+c+'" r="'+R+'" fill="none" stroke="#EFE7DA" stroke-width="10"/>';
+    // arcs light between lit keys
+    var lit=people.map(function(p,i){return keyState(i,ring)==='lit';});
+    for(var i=0;i<3;i++){
+      var j=(i+1)%3;
+      var a1=people[i].a*Math.PI/180, a2=people[j].a*Math.PI/180;
+      if(lit[i]&&lit[j]){
+        // arc going from a1 to a2 the short way
+        var x1=c+R*Math.cos(a1),y1=c+R*Math.sin(a1),x2=c+R*Math.cos(a2),y2=c+R*Math.sin(a2);
+        svg+='<path d="M'+x1+' '+y1+' A'+R+' '+R+' 0 0 0 '+x2+' '+y2+'" fill="none" stroke="url(#kg)" stroke-width="10" stroke-linecap="round"/>';
+      }
+    }
+    if(ring===7){svg+='<circle cx="'+c+'" cy="'+c+'" r="'+R+'" fill="none" stroke="url(#kg)" stroke-width="10"/>';}
+    people.forEach(function(p,i){
+      var st=keyState(i,ring), a=p.a*Math.PI/180, x=c+R*Math.cos(a), y=c+R*Math.sin(a);
+      var ly=y+(p.a===-90?-34:42);
+      svg+='<g class="key k-'+st+'" transform="translate('+x+' '+y+')"><circle class="halo" r="34" fill="url(#hg)"/><circle class="kbg" r="22"/>'+keyGlyph()+'</g>';
+      var nm=(i===2 && ring===1 && !S.third)?'Third key':p.n;
+      svg+='<text class="ringlabel" x="'+x+'" y="'+ly+'" text-anchor="middle">'+nm+'</text><text class="ringsub" x="'+x+'" y="'+(ly+13)+'" text-anchor="middle">'+sub(i,st,ring)+'</text>';
+    });
+    svg+='</svg>';
+    var ct=centre(ring);
+    el.innerHTML=svg+'<div class="centre"><b>'+ct[0]+'</b><span>'+ct[1]+'</span></div>';
+  }
+  function drawAll(){[].forEach.call(document.querySelectorAll('[data-ring]'),drawRing);}
+
+  function show(n){
+    cur=Math.max(0,Math.min(total-1,n));
+    screens.forEach(function(s,i){s.classList.toggle('on',i===cur);});
+    var s=screens[cur], kh=s.getAttribute('data-who')==='kh';
+    who.className='who '+(kh?'kh':'owner');
+    who.textContent=kh?(s.getAttribute('data-name')||"Keyholder's side"):"Helen's side";
+    count.textContent='Screen '+(cur+1)+' of '+total;
+    [].forEach.call(dots.children,function(d,i){d.className=i===cur?'on':'';});
+    back.disabled=cur===0;
+    next.textContent=cur===total-1?'Start again ›':'Next screen ›';
+    if(cur===3){document.getElementById("msgIn").textContent=document.getElementById("msg").textContent;}
+    drawAll();
+    window.scrollTo(0,0);
+  }
+  back.onclick=function(){show(cur-1);};
+  next.onclick=function(){ if(cur===total-1){reset();show(0);} else show(cur+1); };
+  [].forEach.call(document.querySelectorAll('[data-next]'),function(b){b.onclick=function(){show(cur+1);};});
+
+  // 1 · add third
+  var addThird=document.getElementById('addThird'), kname=document.getElementById('kname');
+  kname.oninput=function(){var v=kname.value.trim().split(' ')[0]||'them';addThird.textContent='Add '+v+' as my third keyholder';};
+  addThird.onclick=function(){
+    if(S.third){show(1);return;}
+    var v=kname.value.trim()||'Bev Okafor';
+    people[2].n=v.split(' ')[0];
+    S.third=true;
+    document.getElementById('third').innerHTML='<div class="av" style="background:var(--tS);color:var(--onSun)">'+v.charAt(0).toUpperCase()+'</div><div><div class="nm"></div><div class="rl">Friend · next door</div></div>';
+    document.querySelector('#third .nm').textContent=v;
+    addThird.textContent='Next: how the release works';
+    drawAll();
+  };
+
+  // 2 · wait pills
+  var waitBtn=document.querySelector('#waitPills').parentNode.parentNode.querySelector('[data-next]');
+  [].forEach.call(document.querySelectorAll('#waitPills .pill'),function(p){
+    p.onclick=function(){
+      [].forEach.call(document.querySelectorAll('#waitPills .pill'),function(q){q.classList.remove('on');});
+      p.classList.add('on'); S.wait=+p.getAttribute('data-d'); waitBtn.textContent='Keep '+S.wait+' days';
+    };
+  });
+
+  // 3 · send invite
+  var sendBev=document.getElementById('sendBev');
+  sendBev.onclick=function(){
+    if(S.bevInvited){show(3);return;}
+    S.bevInvited=true;
+    document.getElementById('bevRl').textContent='Sent just now by WhatsApp';
+    document.getElementById('bevSt').textContent='Invited';
+    sendBev.textContent='See what Bev receives';
+    sendBev.classList.add('done');
+  };
+
+  // 4 · Bev says yes / no
+  document.getElementById('bevYes').onclick=function(){
+    if(S.bevYes){show(4);return;}
+    S.bevYes=true; this.textContent='Done — you hold one of three keys'; this.classList.add('done');
+    document.getElementById('bevNo').classList.add('hide');
+    var t=this; setTimeout(function(){t.textContent='See the day it’s needed ›';t.classList.remove('done');},1400);
+  };
+  document.getElementById('bevNo').onclick=function(){document.getElementById('bevNoMsg').classList.remove('hide');};
+
+  // 5 · Lucy confirms
+  document.getElementById('lucyConfirm').onclick=function(){
+    if(S.lucy){show(5);return;}
+    S.lucy=true; drawAll();
+    document.getElementById('lucyDone').classList.remove('hide');
+    this.textContent='Next: when Tom confirms ›';
+  };
+
+  // 6 · owner can stop
+  document.getElementById('stopIt').onclick=function(){
+    S.stopped=!S.stopped;
+    document.getElementById('waitPanel').classList.toggle('hide',S.stopped);
+    document.getElementById('stoppedNote').classList.toggle('hide',!S.stopped);
+    this.textContent=S.stopped?'Undo (prototype only)':'I’m here — stop this';
+    drawAll();
+  };
+
+  function reset(){
+    S.lucy=false;S.stopped=false;
+    document.getElementById('lucyDone').classList.add('hide');
+    document.getElementById('lucyConfirm').textContent='Tell Good Grief Circle';
+    document.getElementById('waitPanel').classList.remove('hide');
+    document.getElementById('stoppedNote').classList.add('hide');
+    document.getElementById('stopIt').textContent='I’m here — stop this';
+  }
+
+  show(0);
+})();
+</script>
+</body>
+</html>

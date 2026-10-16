@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Serious News</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,800;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#FDF9F2;--surface:#FFFBFF;--nest:#F7F3EC;--card:#FFFFFF;--field:#F1EDE6;
+  --ink:#393834;--text:#3E362C;--muted:#5C5247;--accent:#F26B3C;--deep:#B23D10;
+  --grad:linear-gradient(135deg,#B23D10,#FF794A);--sun:#FFC965;--mint:#6DFE9C;--mintInk:#005F2E;
+  --green:#2F8B62;--tPeach:#FCE7DD;--tGreen:#E2F0E6;--tSun:#FFF1D2;
+  --lift:0 18px 40px rgba(57,56,52,.06);--glow:0 14px 30px rgba(178,61,16,.28);
+  --serif:'Newsreader',Georgia,serif;--sans:'Plus Jakarta Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--nest);color:var(--text);font-family:var(--sans);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:420px;margin:0 auto;padding:16px 0 40px}
+@media (min-width:900px){.wrap{max-width:900px;display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:start;padding:32px 24px 60px}}
+
+/* route card */
+.route{background:var(--surface);border-radius:28px;box-shadow:var(--lift);margin:0 16px 16px;padding:0;overflow:hidden}
+@media (min-width:900px){.route{margin:0;position:sticky;top:24px}}
+.route summary{list-style:none;cursor:pointer;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.route summary::-webkit-details-marker{display:none}
+.route .rt{font-family:var(--serif);font-weight:500;font-size:22px;color:var(--ink);line-height:1.15}
+.route .rt i{color:var(--deep)}
+.route .tog{font-size:13px;font-weight:600;color:var(--deep);white-space:nowrap}
+.route[open] .tog .o{display:none}.route:not([open]) .tog .c{display:none}
+.route dl{margin:0;padding:0 22px 20px}
+.route dt{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);margin-top:14px}
+.route dd{margin:3px 0 0;font-size:14.5px;line-height:1.55;color:var(--text)}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--deep)}
+
+/* phone */
+.phone{background:var(--page);min-height:100vh;position:relative}
+@media (min-width:480px){.phone{border-radius:36px;box-shadow:var(--lift);overflow:hidden;min-height:860px}}
+.bar{position:sticky;top:0;z-index:5;background:var(--page);display:flex;align-items:center;gap:10px;padding:calc(12px + env(safe-area-inset-top)) 16px 10px}
+.back{width:48px;height:48px;border-radius:999px;border:none;background:var(--card);box-shadow:var(--lift);font-size:22px;color:var(--ink);display:flex;align-items:center;justify-content:center;flex:none}
+.back[disabled]{opacity:.3;cursor:default}
+.count{flex:1;font-size:13px;font-weight:600;color:var(--muted);text-align:center}
+.pause{min-height:48px;border:none;border-radius:999px;background:var(--tSun);color:var(--ink);font-weight:700;font-size:15px;padding:0 18px;display:flex;align-items:center;gap:8px;flex:none}
+.pause svg{flex:none}
+.screen{display:none;padding:6px 20px 28px;animation:fade .35s ease}
+.screen.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.screen{animation:none}}
+
+h1{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:38px;line-height:1.06;letter-spacing:-.5px;margin:10px 0 14px}
+h1 i{color:var(--deep);font-weight:500}
+h1 b{font-weight:800}
+h2{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:26px;line-height:1.15;margin:0 0 8px}
+.lead{font-size:19px;line-height:1.6;color:var(--text);margin:0 0 20px}
+.small{font-size:15px;color:var(--muted);line-height:1.55}
+.chip{display:inline-block;background:var(--mintInk);color:var(--mint);font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:6px 12px}
+.card{background:var(--card);border-radius:28px;box-shadow:var(--lift);padding:20px;margin:0 0 14px}
+.nest{background:var(--nest);border-radius:28px;padding:18px 20px;margin:0 0 14px}
+.radiant{background:var(--grad);color:#fff;border-radius:28px;padding:22px;box-shadow:var(--glow);margin:0 0 16px}
+.radiant h2{color:#fff}
+.radiant .eyebrow{color:#FFE3D4}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:60px;border:none;border-radius:999px;background:var(--grad);color:#fff;font-size:18px;font-weight:700;box-shadow:var(--glow);padding:0 24px;margin:8px 0 10px}
+.btn.quiet{background:var(--card);color:var(--ink);box-shadow:var(--lift);font-weight:600}
+.btn.text{background:none;box-shadow:none;color:var(--deep);min-height:48px;font-weight:600;font-size:16px}
+
+/* options */
+.opt{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--card);border:none;border-radius:24px;box-shadow:var(--lift);padding:16px 18px;margin:0 0 10px;min-height:68px;color:var(--ink)}
+.opt .ol{font-size:18px;font-weight:700;line-height:1.3}
+.opt .os{font-size:15px;color:var(--muted);line-height:1.4;margin-top:2px}
+.opt .dot{width:26px;height:26px;border-radius:999px;background:var(--field);flex:none;display:flex;align-items:center;justify-content:center}
+.opt[aria-pressed="true"]{background:var(--sun)}
+.opt[aria-pressed="true"] .dot{background:var(--ink)}
+.opt[aria-pressed="true"] .dot::after{content:"";width:10px;height:10px;border-radius:999px;background:var(--sun)}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 14px}
+.pill{border:none;border-radius:999px;background:var(--card);box-shadow:var(--lift);padding:12px 18px;font-size:16px;font-weight:600;color:var(--ink);min-height:48px}
+.pill[aria-pressed="true"]{background:var(--sun)}
+
+/* energy (signature) */
+.energy{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 18px}
+.en{border:none;border-radius:24px;background:var(--card);box-shadow:var(--lift);padding:14px 6px;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--ink);font-weight:700;font-size:16px;min-height:96px}
+.en[aria-pressed="true"]{background:var(--sun)}
+.cells{display:flex;gap:4px}
+.cells span{width:12px;height:22px;border-radius:6px;background:var(--field)}
+.cells span.f{background:var(--accent)}
+.task{display:flex;gap:14px;align-items:center;width:100%;text-align:left;background:var(--card);border:none;border-radius:28px;box-shadow:var(--lift);padding:18px;margin:0 0 12px;color:var(--ink);transition:opacity .25s}
+.task.dim{opacity:.38}
+.task .tn{font-size:19px;font-weight:700;line-height:1.25}
+.task .tm{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 10px;font-size:13.5px;font-weight:600;background:var(--nest);color:var(--muted)}
+.tag.time{background:var(--tSun);color:#6B4A00}
+.tag.done{background:var(--tGreen);color:#1F6245}
+.tag.say{background:var(--tPeach);color:var(--deep)}
+.mini{display:flex;gap:3px}
+.mini span{width:7px;height:14px;border-radius:4px;background:#E5DCCD}
+.mini span.f{background:var(--accent)}
+.arrow{margin-left:auto;font-size:22px;color:var(--deep);flex:none}
+.oneThing{display:none}
+.oneThing.on{display:block}
+
+/* say-so */
+.sayso{display:none;background:var(--tPeach);border-radius:24px;padding:16px 18px;margin:0 0 16px}
+.sayso.on{display:block}
+.check{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;border:none;background:var(--card);border-radius:18px;padding:14px;margin-top:10px;color:var(--ink);font-size:16px;font-weight:600;line-height:1.4}
+.box{width:28px;height:28px;border-radius:9px;background:var(--field);flex:none;display:flex;align-items:center;justify-content:center;color:#fff;font-size:17px}
+.check[aria-pressed="true"] .box{background:var(--green)}
+.field{width:100%;font-family:inherit;font-size:18px;color:var(--ink);background:var(--field);border:none;border-bottom:2px solid #D9CFC0;border-radius:14px 14px 4px 4px;padding:14px 16px;min-height:56px;outline:none}
+.field:focus{border-bottom-color:var(--accent);background:#fff}
+textarea.field{min-height:120px;resize:vertical;line-height:1.55}
+label.q{display:block;font-family:var(--serif);font-weight:500;font-size:24px;line-height:1.2;color:var(--ink);margin:0 0 6px}
+
+.help{display:flex;gap:14px;align-items:center;background:var(--card);border-radius:24px;box-shadow:var(--lift);padding:16px 18px;margin:0 0 10px;text-decoration:none;color:var(--ink)}
+.help .hn{font-weight:700;font-size:17px;line-height:1.3}
+.help .hb{font-size:14.5px;color:var(--muted);line-height:1.45;margin-top:2px}
+.help .num{margin-left:auto;font-weight:700;font-size:16px;color:var(--deep);white-space:nowrap;flex:none}
+.rs{background:var(--tGreen);border-radius:24px;padding:16px 18px;margin:0 0 10px}
+.rs .hn{font-weight:700;color:#1F6245;font-size:17px}
+.rs .hb{color:#2F5A45;font-size:15px;line-height:1.55;margin-top:4px}
+.bound{background:var(--tSun);border-radius:24px;padding:16px 18px;margin:16px 0 14px;font-size:15px;line-height:1.55;color:#5A4410}
+.bound b{color:#3F2F05}
+.preview{display:inline-block;background:var(--field);color:var(--muted);font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:4px 10px}
+.saved{display:none;background:var(--tGreen);color:#1F6245;border-radius:20px;padding:14px 16px;font-weight:600;font-size:16px;margin:0 0 12px}
+.saved.on{display:block}
+.crisis{margin:22px 0 0;padding:16px 18px;background:var(--nest);border-radius:22px;font-size:14.5px;line-height:1.5;color:var(--muted)}
+.crisis b{color:var(--ink)}
+.sum .row{padding:14px 0}
+.sum .row + .row{border-top:1px solid rgba(57,56,52,.07)}
+.sum .k{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--deep)}
+.sum .v{font-size:18px;color:var(--ink);line-height:1.45;margin:4px 0 6px;font-weight:500}
+.logo{display:flex;align-items:center;gap:10px;margin:4px 0 18px}
+.logo span{font-family:var(--serif);font-style:italic;font-weight:500;font-size:20px;color:var(--deep)}
+
+/* pause sheet */
+.veil{position:fixed;inset:0;background:rgba(57,56,52,.35);display:none;z-index:20;align-items:flex-end;justify-content:center}
+.veil.on{display:flex}
+.sheet{background:var(--surface);width:100%;max-width:420px;border-radius:32px 32px 0 0;padding:28px 22px calc(26px + env(safe-area-inset-bottom));animation:fade .3s ease}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<details class="route" id="route" open>
+  <summary>
+    <div>
+      <div class="eyebrow">Route 05 · concept prototype</div>
+      <div class="rt">Serious <i>News</i></div>
+    </div>
+    <span class="tog"><span class="o">Hide route card ▴</span><span class="c">Show route card ▾</span></span>
+  </summary>
+  <dl>
+    <dt>Thesis</dt>
+    <dd>When the news is serious, a hospice hands the family one calm place: support first, then only the four essentials, in five-minute pieces a carer can fill in with the person’s say-so.</dd>
+    <dt>Who it’s for</dt>
+    <dd>Adults with a terminal diagnosis under a palliative or hospice team, and the partner or grown-up child who often holds the phone.</dd>
+    <dt>What’s cut</dt>
+    <dd>About three quarters of today’s demo: the gift, pricing pages, bucket list, reflection and goals, memorial, find help nearby, songs and own song, will interview, the documents vault, the Grief Support space, and every legal document except Health &amp; Care LPA.</dd>
+    <dt>What’s kept</dt>
+    <dd>Mari’s support for a serious diagnosis and the helplines; Advance Care Wishes; Health &amp; Care LPA guidance; three farewell questions; one message; plus a new one-page summary for the care team.</dd>
+    <dt>MVP for the Christmas vouchers</dt>
+    <dd>The 100 printed cards go to two or three friendly community palliative nurses, not to families. Each card carries a referral code the nurse hands over. Phone web app, no account needed, a printable summary. Every word clinician-reviewed before a single card is handed out.</dd>
+    <dt>How it makes money</dt>
+    <dd>Free for families. Hospices (later hospice charities and NHS palliative teams) pay a yearly licence per team. Price untested.</dd>
+    <dt>The one metric</dt>
+    <dd>Share of referred families whose care wishes and “who decides” reach their nurse within 14 days of the referral.</dd>
+    <dt>The biggest risk</dt>
+    <dd>Clinical and safeguarding: wording, mental capacity and a carer writing “with say-so” need clinician sign-off, and hospices buy slowly (governance, information sharing, small budgets).</dd>
+  </dl>
+</details>
+
+<div class="phone" id="phone">
+  <div class="bar">
+    <button class="back" id="back" aria-label="Back" disabled>←</button>
+    <div class="count" id="count">Screen 1 of 7</div>
+    <button class="pause" id="pauseBtn" aria-label="Pause and rest">
+      <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="2" y="1" width="3.5" height="12" rx="1.6" fill="#393834"/><rect x="8.5" y="1" width="3.5" height="12" rx="1.6" fill="#393834"/></svg>
+      Pause
+    </button>
+  </div>
+
+  <!-- 1 · referral welcome -->
+  <section class="screen on" data-s="1">
+    <div class="logo">
+      <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><g opacity=".82"><circle cx="15" cy="15" r="9" fill="#e07a4d"/><circle cx="25" cy="15" r="9" fill="#4a9e90"/><circle cx="15" cy="25" r="9" fill="#9cbf86"/><circle cx="25" cy="25" r="9" fill="#eab64a"/></g></svg>
+      <span>Good Grief Circle</span>
+    </div>
+    <span class="chip">From Elmbrook Hospice</span>
+    <h1>Joanne, your nurse, <i>suggested this.</i></h1>
+    <p class="lead">It’s here for when you want it. Nothing has to be done today, most things take a few minutes, and you can stop whenever you need to.</p>
+    <div class="nest small" style="margin-bottom:20px">Free for you and your family. <b style="color:var(--ink)">Elmbrook Hospice covers the cost.</b> Set up for Derek Lowe on 16 October.</div>
+    <h2>Who’s holding the phone?</h2>
+    <p class="small" style="margin:0 0 12px">You can do this together or alone, and change it any time.</p>
+    <div id="holderOpts">
+      <button class="opt" data-holder="self" aria-pressed="false"><span class="dot"></span><span><span class="ol">Me, Derek</span><span class="os" style="display:block">On my own, at my own pace</span></span></button>
+      <button class="opt" data-holder="together" aria-pressed="true"><span class="dot"></span><span><span class="ol">Derek and Sandra, together</span><span class="os" style="display:block">Sitting side by side</span></span></button>
+      <button class="opt" data-holder="carer" aria-pressed="false"><span class="dot"></span><span><span class="ol">Sandra, for Derek</span><span class="os" style="display:block">Writing down what he tells me, with his say-so</span></span></button>
+    </div>
+    <button class="btn" data-go="2">Begin gently</button>
+    <div class="crisis"><b>Need to talk to someone now?</b> Samaritans, free, any time: <b>116 123</b>.</div>
+  </section>
+
+  <!-- 2 · support first -->
+  <section class="screen" data-s="2">
+    <span class="eyebrow">Before anything else</span>
+    <h1>Support <i>comes first.</i></h1>
+    <p class="lead">You don’t have to plan anything to use this page. Keep it for the hard days.</p>
+    <div class="rs"><div class="hn">Talk to someone now</div><div class="hb">Free, confidential helplines for people living with a serious illness — for you, or the people close to you.</div></div>
+    <a class="help" href="tel:116123"><span><span class="hn" style="display:block">Samaritans</span><span class="hb" style="display:block">A listening ear any time of day or night, for anyone who is struggling.</span></span><span class="num">116 123</span></a>
+    <a class="help" href="tel:08000902309"><span><span class="hn" style="display:block">Marie Curie Support Line</span><span class="hb" style="display:block">For anyone living with a terminal illness, and the people around them.</span></span><span class="num">0800 090 2309</span></a>
+    <div class="help"><span><span class="hn" style="display:block">Elmbrook’s 24-hour advice line</span><span class="hb" style="display:block">For symptoms or worries at night. The number is on the card Joanne gave you.</span></span></div>
+    <div class="rs" style="margin-top:14px"><div class="hn">Palliative &amp; hospice care</div><div class="hb">Specialist teams focused on comfort and quality of life — often alongside treatment, not only at the very end.</div></div>
+    <div class="rs"><div class="hn">Support for family &amp; carers</div><div class="hb">Guidance and respite for the people caring for you, so they have the strength to keep showing up.</div></div>
+    <button class="btn" data-go="3">When you’re ready, the next bit</button>
+    <button class="btn text" data-pause>Not today. Keep this for later</button>
+  </section>
+
+  <!-- 3 · energy-aware list (signature) -->
+  <section class="screen" data-s="3">
+    <span class="eyebrow">Just four things</span>
+    <h1>How’s your <i>energy</i> today?</h1>
+    <p class="small" style="margin:-4px 0 14px">We’ll only show what fits. Every piece is saved the moment it’s answered.</p>
+    <div class="energy" id="energy">
+      <button class="en" data-en="1" aria-pressed="false"><span class="cells"><span class="f"></span><span></span><span></span></span>Low</button>
+      <button class="en" data-en="2" aria-pressed="true"><span class="cells"><span class="f"></span><span class="f"></span><span></span></span>Some</button>
+      <button class="en" data-en="3" aria-pressed="false"><span class="cells"><span class="f"></span><span class="f"></span><span class="f"></span></span>Good</button>
+    </div>
+    <div class="radiant oneThing" id="oneThing">
+      <div class="eyebrow">Just one thing today</div>
+      <h2>Where you’d want to be cared for</h2>
+      <p style="margin:0 0 14px;font-size:16px;line-height:1.5">One question. About a minute. Then rest.</p>
+      <button class="btn quiet" data-go="4" style="margin:0">Answer one question</button>
+    </div>
+    <div id="tasks">
+      <button class="task" data-go="4" data-cost="1">
+        <span style="flex:1"><span class="tn" style="display:block">Your care wishes</span>
+          <span class="tm"><span class="tag time">◷ about 4 min</span><span class="tag"><span class="mini"><span class="f"></span><span></span><span></span></span>light</span><span class="tag done">1 of 4 answered</span></span></span>
+        <span class="arrow">→</span></button>
+      <button class="task" data-go="5" data-cost="2">
+        <span style="flex:1"><span class="tn" style="display:block">Who decides, if you can’t</span>
+          <span class="tm"><span class="tag time">◷ about 3 min</span><span class="tag"><span class="mini"><span class="f"></span><span class="f"></span><span></span></span>a little thinking</span></span></span>
+        <span class="arrow">→</span></button>
+      <button class="task" data-go="6" data-cost="2">
+        <span style="flex:1"><span class="tn" style="display:block">A few farewell wishes</span>
+          <span class="tm"><span class="tag time">◷ about 4 min</span><span class="tag"><span class="mini"><span class="f"></span><span class="f"></span><span></span></span>a little thinking</span></span></span>
+        <span class="arrow">→</span></button>
+      <button class="task" data-go="6" data-cost="3">
+        <span style="flex:1"><span class="tn" style="display:block">A message for someone</span>
+          <span class="tm"><span class="tag time">◷ as long as you like</span><span class="tag"><span class="mini"><span class="f"></span><span class="f"></span><span class="f"></span></span>can be tiring</span></span></span>
+        <span class="arrow">→</span></button>
+    </div>
+    <p class="small" id="hiddenNote" style="display:none;text-align:center">The rest will be here another day.</p>
+    <button class="btn quiet" data-go="7">See what’s been written so far</button>
+  </section>
+
+  <!-- 4 · care wishes -->
+  <section class="screen" data-s="4">
+    <span class="eyebrow">Your care wishes · 2 of 4</span>
+    <div style="margin:8px 0 2px"><span class="tag time">◷ about a minute</span></div>
+    <div class="sayso" data-sayso>
+      <div style="font-weight:700;color:var(--deep);font-size:16px">Sandra, you’re writing for Derek</div>
+      <div style="font-size:15px;line-height:1.5;margin-top:4px">Write what he tells you, in his words if you can. He can read it back and change it any time.</div>
+      <button class="check" aria-pressed="false" data-check><span class="box">✓</span><span>Derek has told me this, and says it’s right</span></button>
+    </div>
+    <h1 style="font-size:32px">Where would you want to be cared for, <i>if possible?</i></h1>
+    <p class="small" style="margin:0 0 14px">Circumstances don’t always allow it, but it helps everyone to know your preference.</p>
+    <div data-group="setting">
+      <button class="opt" aria-pressed="true"><span class="dot"></span><span><span class="ol">At home</span><span class="os" style="display:block">Familiar and close to family</span></span></button>
+      <button class="opt" aria-pressed="false"><span class="dot"></span><span><span class="ol">A hospice</span><span class="os" style="display:block">Specialist comfort care</span></span></button>
+      <button class="opt" aria-pressed="false"><span class="dot"></span><span><span class="ol">Hospital</span><span class="os" style="display:block">Close to medical care</span></span></button>
+      <button class="opt" aria-pressed="false"><span class="dot"></span><span><span class="ol">I’m not sure yet</span><span class="os" style="display:block">That’s alright</span></span></button>
+    </div>
+    <div class="saved" id="saved4">Saved. That’s one thing nobody has to guess.</div>
+    <button class="btn" id="save4">Save this answer</button>
+    <button class="btn text" data-go="5">Skip for now</button>
+    <div class="nest small" style="margin-top:6px">These answers can go to your care team alongside an <b style="color:var(--ink)">advance statement</b>: not legally binding, but gives your care team and family a clear picture of what matters to you.</div>
+  </section>
+
+  <!-- 5 · who decides -->
+  <section class="screen" data-s="5">
+    <span class="eyebrow">Who decides · 1 question</span>
+    <div style="margin:8px 0 2px"><span class="tag time">◷ about 3 min</span></div>
+    <div class="sayso" data-sayso>
+      <div style="font-weight:700;color:var(--deep);font-size:16px">Sandra, you’re writing for Derek</div>
+      <button class="check" aria-pressed="false" data-check><span class="box">✓</span><span>Derek has told me this, and says it’s right</span></button>
+    </div>
+    <label class="q" for="decider">Who should speak for you if you can’t speak for yourself?</label>
+    <p class="small" style="margin:0 0 10px">Name the person you trust to make decisions in line with your wishes.</p>
+    <input class="field" id="decider" value="Sandra, my wife. And Paul if she can’t." autocomplete="off">
+    <div class="card" style="margin-top:18px">
+      <span class="tag">Legally binding</span>
+      <h2 style="margin-top:10px">Lasting Power of Attorney — Health &amp; Care</h2>
+      <p style="font-size:16px;line-height:1.55;margin:0 0 10px">Gives someone the authority to make decisions about your care and treatment when you cannot.</p>
+      <p class="small" style="margin:0 0 10px"><b style="color:var(--ink)">Without it:</b> Doctors and social workers make decisions in your “best interests”. Family are consulted but have no legal right to decide, even a husband, wife or parent.</p>
+      <p class="small" style="margin:0"><b style="color:var(--ink)">Do it yourself online:</b> The same Office of the Public Guardian service as the financial LPA. Many people make both at once.</p>
+    </div>
+    <p style="font-weight:700;color:var(--ink);margin:4px 0 8px;font-size:17px">Have you got one?</p>
+    <div class="pills" data-group="lpa">
+      <button class="pill" aria-pressed="true">Not yet</button>
+      <button class="pill" aria-pressed="false">In progress</button>
+      <button class="pill" aria-pressed="false">In place</button>
+    </div>
+    <div class="nest small"><b style="color:var(--ink)">Worth asking Joanne about: DNACPR &amp; ReSPECT.</b> Recorded with your doctor. A conversation about resuscitation and emergency care, best had early.</div>
+    <button class="btn" data-go="6">Save and carry on</button>
+    <button class="btn text" data-pause>Save and rest</button>
+  </section>
+
+  <!-- 6 · farewell + a message -->
+  <section class="screen" data-s="6">
+    <span class="eyebrow">A few farewell wishes · a message</span>
+    <div style="margin:8px 0 2px"><span class="tag time">◷ about 4 min, then as long as you like</span></div>
+    <div class="sayso" data-sayso>
+      <div style="font-weight:700;color:var(--deep);font-size:16px">Sandra, you’re writing for Derek</div>
+      <button class="check" aria-pressed="false" data-check><span class="box">✓</span><span>Derek has told me this, and says it’s right</span></button>
+    </div>
+    <h1 style="font-size:30px">When the time comes, how would you like to be <i>laid to rest?</i></h1>
+    <p class="small" style="margin:0 0 12px">There is no wrong answer here — only what feels right to you. You can change this whenever you like.</p>
+    <div class="pills" data-group="rest">
+      <button class="pill" aria-pressed="false">Burial</button>
+      <button class="pill" aria-pressed="true">Cremation</button>
+      <button class="pill" aria-pressed="false">Natural burial</button>
+      <button class="pill" aria-pressed="false">I’m not sure yet</button>
+    </div>
+    <p style="font-weight:700;color:var(--ink);margin:6px 0 8px;font-size:17px">What kind of gathering would you like?</p>
+    <div class="pills" data-group="gathering">
+      <button class="pill" aria-pressed="false">A celebration of life</button>
+      <button class="pill" aria-pressed="false">A traditional service</button>
+      <button class="pill" aria-pressed="true">Small &amp; private</button>
+      <button class="pill" aria-pressed="false">No formal event</button>
+    </div>
+    <label class="q" for="music" style="font-size:20px;margin-top:6px">Are there songs that should be playing?</label>
+    <input class="field" id="music" value="“Abide With Me”, like at the Cup Final" autocomplete="off" style="margin-bottom:22px">
+    <div class="card">
+      <span class="eyebrow">A message</span>
+      <label class="q" for="msgTo" style="font-size:22px;margin-top:6px">Who is this message for?</label>
+      <p class="small" style="margin:0 0 8px">You can write as many as you like — start with one person.</p>
+      <input class="field" id="msgTo" value="For Paul" autocomplete="off" style="margin-bottom:12px">
+      <label class="q" for="msg" style="font-size:20px">What would you like to say?</label>
+      <p class="small" style="margin:0 0 8px">Take your time. You can come back and edit this whenever you wish.</p>
+      <textarea class="field" id="msg">Dear Paul, look after your mum, and don’t let her do the gutters on her own.</textarea>
+    </div>
+    <button class="btn" data-go="7">Save and see it together</button>
+    <button class="btn text" data-pause>Save and rest</button>
+  </section>
+
+  <!-- 7 · one page for the care team -->
+  <section class="screen" data-s="7">
+    <span class="eyebrow">One page, for Joanne and the family</span>
+    <h1>What matters <i>to Derek.</i></h1>
+    <div class="radiant">
+      <div class="eyebrow">Ready for Joanne’s next visit</div>
+      <h2>3 of 4 essentials written</h2>
+      <p style="margin:0 0 14px;font-size:16px;line-height:1.5">Show this on the phone, or print it for the folder by the bed. Nothing is sent to anyone unless you choose to.</p>
+      <button class="btn quiet" id="printBtn" style="margin:0">Print for the folder <span class="preview" style="margin-left:8px">Preview</span></button>
+    </div>
+    <div class="card sum">
+      <div class="row"><div class="k">If things get worse</div><div class="v">Comfort first: quality of life over length.</div><span class="tag" style="background:var(--tGreen);color:#1F6245">In Derek’s words · 14 Oct</span></div>
+      <div class="row"><div class="k">Where I’d want to be cared for</div><div class="v">At home, close to family.</div><span class="tag say">Written by Sandra · Derek said yes · 16 Oct</span></div>
+      <div class="row"><div class="k">Who speaks for me</div><div class="v">Sandra, my wife. And Paul if she can’t.</div><span class="tag say">Written by Sandra · Derek said yes · 16 Oct</span><div class="small" style="margin-top:8px">Health &amp; Care LPA: <b style="color:var(--ink)">not yet</b></div></div>
+      <div class="row"><div class="k">Farewell</div><div class="v">Cremation. Small &amp; private. “Abide With Me”.</div><span class="tag" style="background:var(--tGreen);color:#1F6245">Together · 16 Oct</span></div>
+      <div class="row"><div class="k">Messages</div><div class="v">One, for Paul. Kept private: only Derek decides who reads it.</div></div>
+    </div>
+    <button class="btn quiet" data-go="3">Back to the four things</button>
+    <div class="bound"><b>Not a legal will, and not an advance decision.</b> This helps your care team and family know what matters to you. For a will, speak to a solicitor. To refuse specific treatments, or for a ReSPECT form, ask Joanne or your GP.</div>
+    <div class="nest small"><span class="preview">Preview</span> This wording is waiting for review by palliative care clinicians before any family sees it.</div>
+    <div class="crisis"><b>Need to talk to someone now?</b> Samaritans, free, any time: <b>116 123</b>. Or the Marie Curie Support Line: <b>0800 090 2309</b>.</div>
+  </section>
+</div>
+</div>
+
+<div class="veil" id="veil" role="dialog" aria-modal="true" aria-labelledby="pauseTitle">
+  <div class="sheet">
+    <span class="chip">Paused</span>
+    <h1 id="pauseTitle" style="font-size:32px">Rest now. <i>Everything’s kept.</i></h1>
+    <p class="lead" style="font-size:18px">Every answer was saved as you went. Nothing has been sent to anyone. Come back tomorrow, next week, or not at all.</p>
+    <div class="nest small" style="margin-bottom:12px">Next time you open this, we’ll ask about your energy first and pick up where you left off.</div>
+    <button class="btn" id="resume">Carry on now</button>
+    <div class="crisis" style="margin-top:10px"><b>If today is hard:</b> Samaritans, free, any time: <b>116 123</b>.</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var TOTAL = 7, cur = 1, hist = [];
+  var screens = document.querySelectorAll('.screen');
+  var back = document.getElementById('back');
+  var count = document.getElementById('count');
+  var holder = 'together';
+
+  function show(n, push){
+    n = +n;
+    if (n === cur) return;
+    if (push !== false) hist.push(cur);
+    cur = n;
+    screens.forEach(function(s){ s.classList.toggle('on', +s.dataset.s === n); });
+    count.textContent = 'Screen ' + n + ' of ' + TOTAL;
+    back.disabled = hist.length === 0;
+    var ph = document.getElementById('phone');
+    try { window.scrollTo({ top: ph.getBoundingClientRect().top + window.scrollY - 8, behavior: 'smooth' }); } catch(e){ window.scrollTo(0,0); }
+  }
+  document.addEventListener('click', function(e){
+    var go = e.target.closest('[data-go]');
+    if (go) { show(go.dataset.go); return; }
+    if (e.target.closest('[data-pause]')) openPause();
+  });
+  back.addEventListener('click', function(){ if (hist.length) show(hist.pop(), false); });
+
+  // single-choice groups
+  function single(container, attr){
+    var btns = container.querySelectorAll('button');
+    btns.forEach(function(b){ b.addEventListener('click', function(){
+      btns.forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    }); });
+  }
+  document.querySelectorAll('[data-group]').forEach(function(g){ single(g); });
+
+  // who's holding the phone
+  var ho = document.querySelectorAll('#holderOpts .opt');
+  ho.forEach(function(b){ b.addEventListener('click', function(){
+    ho.forEach(function(x){ x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    holder = b.dataset.holder;
+    document.querySelectorAll('[data-sayso]').forEach(function(s){ s.classList.toggle('on', holder === 'carer'); });
+  }); });
+
+  // say-so ticks
+  document.querySelectorAll('[data-check]').forEach(function(c){
+    c.addEventListener('click', function(){ c.setAttribute('aria-pressed', c.getAttribute('aria-pressed') === 'true' ? 'false' : 'true'); });
+  });
+
+  // energy (signature): shrink the list to fit today
+  var ens = document.querySelectorAll('#energy .en');
+  function setEnergy(level){
+    ens.forEach(function(x){ x.setAttribute('aria-pressed', +x.dataset.en === level ? 'true' : 'false'); });
+    var hidden = 0;
+    document.querySelectorAll('#tasks .task').forEach(function(t){
+      var dim = +t.dataset.cost > level;
+      t.classList.toggle('dim', dim);
+      if (dim) hidden++;
+    });
+    document.getElementById('oneThing').classList.toggle('on', level === 1);
+    document.getElementById('tasks').style.display = level === 1 ? 'none' : '';
+    document.getElementById('hiddenNote').style.display = (level === 1 || hidden) ? 'block' : 'none';
+  }
+  ens.forEach(function(b){ b.addEventListener('click', function(){ setEnergy(+b.dataset.en); }); });
+  setEnergy(2);
+
+  // save on screen 4
+  document.getElementById('save4').addEventListener('click', function(){
+    document.getElementById('saved4').classList.add('on');
+    this.textContent = 'Next question';
+    this.onclick = function(){ show(5); };
+  });
+
+  document.getElementById('printBtn').addEventListener('click', function(){
+    this.innerHTML = 'Printing comes later <span class="preview" style="margin-left:8px">Preview</span>';
+  });
+
+  // pause sheet
+  var veil = document.getElementById('veil');
+  function openPause(){ veil.classList.add('on'); document.getElementById('resume').focus(); }
+  document.getElementById('pauseBtn').addEventListener('click', openPause);
+  document.getElementById('resume').addEventListener('click', function(){ veil.classList.remove('on'); });
+  veil.addEventListener('click', function(e){ if (e.target === veil) veil.classList.remove('on'); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') veil.classList.remove('on'); });
+
+  // route card collapsed on phones
+  if (window.matchMedia && window.matchMedia('(max-width: 899px)').matches) document.getElementById('route').removeAttribute('open');
+})();
+</script>
+</body>
+</html>

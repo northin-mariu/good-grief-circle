@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Letters Left Behind</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,800;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#FDF9F2; --surface:#FFFBFF; --nest:#F7F3EC; --card:#FFFFFF; --field:#F1EDE6;
+  --ink:#393834; --text:#3E362C; --muted:#5C5247; --soft:#7A6E5E; --faint:#A0937F;
+  --accent:#F26B3C; --deep:#B23D10; --glow:#FF794A;
+  --grad:linear-gradient(135deg,#B23D10 0%,#FF794A 100%);
+  --sun:#FFC965; --onSun:#5F4200; --mint:#6DFE9C; --onMint:#005F2E; --green:#2F8B62;
+  --tA:#FCE7DD; --tG:#E2F0E6; --tY:#FFF1D2;
+  --lift:0 18px 40px rgba(57,56,52,.06); --sunglow:0 24px 48px -12px rgba(178,61,16,.14);
+  --btn:0 10px 24px rgba(178,61,16,.26);
+  --serif:'Newsreader',Georgia,serif; --sans:'Plus Jakarta Sans',-apple-system,system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#EFE8DC}
+body{font-family:var(--sans);color:var(--text);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+textarea,input{font:inherit;color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 16px 48px;display:flex;flex-direction:column;align-items:center;gap:20px}
+
+/* ---------- route card ---------- */
+.route{width:100%;max-width:760px;background:var(--surface);border-radius:28px;box-shadow:var(--lift);padding:22px 22px 18px}
+.route summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.route summary::-webkit-details-marker{display:none}
+.route h1{font-family:var(--serif);font-weight:500;font-size:26px;line-height:1.15;color:var(--ink);letter-spacing:-.3px}
+.route h1 em{color:var(--deep)}
+.route .num{display:inline-block;background:var(--mint);color:var(--onMint);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:4px 10px;margin-bottom:8px}
+.route .tog{font-size:12px;font-weight:600;color:var(--deep);white-space:nowrap}
+.route[open] .tog .closed,.route:not([open]) .tog .opened{display:none}
+.route dl{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}
+.route dl div{background:var(--nest);border-radius:18px;padding:12px 14px}
+.route dl div.wide{grid-column:1/-1;background:var(--tA)}
+.route dt{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);margin-bottom:3px}
+.route dd{font-size:13.5px;line-height:1.5;color:var(--text)}
+@media (max-width:640px){.route dl{grid-template-columns:1fr}}
+
+/* ---------- phone ---------- */
+.phone{width:100%;max-width:420px;background:var(--page);border-radius:36px;box-shadow:0 30px 70px rgba(57,56,52,.16);overflow:hidden;position:relative;min-height:780px;display:flex;flex-direction:column}
+@media (max-width:480px){.wrap{padding:12px 0 0;gap:12px}.route{border-radius:0 0 24px 24px}.phone{border-radius:0;box-shadow:none;min-height:100vh}}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:16px 18px 6px;gap:8px}
+.back{width:40px;height:40px;border-radius:999px;background:var(--card);box-shadow:var(--lift);display:grid;place-items:center;color:var(--ink)}
+.back[disabled]{opacity:.35;cursor:default}
+.logo{display:flex;align-items:center;gap:7px;font-family:var(--serif);font-style:italic;font-weight:500;color:var(--deep);font-size:16px}
+.step{font-size:11.5px;font-weight:600;color:var(--soft);background:var(--nest);border-radius:999px;padding:5px 10px;white-space:nowrap}
+.dots{display:flex;gap:5px;justify-content:center;padding:4px 0 2px}
+.dots i{width:6px;height:6px;border-radius:999px;background:#E3DACB;transition:all .25s}
+.dots i.on{width:18px;background:var(--accent)}
+.screen{display:none;padding:10px 20px 28px;flex:1;animation:in .35s ease}
+.screen.show{display:block}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ---------- type ---------- */
+.chip{display:inline-block;background:var(--mint);color:var(--onMint);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 11px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--deep)}
+h2{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:34px;line-height:1.08;letter-spacing:-.5px;margin:12px 0 10px}
+h2 em{font-style:italic;color:var(--deep)}
+h2 b{font-weight:800}
+h3{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:21px;line-height:1.2;letter-spacing:-.2px}
+.lede{font-size:16px;color:var(--muted);line-height:1.6}
+.small{font-size:12.5px;color:var(--soft);line-height:1.5}
+.gap{height:16px}
+.card{background:var(--card);border-radius:28px;box-shadow:var(--lift);padding:18px}
+.nest{background:var(--nest);border-radius:22px;padding:14px 16px}
+
+/* ---------- buttons ---------- */
+.btn{display:flex;width:100%;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:16px 22px;font-weight:700;font-size:15.5px;background:var(--grad);color:#fff;box-shadow:var(--btn);transition:transform .15s}
+.btn:active{transform:scale(.98)}
+.btn.ghost{background:var(--card);color:var(--ink);box-shadow:var(--lift);font-weight:600}
+.btn.sun{background:var(--sun);color:var(--onSun);box-shadow:none}
+.link{color:#B23A0E;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- choices ---------- */
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{background:var(--card);box-shadow:var(--lift);border-radius:999px;padding:10px 15px;font-size:14px;font-weight:600;color:var(--text);transition:all .2s}
+.opt.on{background:var(--sun);color:var(--onSun);box-shadow:none}
+.row{display:flex;align-items:center;gap:12px}
+.kid{flex:1;background:var(--card);box-shadow:var(--lift);border-radius:24px;padding:14px;text-align:left;transition:all .2s}
+.kid.on{background:var(--sun);box-shadow:none}
+.kid .nm{font-family:var(--serif);font-size:20px;color:var(--ink);font-weight:500}
+.kid .ag{font-size:12.5px;color:var(--muted)}
+.ms{display:flex;align-items:center;gap:12px;width:100%;background:var(--card);box-shadow:var(--lift);border-radius:22px;padding:13px 14px;text-align:left;margin-bottom:8px;transition:all .2s}
+.ms.on{background:var(--sun);box-shadow:none}
+.ms .ic{width:38px;height:38px;border-radius:14px;background:var(--tA);display:grid;place-items:center;flex:none;color:var(--deep)}
+.ms.on .ic{background:rgba(255,255,255,.6)}
+.ms .t{font-weight:600;color:var(--ink);font-size:14.5px}
+.ms .d{font-size:12.5px;color:var(--muted)}
+.ms .when{margin-left:auto;font-size:11px;font-weight:700;color:var(--deep);text-align:right;white-space:nowrap}
+
+/* ---------- writing ---------- */
+.paper{background:var(--card);border-radius:28px;box-shadow:var(--sunglow);padding:20px 18px 14px;position:relative}
+.paper .to{font-family:var(--serif);font-style:italic;color:var(--deep);font-size:15px}
+.paper textarea{width:100%;border:0;outline:0;resize:none;background:transparent;font-family:var(--serif);font-size:18px;line-height:1.55;color:var(--ink);min-height:210px;margin-top:6px}
+.paper .meta{display:flex;justify-content:space-between;font-size:11.5px;color:var(--faint);margin-top:4px}
+.field{width:100%;border:0;outline:0;background:var(--field);border-bottom:2px solid #E2D9CB;border-radius:12px 12px 4px 4px;padding:12px 14px;font-size:14.5px;resize:none;min-height:70px}
+.field:focus{border-bottom-color:var(--accent);background:#fff}
+.prompts{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 12px;margin:0 -20px;padding-left:20px;padding-right:20px;scrollbar-width:none}
+.prompts::-webkit-scrollbar{display:none}
+.pr{flex:none;width:210px;background:var(--nest);border-radius:22px;padding:13px 14px;text-align:left;transition:all .2s}
+.pr:hover{background:var(--tY)}
+.pr .from{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--deep)}
+.pr .q{font-family:var(--serif);font-size:16px;color:var(--ink);line-height:1.25;margin:4px 0}
+.pr .h{font-size:12px;color:var(--muted);line-height:1.4}
+.boundary{display:flex;gap:10px;align-items:flex-start;background:var(--tY);border-radius:20px;padding:12px 14px;font-size:13px;color:var(--onSun);line-height:1.5}
+.boundary svg{flex:none;margin-top:2px}
+
+/* ---------- envelope + seal (signature) ---------- */
+.stage{position:relative;height:300px;display:grid;place-items:center;margin:6px 0 4px}
+.env{position:relative;width:300px;height:190px;filter:drop-shadow(0 22px 30px rgba(57,56,52,.14))}
+.env .body{position:absolute;inset:0;background:#FBF3E6;border-radius:14px;overflow:hidden}
+.env .body:before{content:"";position:absolute;left:0;right:0;bottom:0;height:100%;background:linear-gradient(to top right,#F4E8D6 50%,transparent 50.4%) left/50% 100% no-repeat,linear-gradient(to top left,#F4E8D6 50%,transparent 50.4%) right/50% 100% no-repeat}
+.env .letter{position:absolute;left:18px;right:18px;top:-70px;height:150px;background:#fff;border-radius:8px;padding:14px 16px;font-family:var(--serif);font-size:12.5px;color:var(--muted);line-height:1.45;transition:transform .6s ease .1s;z-index:1;box-shadow:0 4px 12px rgba(57,56,52,.06)}
+.env.sealed .letter{transform:translateY(80px)}
+.env .front{position:absolute;inset:0;border-radius:14px;z-index:2;background:linear-gradient(to top right,#F6EBDA 50%,transparent 50.3%) left bottom/50% 62% no-repeat,linear-gradient(to top left,#F6EBDA 50%,transparent 50.3%) right bottom/50% 62% no-repeat}
+.env .flap{position:absolute;left:0;right:0;top:0;height:120px;z-index:3;transform-origin:top center;transform:rotateX(180deg);transition:transform .7s cubic-bezier(.6,.0,.3,1) .5s;perspective:600px}
+.env .flap:before{content:"";position:absolute;inset:0;background:#EFE0C9;clip-path:polygon(0 0,100% 0,50% 100%);border-radius:14px 14px 0 0}
+.env.sealed .flap{transform:rotateX(0)}
+.env .addr{position:absolute;left:18px;bottom:16px;z-index:4;font-family:var(--serif);font-style:italic;color:var(--ink);font-size:17px;opacity:0;transition:opacity .4s 1.2s}
+.env.sealed .addr{opacity:1}
+.env .pmark{position:absolute;right:14px;top:14px;z-index:4;width:76px;height:76px;border-radius:999px;border:2px dashed rgba(178,61,16,.5);display:grid;place-items:center;text-align:center;color:var(--deep);font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.25;transform:rotate(-12deg) scale(1.4);opacity:0;transition:all .35s cubic-bezier(.3,1.6,.5,1) 2.2s}
+.env.sealed .pmark{opacity:1;transform:rotate(-12deg) scale(1)}
+.pmark b{display:block;font-family:var(--serif);font-size:15px;letter-spacing:0;color:var(--deep)}
+.wax{position:absolute;left:50%;top:104px;z-index:5;width:72px;height:72px;margin-left:-36px;opacity:0;transform:translateY(-120px) scale(1.6);transition:all .45s cubic-bezier(.3,1.5,.5,1) 1.3s}
+.env.sealed .wax{opacity:1;transform:none}
+.holder{display:flex;flex-direction:column;align-items:center;gap:10px}
+.press{position:relative;width:96px;height:96px;border-radius:999px;background:var(--grad);box-shadow:var(--btn),inset 0 -6px 12px rgba(0,0,0,.18),inset 0 4px 8px rgba(255,255,255,.25);display:grid;place-items:center;touch-action:none;user-select:none;-webkit-user-select:none}
+.press svg.ring{position:absolute;inset:-8px;width:112px;height:112px;transform:rotate(-90deg)}
+.press .lbl{color:#fff;font-family:var(--serif);font-style:italic;font-size:15px;text-align:center;line-height:1.1}
+.press.done{opacity:.0;pointer-events:none;transition:opacity .3s}
+.after{display:none}
+.after.show{display:block;animation:in .4s ease 2.6s both}
+
+/* ---------- shelf / timeline ---------- */
+.hero{background:var(--grad);border-radius:28px;padding:18px;color:#fff;box-shadow:var(--sunglow);position:relative;overflow:hidden}
+.hero .big{font-family:var(--serif);font-weight:800;font-size:44px;line-height:1}
+.hero .sub{font-size:13px;opacity:.92}
+.meter{height:8px;background:rgba(255,255,255,.3);border-radius:999px;margin-top:12px;overflow:hidden}
+.meter i{display:block;height:100%;background:var(--sun);border-radius:999px}
+.line{position:relative;padding-left:26px;margin-top:6px}
+.line:before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:repeating-linear-gradient(var(--faint) 0 4px,transparent 4px 9px);opacity:.5}
+.yr{position:relative;margin:16px 0 8px;font-size:11.5px;font-weight:700;letter-spacing:.1em;color:var(--soft)}
+.yr:before{content:"";position:absolute;left:-23px;top:3px;width:12px;height:12px;border-radius:999px;background:var(--page);border:2px solid var(--faint)}
+.mini{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:22px;box-shadow:var(--lift);padding:10px 12px;margin-bottom:8px;width:100%;text-align:left}
+.mini .e{position:relative;width:54px;height:38px;flex:none;background:#FBF3E6;border-radius:6px;overflow:hidden}
+.mini .e:before{content:"";position:absolute;inset:0;background:#EFE0C9;clip-path:polygon(0 0,100% 0,50% 62%)}
+.mini .e i{position:absolute;left:50%;top:15px;width:16px;height:16px;margin-left:-8px;border-radius:999px;background:var(--grad);box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.mini.draft .e:before{background:#F1EDE6}
+.mini.draft .e i{background:#E3DACB}
+.mini .t{font-weight:600;color:var(--ink);font-size:14px;line-height:1.3}
+.mini .d{font-size:12px;color:var(--muted)}
+.tag{margin-left:auto;font-size:10.5px;font-weight:700;border-radius:999px;padding:4px 9px;white-space:nowrap}
+.tag.s{background:var(--tG);color:var(--green)}
+.tag.dr{background:var(--field);color:var(--soft)}
+.tag.ev{background:var(--tY);color:var(--onSun)}
+.mini.add{background:transparent;box-shadow:none;border:2px dashed rgba(160,147,127,.4);justify-content:center;color:var(--deep);font-weight:600;font-size:14px}
+
+/* ---------- delivery ---------- */
+.seg{display:flex;background:var(--nest);border-radius:999px;padding:4px;gap:4px}
+.seg button{flex:1;border-radius:999px;padding:10px 8px;font-size:13.5px;font-weight:600;color:var(--muted);transition:all .2s}
+.seg button.on{background:var(--card);color:var(--ink);box-shadow:var(--lift)}
+.pane{display:none}.pane.show{display:block;animation:in .3s ease}
+.steps{counter-reset:s;margin-top:14px}
+.st{display:flex;gap:12px;margin-bottom:12px}
+.st .n{counter-increment:s;flex:none;width:30px;height:30px;border-radius:999px;background:var(--tA);color:var(--deep);font-weight:700;font-size:13px;display:grid;place-items:center}
+.st .n:before{content:counter(s)}
+.st .t{font-weight:600;color:var(--ink);font-size:14.5px;line-height:1.35}
+.st .d{font-size:13px;color:var(--muted);line-height:1.5}
+.keys{display:flex;gap:8px;margin:10px 0 2px}
+.key{flex:1;background:var(--card);box-shadow:var(--lift);border-radius:20px;padding:10px 8px;text-align:center}
+.key .av{width:38px;height:38px;border-radius:999px;margin:0 auto 6px;display:grid;place-items:center;font-family:var(--serif);font-size:17px;color:#fff}
+.key .nm{font-weight:600;font-size:13px;color:var(--ink)}
+.key .rl{font-size:11px;color:var(--muted)}
+.help{background:var(--tG);color:#1F5B40;border-radius:20px;padding:12px 14px;font-size:13px;line-height:1.5}
+
+/* ---------- pack ---------- */
+.pack{background:var(--card);border-radius:28px;box-shadow:var(--sunglow);padding:20px;position:relative;overflow:hidden}
+.price{font-family:var(--serif);font-weight:800;font-size:46px;color:var(--ink);line-height:1}
+.price small{font-family:var(--sans);font-size:13px;font-weight:600;color:var(--muted)}
+.ticks{list-style:none;margin-top:14px}
+.ticks li{display:flex;gap:10px;font-size:14px;color:var(--text);margin-bottom:9px;line-height:1.45}
+.ticks li:before{content:"";flex:none;width:18px;height:18px;margin-top:2px;border-radius:999px;background:var(--tG) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M5 9.5l2.5 2.5L13 6.5' fill='none' stroke='%232F8B62' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/18px no-repeat}
+.voucher{display:flex;gap:8px;margin-top:6px}
+.voucher input{flex:1;min-width:0;border:0;outline:0;background:var(--field);border-bottom:2px solid #E2D9CB;border-radius:12px 12px 4px 4px;padding:12px 14px;font-size:14.5px;letter-spacing:.08em;text-transform:uppercase}
+.voucher button{border-radius:999px;background:var(--sun);color:var(--onSun);font-weight:700;padding:0 18px;font-size:14px}
+.ok{display:none;background:var(--tG);color:#1F5B40;border-radius:20px;padding:12px 14px;font-size:13.5px;margin-top:10px}
+.ok.show{display:block;animation:in .3s ease}
+.draftflag{display:inline-block;background:var(--field);color:var(--soft);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:3px 8px;vertical-align:middle}
+.toast{position:absolute;left:50%;bottom:22px;transform:translate(-50%,30px);opacity:0;background:var(--ink);color:#fff;font-size:13px;padding:10px 16px;border-radius:999px;transition:all .3s;pointer-events:none;white-space:nowrap;z-index:20}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- ROUTE CARD -->
+  <details class="route" open>
+    <summary>
+      <div>
+        <span class="num">Route 06</span>
+        <h1>Letters <em>Left Behind</em></h1>
+      </div>
+      <span class="tog"><span class="opened">Hide card</span><span class="closed">Show route card</span></span>
+    </summary>
+    <dl>
+      <div class="wide"><dt>Thesis</dt><dd>Young parents don't want to plan a funeral, they want to be there for the big days anyway, so the whole product is one thing: write a letter, seal it, and know it will arrive on the day even if you can't.</dd></div>
+      <div><dt>Who it's for</dt><dd>Parents in their 30s and 40s with young children, after a quiet jolt: a child's birthday, a health scare, a friend's loss.</dd></div>
+      <div><dt>What's cut</dt><dd>Legal matters, Important Documents / vault, find help nearby, funeral and farewell options, songs and own song, will interview, Grief Support, Memorial, diagnosis path. About 80% of today's demo.</dd></div>
+      <div><dt>What's kept</dt><dd>Mari's Messages &amp; Memories and Reflection questions (now used as writing prompts), choosing who and when, sealing, and the keyholder release (two of three confirm, with a wait the writer can cancel).</dd></div>
+      <div><dt>MVP for the Christmas vouchers</dt><dd>Write, seal and schedule letters on the web; three keyholders named by email; the voucher unlocks a free founding pack. Delivery itself is done by hand by Matt and Mari for years (nothing is due before 2027 anyway).</dd></div>
+      <div><dt>How it makes money</dt><dd>Writing is free. Delivery is a one-off Milestone Pack (draft: £39 for 12 letters, printed and posted with a wax seal on the day). Later: extra packs, and a gift version for grandparents.</dd></div>
+      <div><dt>The one metric</dt><dd>Share of new writers who seal their first letter within 14 days (target 40%).</dd></div>
+      <div><dt>The biggest risk</dt><dd>The promise runs 20+ years: people have to believe a 2026 start-up will still post Isla's letter in 2037. Needs a plain answer (printed copies held by keyholders, a named fallback) before anyone pays.</dd></div>
+    </dl>
+  </details>
+
+  <!-- PHONE -->
+  <div class="phone" id="phone">
+    <div class="bar">
+      <button class="back" id="back" aria-label="Back" disabled>
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M11 4L6 9l5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="logo">
+        <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><g opacity=".82"><circle cx="9" cy="9" r="6" fill="#e07a4d"/><circle cx="17" cy="9" r="6" fill="#4a9e90"/><circle cx="9" cy="17" r="6" fill="#9cbf86"/><circle cx="17" cy="17" r="6" fill="#eab64a"/></g></svg>
+        Good Grief Circle
+      </div>
+      <span class="step" id="stepLbl">Screen 1 of 7</span>
+    </div>
+    <div class="dots" id="dots"></div>
+
+    <!-- 1 · A quiet start -->
+    <section class="screen show" data-s="1">
+      <div class="gap"></div>
+      <span class="chip">Letters for later</span>
+      <h2>Words for the <em>days you might miss.</em></h2>
+      <p class="lede">Write to your children now. We keep each letter sealed until the day it's meant for: an 18th birthday, a wedding, the day they become a parent.</p>
+      <div class="gap"></div>
+      <div class="card">
+        <p class="eyebrow">What brought you here tonight?</p>
+        <p class="small" style="margin:4px 0 12px">No wrong answer. It just helps us suggest where to start.</p>
+        <div class="opts" id="why">
+          <button class="opt" data-v="bday">A birthday</button>
+          <button class="opt" data-v="scare">A health scare</button>
+          <button class="opt on" data-v="friend">A friend's loss</button>
+          <button class="opt" data-v="new">A new baby</button>
+          <button class="opt" data-v="think">Just thinking</button>
+        </div>
+        <div class="nest" style="margin-top:14px" id="whyNote">
+          <p style="font-size:14px;color:var(--ink)"><b>Start here:</b> one short letter to one child. Five minutes is enough. You can come back to it, and nothing is ever sent while you're here to say no.</p>
+        </div>
+      </div>
+      <div class="gap"></div>
+      <button class="btn" data-go="2">Write my first letter</button>
+      <p class="small" style="text-align:center;margin-top:12px">Writing is free. You only pay if you want letters delivered.</p>
+    </section>
+
+    <!-- 2 · Who and when -->
+    <section class="screen" data-s="2">
+      <p class="eyebrow" style="margin-top:8px">Who it's for</p>
+      <h2 style="font-size:30px">Who is this <em>message</em> for?</h2>
+      <p class="small" style="margin-bottom:12px">You can write as many as you like — start with one person.</p>
+      <div class="row" id="kids">
+        <button class="kid on" data-k="isla"><div class="nm">Isla</div><div class="ag">7 · born 12 Mar 2019</div></button>
+        <button class="kid" data-k="ollie"><div class="nm">Ollie</div><div class="ag">3 · born 4 Aug 2023</div></button>
+      </div>
+      <p class="small" style="margin:8px 0 18px">+ <span class="link">Add someone</span> (Jonny, your sister, a godchild)</p>
+      <p class="eyebrow">When it should arrive</p>
+      <div style="margin-top:10px" id="milestones"></div>
+      <p class="small" style="margin:4px 0 16px">Some days can't go in a calendar. For those, one of your keyholders tells us when it's time.</p>
+      <button class="btn" data-go="3">Start writing</button>
+    </section>
+
+    <!-- 3 · Write -->
+    <section class="screen" data-s="3">
+      <p class="eyebrow" style="margin-top:8px" id="writeEyebrow">For Isla · on her 18th birthday</p>
+      <h3 style="margin:6px 0 4px">What would you like to say?</h3>
+      <p class="small" style="margin-bottom:12px">Take your time. You can come back and edit this whenever you wish.</p>
+      <div class="paper">
+        <div class="to" id="dearLine">Dear Isla,</div>
+        <textarea id="letter" aria-label="Your letter">You're eighteen today. I'm writing this at the kitchen table while you're asleep upstairs, seven years old, with your shoes still on because you refused to take them off after the party.
+
+I want you to know</textarea>
+        <div class="meta"><span>Saved on this device</span><span id="wc">0 words</span></div>
+      </div>
+      <p class="eyebrow" style="margin:18px 0 8px">Stuck? Borrow a question</p>
+      <div class="prompts" id="prompts"></div>
+      <h3 style="font-size:17px;margin:8px 0 4px">A memory you'd like remembered</h3>
+      <p class="small" style="margin-bottom:8px">A moment, a feeling, an ordinary day that mattered.</p>
+      <textarea class="field" id="memory" aria-label="A memory">The morning you learned to whistle and wouldn't stop, all the way to Roundhay Park and back.</textarea>
+      <div class="gap"></div>
+      <div class="boundary">
+        <svg width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="7" fill="none" stroke="#5F4200" stroke-width="1.5"/><path d="M8 7v4M8 4.6v.1" stroke="#5F4200" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span><b>A letter, not a legal will.</b> Choosing who would look after Isla and Ollie needs a will. <span class="link" style="color:var(--onSun)">How to name a guardian</span></span>
+      </div>
+      <div class="gap"></div>
+      <button class="btn" data-go="4">Ready to seal</button>
+    </section>
+
+    <!-- 4 · Seal (signature) -->
+    <section class="screen" data-s="4">
+      <p class="eyebrow" style="margin-top:8px;text-align:center">Seal it</p>
+      <h2 style="text-align:center;font-size:30px">Press and hold <em>to seal.</em></h2>
+      <div class="stage">
+        <div class="env" id="env">
+          <div class="body"></div>
+          <div class="letter" id="envLetter">Dear Isla,<br>You're eighteen today. I'm writing this at the kitchen table while you're asleep upstairs…</div>
+          <div class="front"></div>
+          <div class="flap"></div>
+          <div class="addr" id="envAddr">For Isla</div>
+          <div class="pmark" id="pmark"><div>Open on<b id="pmDate">12·III·37</b>18th</div></div>
+          <svg class="wax" viewBox="0 0 72 72" aria-hidden="true">
+            <defs><radialGradient id="wg" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#FF8A5C"/><stop offset=".6" stop-color="#D9531F"/><stop offset="1" stop-color="#9E3410"/></radialGradient></defs>
+            <path d="M36 3c5 0 7 4 11 5s9-1 12 3 1 8 3 12 6 6 6 11-4 7-5 11 1 9-3 12-8 1-12 3-6 6-11 6-7-4-11-5-9 1-12-3-1-8-3-12-6-6-6-11 4-7 5-11-1-9 3-12 8-1 12-3 6-6 11-6z" fill="url(#wg)"/>
+            <circle cx="36" cy="36" r="20" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.5"/>
+            <g opacity=".85" transform="translate(36 36)"><circle cx="-5" cy="-5" r="7" fill="#FFD9C6"/><circle cx="5" cy="-5" r="7" fill="#FFE3D4"/><circle cx="-5" cy="5" r="7" fill="#FFE3D4"/><circle cx="5" cy="5" r="7" fill="#FFD9C6"/></g>
+          </svg>
+        </div>
+      </div>
+      <div class="holder" id="holder">
+        <div class="press" id="press" role="button" tabindex="0" aria-label="Press and hold to seal">
+          <svg class="ring" viewBox="0 0 112 112"><circle cx="56" cy="56" r="52" fill="none" stroke="rgba(178,61,16,.15)" stroke-width="4"/><circle id="ringFill" cx="56" cy="56" r="52" fill="none" stroke="#FFC965" stroke-width="4" stroke-linecap="round" stroke-dasharray="327" stroke-dashoffset="327"/></svg>
+          <span class="lbl">Hold</span>
+        </div>
+        <p class="small" style="text-align:center;max-width:280px">Sealing means it's ready, not that it's final. You can open and rewrite it any time.</p>
+      </div>
+      <div class="after" id="after">
+        <div class="card" style="text-align:center;margin-top:-6px">
+          <span class="chip">Sealed</span>
+          <h3 style="margin:10px 0 6px">Isla's letter will wait for <em style="color:var(--deep)" id="sealedWhen">12 March 2037</em>.</h3>
+          <p class="small">That's one day she won't have to wonder what you'd have said.</p>
+        </div>
+        <div class="gap"></div>
+        <button class="btn" data-go="5">See all your letters</button>
+      </div>
+    </section>
+
+    <!-- 5 · The shelf -->
+    <section class="screen" data-s="5">
+      <p class="eyebrow" style="margin-top:8px">Your letters</p>
+      <h2 style="font-size:30px">Laura's <em>letters</em></h2>
+      <div class="hero">
+        <div class="row" style="align-items:flex-end;justify-content:space-between">
+          <div><div class="big" id="sealedCount">3</div><div class="sub">sealed, waiting for their day</div></div>
+          <div class="sub" style="text-align:right">Founding pack<br><b>3 of 12</b> used</div>
+        </div>
+        <div class="meter"><i id="meterFill" style="width:25%"></i></div>
+      </div>
+      <div class="line" id="timeline"></div>
+      <div class="nest" style="margin-top:10px">
+        <p style="font-size:14px;color:var(--ink);font-weight:600">Next idea: Ollie's first day at school</p>
+        <p class="small">September 2027 is close. A few lines in your own words would mean a lot to a four-year-old later on.</p>
+      </div>
+      <div class="gap"></div>
+      <button class="btn" data-go="6">How delivery works</button>
+    </section>
+
+    <!-- 6 · Delivery -->
+    <section class="screen" data-s="6">
+      <p class="eyebrow" style="margin-top:8px">How delivery works</p>
+      <h2 style="font-size:30px">Nothing goes <em>without you.</em></h2>
+      <div class="seg" id="seg">
+        <button class="on" data-p="alive">While you're here</button>
+        <button data-p="died">If you die</button>
+      </div>
+
+      <div class="pane show" data-p="alive">
+        <div class="steps">
+          <div class="st"><span class="n"></span><div><div class="t">Your letters stay yours</div><div class="d">Open, rewrite or delete any of them whenever you like. Nothing is ever sent early.</div></div></div>
+          <div class="st"><span class="n"></span><div><div class="t">A month before each date, we ask you</div><div class="d">"Isla's 18th is on 12 March. Give it to her yourself, let us post it, or keep it for later?" No answer means we keep holding it.</div></div></div>
+          <div class="st"><span class="n"></span><div><div class="t">A check-in once a year</div><div class="d">On Isla's birthday we remind you the letters are there, in case there's something new to add.</div></div></div>
+        </div>
+        <div class="nest"><p class="small" style="color:var(--muted)">Many parents give the letter themselves on the day. That's the best ending this can have.</p></div>
+      </div>
+
+      <div class="pane" data-p="died">
+        <p class="small" style="margin-top:14px">Your keyholders. You choose three; two of them must confirm.</p>
+        <div class="keys">
+          <div class="key"><div class="av" style="background:#e07a4d">J</div><div class="nm">Jonny</div><div class="rl">Husband</div></div>
+          <div class="key"><div class="av" style="background:#4a9e90">B</div><div class="nm">Beth</div><div class="rl">Sister</div></div>
+          <div class="key"><div class="av" style="background:#9cbf86">P</div><div class="nm">Priya</div><div class="rl">Friend</div></div>
+        </div>
+        <div class="steps">
+          <div class="st"><span class="n"></span><div><div class="t">Two of three keyholders tell us</div><div class="d">One starts it; a second must agree. We ask for a death certificate and a person on our team checks it.</div></div></div>
+          <div class="st"><span class="n"></span><div><div class="t">We wait 30 days and write to you</div><div class="d">By email and text. If you're still here, one tap cancels it and your keyholders are told.</div></div></div>
+          <div class="st"><span class="n"></span><div><div class="t">The letters still wait for their day</div><div class="d">Nothing arrives all at once. Isla's 18th letter comes on 12 March 2037, printed, sealed and posted to the address your keyholders keep up to date.</div></div></div>
+          <div class="st"><span class="n"></span><div><div class="t">Days without a date</div><div class="d">For a wedding or a first child, a keyholder tells us when, and chooses the moment it's handed over.</div></div></div>
+        </div>
+        <div class="help">If you're writing this because of something hard right now, Samaritans are there any time, day or night: <b>116 123</b>, free.</div>
+      </div>
+      <div class="gap"></div>
+      <button class="btn" data-go="7">Keep my letters safe for their day</button>
+    </section>
+
+    <!-- 7 · The pack -->
+    <section class="screen" data-s="7">
+      <p class="eyebrow" style="margin-top:8px">The Milestone Pack</p>
+      <h2 style="font-size:30px">Delivered <em>on the day,</em> however far away.</h2>
+      <div class="pack">
+        <span class="draftflag">Draft price</span>
+        <div class="price" style="margin-top:8px">£39 <small>once, not yearly</small></div>
+        <ul class="ticks">
+          <li>12 letters, to anyone you choose, for any date up to 2066</li>
+          <li>Printed on heavy paper, sealed in wax, posted on the day</li>
+          <li>Three keyholders, two to confirm, a 30-day wait you can cancel</li>
+          <li>Your keyholders get a printed copy of the list, so it never depends on us alone</li>
+        </ul>
+      </div>
+      <div class="gap"></div>
+      <div class="card">
+        <p class="eyebrow">Got a Christmas card from us?</p>
+        <p class="small" style="margin:4px 0 8px">Your code gives you the founding pack free, for good.</p>
+        <div class="voucher">
+          <input id="code" value="GGC-2026-HOLLY" aria-label="Voucher code">
+          <button id="redeem">Use it</button>
+        </div>
+        <div class="ok" id="ok"><b>Founding pack added.</b> Your 12 letters are covered. Nothing to pay, now or later.</div>
+      </div>
+      <div class="gap"></div>
+      <button class="btn" id="payBtn">Choose keyholders</button>
+      <p class="small" style="text-align:center;margin-top:10px">Preview: payments aren't switched on yet. Writing and sealing will always be free.</p>
+    </section>
+
+    <div class="toast" id="toast"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var TOTAL=7, cur=1, hist=[1];
+  var screens=[].slice.call(document.querySelectorAll('.screen'));
+  var dots=document.getElementById('dots');
+  for(var i=0;i<TOTAL;i++){dots.appendChild(document.createElement('i'))}
+  function show(n,push){
+    cur=n;
+    screens.forEach(function(s){s.classList.toggle('show',+s.dataset.s===n)});
+    document.getElementById('stepLbl').textContent='Screen '+n+' of '+TOTAL;
+    [].forEach.call(dots.children,function(d,i){d.classList.toggle('on',i===n-1)});
+    document.getElementById('back').disabled=(n===1);
+    if(push!==false)hist.push(n);
+    var ph=document.getElementById('phone');
+    if(ph.getBoundingClientRect().top<0) ph.scrollIntoView({behavior:'smooth'});
+    if(n===4)resetSeal();
+    if(n===5)drawTimeline();
+  }
+  document.addEventListener('click',function(e){
+    var g=e.target.closest('[data-go]'); if(g){show(+g.dataset.go)}
+  });
+  document.getElementById('back').addEventListener('click',function(){
+    if(hist.length>1){hist.pop();show(hist[hist.length-1],false)}
+  });
+  function toast(msg){var t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(function(){t.classList.remove('show')},2200)}
+
+  /* 1 · why */
+  var notes={
+    bday:'<b>Start here:</b> a letter for the birthday you just had. What you noticed about them this year is exactly what they will want to read one day.',
+    scare:'<b>Start here:</b> one short letter to one child. You don’t have to say everything. Nothing is ever sent while you’re here to say no.',
+    friend:'<b>Start here:</b> one short letter to one child. Five minutes is enough. You can come back to it, and nothing is ever sent while you’re here to say no.',
+    'new':'<b>Start here:</b> a letter for the day they become a parent themselves. You know exactly what this week feels like.',
+    think:'<b>Start here:</b> one ordinary memory, written down. That’s often the letter people treasure most.'
+  };
+  document.getElementById('why').addEventListener('click',function(e){
+    var b=e.target.closest('.opt'); if(!b)return;
+    [].forEach.call(this.children,function(c){c.classList.toggle('on',c===b)});
+    document.getElementById('whyNote').innerHTML='<p style="font-size:14px;color:var(--ink)">'+notes[b.dataset.v]+'</p>';
+  });
+
+  /* 2 · who and when */
+  var kids={isla:{name:'Isla',born:[2019,2,12],pron:'her'},ollie:{name:'Ollie',born:[2023,7,4],pron:'his'}};
+  var kid='isla', ms='18';
+  var MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var ROM=['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+  function msList(){
+    var k=kids[kid], b=k.born;
+    return [
+      {id:'secondary',t:'First day at secondary school',d:'September, the year '+(k.name==='Isla'?'she':'he')+' turns 11',y:b[0]+11+(b[1]>=8?1:0),m:8,day:3,when:'Sep '+(b[0]+11+(b[1]>=8?1:0)),icon:'bag'},
+      {id:'18',t:'18th birthday',d:'The day '+(k.name==='Isla'?'she':'he')+' becomes an adult',y:b[0]+18,m:b[1],day:b[2],when:b[2]+' '+MON[b[1]].slice(0,3)+' '+(b[0]+18),icon:'cake'},
+      {id:'wed',t:'Wedding day',d:'If it happens. A keyholder tells us when',ev:1,when:'When it’s time',icon:'ring'},
+      {id:'parent',t:'When '+(k.name==='Isla'?'she':'he')+' becomes a parent',d:'A keyholder tells us when',ev:1,when:'When it’s time',icon:'baby'},
+      {id:'hard',t:'A hard day',d:'Opened whenever '+(k.name==='Isla'?'she':'he')+' needs it, from 16',ev:1,when:'From '+(b[0]+16),icon:'heart'}
+    ];
+  }
+  var ICONS={
+    bag:'<path d="M5 8h10v8H5zM8 8V6a2 2 0 014 0v2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>',
+    cake:'<path d="M4 16h12v-5H4zM4 13c2 1 4-1 6 0s4 1 6 0M10 11V8M10 5.5v.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+    ring:'<circle cx="10" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 5l2-2 2 2-2 2.5z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>',
+    baby:'<circle cx="10" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4.5 17c1-3 3-4.5 5.5-4.5s4.5 1.5 5.5 4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+    heart:'<path d="M10 16s-6-3.5-6-7.5A3.2 3.2 0 0110 7a3.2 3.2 0 016 1.5C16 12.5 10 16 10 16z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>'
+  };
+  function drawMs(){
+    var el=document.getElementById('milestones');
+    el.innerHTML=msList().map(function(m){
+      return '<button class="ms'+(m.id===ms?' on':'')+'" data-m="'+m.id+'"><span class="ic"><svg width="20" height="20" viewBox="0 0 20 20">'+ICONS[m.icon]+'</svg></span><span><div class="t">'+m.t+'</div><div class="d">'+m.d+'</div></span><span class="when">'+m.when+'</span></button>';
+    }).join('');
+    updateChoice();
+  }
+  function current(){var l=msList();for(var i=0;i<l.length;i++)if(l[i].id===ms)return l[i];return l[1]}
+  function updateChoice(){
+    var k=kids[kid], m=current();
+    var occ={secondary:'starting secondary school','18':'on '+k.pron+' 18th birthday',wed:'on '+k.pron+' wedding day',parent:'when '+(kid==='isla'?'she':'he')+' becomes a parent',hard:'for a hard day'}[ms];
+    document.getElementById('writeEyebrow').textContent='For '+k.name+' · '+occ;
+    document.getElementById('dearLine').textContent='Dear '+k.name+',';
+    document.getElementById('envAddr').textContent='For '+k.name;
+    if(m.ev){
+      document.getElementById('pmDate').textContent=ms==='hard'?'Any day':'The day';
+      document.getElementById('sealedWhen').textContent=ms==='hard'?'the day '+(kid==='isla'?'she':'he')+' needs it':'the day itself';
+    }else{
+      document.getElementById('pmDate').textContent=m.day+'·'+ROM[m.m]+'·'+String(m.y).slice(2);
+      document.getElementById('sealedWhen').textContent=m.day+' '+MON[m.m]+' '+m.y;
+    }
+    var pm=document.getElementById('pmark').firstChild;
+    pm.lastChild.textContent={secondary:'School','18':'18th',wed:'Wedding',parent:'New baby',hard:'Open if'}[ms];
+    document.querySelector('#after h3').firstChild.textContent=k.name+'’s letter will wait for ';
+  }
+  document.getElementById('kids').addEventListener('click',function(e){
+    var b=e.target.closest('.kid'); if(!b)return;
+    kid=b.dataset.k;[].forEach.call(this.children,function(c){c.classList.toggle('on',c===b)});
+    if(kid==='ollie'){var ta=document.getElementById('letter');if(ta.value.indexOf('eighteen')>-1)ta.value='';}
+    drawMs(); wc();
+  });
+  document.getElementById('milestones').addEventListener('click',function(e){
+    var b=e.target.closest('.ms'); if(!b)return; ms=b.dataset.m; drawMs();
+  });
+
+  /* 3 · write */
+  var prompts=[
+    {from:'Reflection',q:'What are you proudest of?',h:'Big or small — the moments you’d most want remembered.',s:'\n\nThe thing I’m proudest of is '},
+    {from:'Reflection',q:'Which values feel most like you?',h:'Choose as many as fit — these can quietly shape everything else you write.',s:'\n\nIf there’s one thing I hope you got from me, it’s '},
+    {from:'For when you pass',q:'What do you hope for the people you leave behind?',h:'For the people you love, the causes you care about, the world you’re leaving behind.',s:'\n\nWhat I hope for you is '},
+    {from:'For when you pass',q:'What would you like to pass on?',h:'Stories, recipes, skills, traditions, objects — and who should have them.',s:'\n\nThere’s something I want you to have: '},
+    {from:'Reflection',q:'Who and what are you grateful for?',h:'The people, places, or ordinary things that made life good.',s:'\n\nI’m so grateful that '},
+    {from:'Getting unstuck',q:'What did they do this week that made you laugh?',h:'Tiny, specific things last longest.',s:'\n\nThis week you '}
+  ];
+  document.getElementById('prompts').innerHTML=prompts.map(function(p,i){
+    return '<button class="pr" data-i="'+i+'"><div class="from">'+p.from+'</div><div class="q">'+p.q+'</div><div class="h">'+p.h+'</div></button>';
+  }).join('');
+  var ta=document.getElementById('letter');
+  document.getElementById('prompts').addEventListener('click',function(e){
+    var b=e.target.closest('.pr'); if(!b)return;
+    ta.value=ta.value.replace(/\s+$/,'')+prompts[+b.dataset.i].s; ta.focus();
+    ta.selectionStart=ta.selectionEnd=ta.value.length; wc(); toast('Added a starting line');
+  });
+  function wc(){var n=(ta.value.trim().match(/\S+/g)||[]).length;document.getElementById('wc').textContent=n+' word'+(n===1?'':'s');
+    var snip=ta.value.trim().slice(0,110).replace(/</g,'&lt;');
+    document.getElementById('envLetter').innerHTML='Dear '+kids[kid].name+',<br>'+(snip||'…')+(ta.value.length>110?'…':'');}
+  ta.addEventListener('input',wc); wc();
+
+  /* 4 · seal: press and hold */
+  var press=document.getElementById('press'), ring=document.getElementById('ringFill'), env=document.getElementById('env');
+  var holdT=null, start=0, raf=null, done=false, HOLD=1100;
+  function resetSeal(){done=false;env.classList.remove('sealed');press.classList.remove('done');ring.style.strokeDashoffset=327;
+    document.getElementById('after').classList.remove('show');document.getElementById('holder').style.display='flex';}
+  function tick(){var p=Math.min(1,(Date.now()-start)/HOLD);ring.style.strokeDashoffset=327*(1-p);
+    if(p>=1){seal();return}raf=requestAnimationFrame(tick)}
+  function down(e){if(done)return;e.preventDefault();start=Date.now();raf=requestAnimationFrame(tick)}
+  function up(){if(done)return;cancelAnimationFrame(raf);ring.style.transition='stroke-dashoffset .3s';ring.style.strokeDashoffset=327;setTimeout(function(){ring.style.transition=''},300)}
+  function seal(){done=true;cancelAnimationFrame(raf);press.classList.add('done');env.classList.add('sealed');
+    setTimeout(function(){document.getElementById('holder').style.display='none'},350);
+    document.getElementById('after').classList.add('show');
+    sealedExtra=1;}
+  press.addEventListener('pointerdown',down);
+  ['pointerup','pointerleave','pointercancel'].forEach(function(ev){press.addEventListener(ev,up)});
+  press.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();seal()}});
+
+  /* 5 · timeline */
+  var sealedExtra=0;
+  function drawTimeline(){
+    var k=kids[kid], m=current();
+    var items=[
+      {y:2027,t:'Ollie · first day at school',d:'Not written yet',st:'dr',draft:1},
+      {y:2030,t:'Isla · first day at secondary',d:'Sealed 2 Oct 2026 · 3 Sep 2030',st:'s'},
+      {y:2034,t:'Ollie · first day at secondary',d:'Sealed 2 Oct 2026 · 3 Sep 2034',st:'s'},
+      {y:2035,t:'Isla · for a hard day',d:'Sealed 9 Oct 2026 · she can ask from 16',st:'ev',ev:'Open if'}
+    ];
+    var label=k.name+' · '+({secondary:'first day at secondary','18':'18th birthday',wed:'wedding day',parent:'becoming a parent',hard:'for a hard day'}[ms]);
+    var dup=items.some(function(x){return x.t===label});
+    if(!dup){
+      var newItem={y:m.ev?9999:m.y,t:label,d:(sealedExtra?'Sealed today':'Not sealed yet')+(m.ev?' · a keyholder tells us when':' · '+m.day+' '+MON[m.m].slice(0,3)+' '+m.y),st:sealedExtra?(m.ev?'ev':'s'):'dr',draft:!sealedExtra,isNew:1};
+      if(m.ev)newItem.ev='When';
+      items.push(newItem);
+    }
+    items.push({y:9999,t:'Isla · wedding day',d:'Not written yet · a keyholder tells us when',st:'dr',draft:1});
+    items=items.filter(function(x,i,a){return a.findIndex(function(z){return z.t===x.t})===i});
+    items.sort(function(a,b){return a.y-b.y});
+    var sealed=items.filter(function(x){return !x.draft}).length;
+    document.getElementById('sealedCount').textContent=sealed;
+    document.getElementById('meterFill').style.width=Math.round(sealed/12*100)+'%';
+    document.querySelector('.hero .sub b').textContent=sealed+' of 12';
+    var html='',last=null;
+    items.forEach(function(x){
+      var yl=x.y===9999?'SOMEDAY':String(x.y);
+      if(yl!==last){html+='<div class="yr">'+yl+'</div>';last=yl}
+      var tag=x.draft?'<span class="tag dr">Draft</span>':(x.st==='ev'?'<span class="tag ev">'+(x.ev||'When')+'</span>':'<span class="tag s">Sealed</span>');
+      html+='<button class="mini'+(x.draft?' draft':'')+'"'+(x.draft?' data-go="2"':'')+'><span class="e"><i></i></span><span><div class="t">'+x.t+(x.isNew&&!x.draft?' <span style="color:var(--deep)">• new</span>':'')+'</div><div class="d">'+x.d+'</div></span>'+tag+'</button>';
+    });
+    html+='<button class="mini add" data-go="2">+ Write another letter</button>';
+    document.getElementById('timeline').innerHTML=html;
+  }
+
+  /* 6 · delivery toggle */
+  document.getElementById('seg').addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b)return;
+    [].forEach.call(this.children,function(c){c.classList.toggle('on',c===b)});
+    document.querySelectorAll('.pane').forEach(function(p){p.classList.toggle('show',p.dataset.p===b.dataset.p)});
+  });
+
+  /* 7 · voucher */
+  document.getElementById('redeem').addEventListener('click',function(){
+    var v=document.getElementById('code').value.trim();
+    if(v.length<6){toast('That code looks too short');return}
+    document.getElementById('ok').classList.add('show');
+    document.getElementById('payBtn').textContent='Choose my three keyholders';
+  });
+  document.getElementById('payBtn').addEventListener('click',function(){toast('Preview ends here: keyholders come next')});
+
+  drawMs();
+})();
+</script>
+</body>
+</html>

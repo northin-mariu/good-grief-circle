@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Gift</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,800;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --page:#FDF9F2;--surface:#FFFBFF;--nest:#F7F3EC;--card:#FFFFFF;--field:#F1EDE6;
+  --ink:#393834;--text:#3E362C;--muted:#5C5247;--soft:#7A6E5E;--faint:#A0937F;
+  --accent:#F26B3C;--deep:#B23D10;--grad:linear-gradient(135deg,#B23D10 0%,#FF794A 100%);
+  --sun:#FFC965;--onSun:#5F4200;--mint:#6DFE9C;--onMint:#005F2E;--green:#2F8B62;
+  --tA:#FCE7DD;--tG:#E2F0E6;--tY:#FFF1D2;--tW:#FDF0E9;
+  --lift:0 18px 40px rgba(57,56,52,.06);--glow:0 24px 48px -12px rgba(178,61,16,.14);--btn:0 10px 24px rgba(178,61,16,.26);
+  --serif:'Newsreader',Georgia,serif;--sans:'Plus Jakarta Sans',-apple-system,system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#FDF9F2;color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button,input,textarea{font-family:inherit;font-size:inherit;color:inherit}
+button{cursor:pointer}
+.wrap{max-width:780px;margin:0 auto;padding:24px 16px 48px}
+
+/* Route card */
+.route{background:var(--nest);border-radius:28px;padding:6px 22px;margin-bottom:24px}
+.route summary{list-style:none;cursor:pointer;padding:16px 0;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.route summary::-webkit-details-marker{display:none}
+.route .num{font-family:var(--serif);font-style:italic;font-size:30px;color:var(--deep);line-height:1}
+.route .rt{font-family:var(--serif);font-weight:500;font-size:24px;color:var(--ink)}
+.route .tog{margin-left:auto;font-size:12.5px;font-weight:600;color:var(--deep)}
+.route[open] .tog .closed,.route:not([open]) .tog .opened{display:none}
+.route dl{margin:0 0 18px;display:grid;grid-template-columns:1fr;gap:10px}
+.route .f{background:var(--card);border-radius:18px;padding:12px 16px;box-shadow:var(--lift)}
+.route dt{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);margin-bottom:3px}
+.route dd{margin:0;font-size:14px;line-height:1.55;color:var(--text)}
+.route .f.wide{grid-column:1/-1}
+@media(min-width:700px){.route dl{grid-template-columns:1fr 1fr}}
+
+/* Phone */
+.phone{max-width:420px;margin:0 auto;background:var(--page);border-radius:36px;box-shadow:0 30px 70px rgba(57,56,52,.14);overflow:hidden;position:relative;min-height:760px;display:flex;flex-direction:column}
+@media(max-width:459px){.wrap{padding:16px 0 0}.route{margin:0 16px 16px}.phone{border-radius:0;box-shadow:none;min-height:100vh}}
+.bar{display:flex;align-items:center;gap:10px;padding:14px 18px;background:var(--surface)}
+.back{background:none;border:none;padding:6px 2px;font-weight:600;font-size:14px;color:var(--soft)}
+.back[disabled]{opacity:.3;cursor:default}
+.count{font-size:12.5px;font-weight:600;color:var(--faint)}
+.side{margin-left:auto;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:99px;padding:5px 11px}
+.side.buyer{background:var(--tY);color:var(--onSun)}
+.side.parent{background:var(--tG);color:var(--green)}
+.dots{display:flex;gap:5px;padding:0 18px 12px;background:var(--surface)}
+.dots i{flex:1;height:4px;border-radius:99px;background:var(--field)}
+.dots i.on{background:var(--accent)}
+.screen{display:none;padding:22px 20px 34px;flex:1;animation:fade .35s ease}
+.screen.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* Type + parts */
+.brand{display:flex;align-items:center;gap:9px;margin-bottom:22px}
+.brand span{font-family:var(--serif);font-style:italic;font-weight:500;font-size:18px;color:var(--deep)}
+.chip{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--onMint);background:var(--mint);border-radius:99px;padding:5px 12px;margin-bottom:14px}
+h1{font-family:var(--serif);font-weight:500;font-size:38px;line-height:1.04;letter-spacing:-.6px;color:var(--ink);margin:0 0 14px}
+h1 em,h2 em{font-style:italic;color:var(--deep)}
+h1 b{font-weight:800}
+h2{font-family:var(--serif);font-weight:500;font-size:25px;line-height:1.15;color:var(--ink);margin:0 0 8px}
+.lead{font-size:15.5px;line-height:1.65;color:var(--muted);margin:0 0 22px}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);margin:0 0 8px}
+.card{background:var(--card);border-radius:28px;padding:20px;box-shadow:var(--lift);margin-bottom:16px}
+.nest{background:var(--nest);border-radius:22px;padding:16px 18px;margin-bottom:16px}
+.label{display:block;font-size:13.5px;font-weight:700;color:var(--ink);margin:0 0 8px}
+.hint{font-size:13px;color:var(--soft);margin:-2px 0 10px;line-height:1.5}
+.field{width:100%;background:var(--field);border:none;border-bottom:2px solid transparent;border-radius:12px;padding:13px 14px;font-size:15px;outline:none;color:var(--ink)}
+.field:focus{background:#fff;border-bottom-color:var(--accent)}
+textarea.field{min-height:96px;resize:vertical;line-height:1.55}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:4px}
+.pill{border:none;border-radius:999px;padding:10px 17px;font-size:14px;font-weight:600;background:#fff;color:var(--soft);box-shadow:var(--lift)}
+.pill.on{background:var(--sun);color:var(--onSun);box-shadow:none}
+.opt{display:block;width:100%;text-align:left;border:none;border-radius:20px;padding:15px 18px;margin-bottom:10px;background:#fff;box-shadow:var(--lift)}
+.opt strong{display:block;font-size:15.5px;color:var(--ink);font-weight:600}
+.opt span{font-size:13.5px;color:var(--soft)}
+.opt.on{background:var(--sun);box-shadow:none}
+.opt.on strong,.opt.on span{color:var(--onSun)}
+.btn{display:block;width:100%;border:none;border-radius:999px;padding:16px 22px;font-size:16px;font-weight:700;color:#fff;background:var(--grad);box-shadow:var(--btn);margin-top:8px}
+.btn:active{transform:translateY(1px)}
+.quiet{display:block;width:100%;border:none;background:none;padding:12px;font-size:14px;font-weight:600;color:var(--deep);margin-top:4px}
+.small{font-size:12.5px;line-height:1.55;color:var(--faint);text-align:center;margin:12px 0 0}
+.radiant{background:var(--grad);color:#fff;border-radius:28px;padding:22px;box-shadow:var(--glow);margin-bottom:16px}
+.radiant h2{color:#fff}
+.radiant p{margin:0;color:rgba(255,255,255,.92);font-size:14.5px;line-height:1.6}
+.radiant .row{display:flex;gap:12px;margin-top:12px;align-items:flex-start}
+.radiant .ic{flex:none;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.boundary{background:var(--tY);border-radius:18px;padding:13px 16px;font-size:13.5px;line-height:1.55;color:#6B4B00;margin:16px 0 0}
+.boundary b{color:#5F4200}
+.price{display:flex;align-items:center;gap:14px;background:var(--nest);border-radius:22px;padding:16px 18px;margin:6px 0 10px}
+.price .amt{font-family:var(--serif);font-weight:800;font-size:34px;color:var(--ink);line-height:1}
+.price .what{font-size:13.5px;color:var(--muted);line-height:1.45}
+.draft{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--tA);color:var(--deep);border-radius:99px;padding:3px 8px;margin-left:4px;vertical-align:middle}
+.steps{list-style:none;margin:0;padding:0}
+.steps li{display:flex;gap:14px;padding:10px 0}
+.steps .d{flex:none;width:58px;font-size:12px;font-weight:700;color:var(--deep);text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
+.steps .t{font-size:14.5px;color:var(--text);line-height:1.5}
+.steps .t b{color:var(--ink)}
+.crisis{font-size:12px;color:var(--faint);text-align:center;margin-top:22px;line-height:1.5}
+
+/* The printed card (buyer preview) */
+.printed{display:flex;gap:10px;margin:4px 0 18px}
+.printed .face{flex:1;min-width:0;border-radius:18px;padding:16px 14px;min-height:190px;box-shadow:var(--lift);display:flex;flex-direction:column}
+.printed .front{background:var(--grad);color:#fff}
+.printed .front .for{font-family:var(--serif);font-size:24px;font-weight:500;line-height:1.1;margin-top:auto}
+.printed .front .for em{font-style:italic}
+.printed .front small{font-size:11.5px;opacity:.9}
+.printed .inside{background:#fff}
+.printed .inside p{font-family:var(--serif);font-style:italic;font-size:14.5px;line-height:1.4;color:var(--ink);margin:0 0 auto}
+.codebox{margin-top:12px;background:var(--nest);border-radius:10px;padding:7px 9px;font-size:10.5px;color:var(--soft)}
+.codebox b{display:block;font-size:14px;letter-spacing:.12em;color:var(--ink);margin-top:2px}
+.facecap{font-size:11px;font-weight:600;color:var(--faint);text-align:center;margin-top:6px}
+
+/* SIGNATURE: the gift you untie */
+.gift{position:relative;height:330px;border-radius:28px;margin:4px 0 18px;perspective:1100px}
+.gift .inside{position:absolute;inset:0;background:#fff;border-radius:28px;box-shadow:var(--glow);padding:26px 24px;display:flex;flex-direction:column}
+.gift .inside .from{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);margin-bottom:10px}
+.gift .inside .msg{font-family:var(--serif);font-style:italic;font-size:21px;line-height:1.35;color:var(--ink);margin:0}
+.gift .inside .sig{font-family:var(--serif);font-size:17px;color:var(--muted);margin-top:10px}
+.gift .inside .codebox{margin-top:auto;font-size:12px;border-radius:14px;padding:10px 14px}
+.gift .inside .codebox b{font-size:19px}
+.gift .lid{position:absolute;inset:0;border-radius:28px;background:var(--grad);transform-origin:50% 0;transition:transform .9s cubic-bezier(.6,.05,.3,1),opacity .9s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;overflow:hidden;border:none;padding:0;width:100%;z-index:2}
+.gift .lid .pattern{position:absolute;inset:0;opacity:.13;background-image:radial-gradient(circle at 20% 30%,#fff 0 2px,transparent 3px),radial-gradient(circle at 70% 60%,#fff 0 2px,transparent 3px);background-size:46px 46px}
+.gift .lid .to{position:relative;font-family:var(--serif);font-size:30px;font-weight:500;line-height:1.1;text-align:center;padding:0 30px;margin-top:70px}
+.gift .lid .to em{font-style:italic}
+.gift .lid .tap{position:relative;margin-top:14px;font-size:13px;font-weight:600;background:rgba(255,255,255,.2);border-radius:99px;padding:7px 14px}
+.ribbon-v,.ribbon-h{position:absolute;background:var(--sun);transition:transform .7s cubic-bezier(.6,.05,.3,1),opacity .7s;z-index:3;pointer-events:none}
+.ribbon-v{left:50%;top:0;bottom:0;width:22px;margin-left:-11px}
+.ribbon-h{top:44%;left:0;right:0;height:22px}
+.bow{position:absolute;left:50%;top:44%;width:96px;height:60px;margin:-19px 0 0 -48px;z-index:4;pointer-events:none;transition:transform .7s cubic-bezier(.6,.05,.3,1),opacity .6s}
+.gift.open .ribbon-v{transform:translateY(-120%);opacity:0}
+.gift.open .ribbon-h{transform:translateX(120%);opacity:0}
+.gift.open .bow{transform:translateY(-160px) rotate(-25deg) scale(.8);opacity:0}
+.gift.open .lid{transform:rotateX(-110deg) translateY(-20px);opacity:0;pointer-events:none}
+.after{opacity:.35;transition:opacity .6s}
+.after.ready{opacity:1}
+.code{letter-spacing:.18em;text-transform:uppercase;font-weight:700;font-size:19px;text-align:center}
+
+/* Wishes */
+.qhead{display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.qhead i{width:8px;height:8px;border-radius:50%;background:var(--field)}
+.qhead i.on{background:var(--accent)}
+.qhead span{font-size:12.5px;font-weight:600;color:var(--faint);margin-left:6px}
+.q{display:none}.q.on{display:block;animation:fade .3s ease}
+.wish{background:#fff;border-radius:24px;padding:16px 18px;box-shadow:var(--lift);margin-bottom:12px;display:flex;gap:14px}
+.wish .tile{flex:none;width:40px;height:40px;border-radius:14px;display:flex;align-items:center;justify-content:center}
+.wish .k{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.wish .v{font-family:var(--serif);font-size:18px;line-height:1.3;color:var(--ink);margin-top:2px}
+.toggle{display:flex;gap:14px;align-items:flex-start;background:#fff;border-radius:24px;padding:18px;box-shadow:var(--lift);margin:18px 0 12px;border:none;text-align:left;width:100%}
+.sw{flex:none;width:46px;height:28px;border-radius:99px;background:var(--field);position:relative;transition:background .2s;margin-top:2px}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(57,56,52,.2);transition:transform .2s}
+.toggle.on .sw{background:var(--green)}
+.toggle.on .sw::after{transform:translateX(18px)}
+.toggle b{display:block;color:var(--ink);font-size:15px}
+.toggle span{font-size:13.5px;color:var(--soft);line-height:1.5}
+.bubble{display:inline-block;margin-top:8px;background:var(--nest);border-radius:14px 14px 14px 4px;padding:8px 12px;font-size:13.5px;color:var(--ink);font-weight:600}
+
+/* Notification */
+.lock{background:linear-gradient(170deg,#4a3f35,#393834);border-radius:28px;padding:26px 16px 18px;margin-bottom:18px;color:#fff}
+.lock .time{font-family:var(--serif);font-weight:500;font-size:46px;text-align:center;line-height:1}
+.lock .date{text-align:center;font-size:13px;opacity:.8;margin:4px 0 18px}
+.note{background:rgba(255,251,255,.94);color:var(--ink);border-radius:20px;padding:12px 14px;display:flex;gap:11px;align-items:flex-start}
+.note .app{font-size:11.5px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.05em}
+.note .tt{font-weight:700;font-size:15px;margin-top:1px}
+.note .bb{font-size:13.5px;color:var(--muted);line-height:1.45}
+.seeboth{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.seeboth div{border-radius:20px;padding:14px}
+.seeboth .y{background:var(--tG)}.seeboth .n{background:var(--tA)}
+.seeboth h3{margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.seeboth .y h3{color:var(--green)}.seeboth .n h3{color:var(--deep)}
+.seeboth ul{margin:0;padding-left:16px;font-size:13.5px;line-height:1.5;color:var(--text)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <details class="route" id="route">
+    <summary><span class="num">01</span><span class="rt">The Gift</span><span class="tog"><span class="closed">Show the route card ▾</span><span class="opened">Hide ▴</span></span></summary>
+    <dl>
+      <div class="f wide"><dt>Thesis</dt><dd>The son or daughter who worries is the one who pays: they give Mum a card at Christmas, she writes a few wishes at her own pace, and all they're ever told is "Mum has started".</dd></div>
+      <div class="f"><dt>Who it's for</dt><dd>Buyer: an adult child, 35–55, who has been meaning to "have the conversation". User: their parent, 65–85, comfortable with a phone but not an app person.</dd></div>
+      <div class="f"><dt>What's cut</dt><dd>Diagnosis path, Grief Support, Memorial, the will interview, find help nearby, people to call, songs and own song, Reflection and "what you want to achieve", the legal guide, the dashboard, pricing tiers. About three-quarters of today's demo.</dd></div>
+      <div class="f"><dt>What's kept</dt><dd>A short gift checkout; one card with one code; Mari's Farewell & Ceremony and Personal Touches questions, one per screen; the "not a will" line; one switch the parent controls to say "I've started". Next in line: where things are kept (Mari's eight document types, notes only).</dd></div>
+      <div class="f"><dt>MVP for the Christmas vouchers</dt><dd>100 printed cards, each with its own word-and-number code, handed to friends and family to give. A redeem page, three wishes, and a "Mum has started" email sent by hand from a list. No checkout yet: the buyer screen is the brief for the paid version.</dd></div>
+      <div class="f"><dt>How it makes money</dt><dd>One-off gift paid by the child via Stripe (draft £39, posted card included). Parent's wishes stay free for good. Second gifts (Dad, an aunt) and Mother's Day / Father's Day are the repeat sale.</dd></div>
+      <div class="f"><dt>The one metric</dt><dd>Started rate: share of cards redeemed with at least three wishes written within 30 days of Christmas.</dd></div>
+      <div class="f"><dt>The biggest risk</dt><dd>A gift about death lands badly, so the card goes in a drawer. Nobody sells this as a gift yet: it is untested, which is both the gap and the danger.</dd></div>
+    </dl>
+  </details>
+
+  <div class="phone" id="phone">
+    <div class="bar">
+      <button class="back" id="back" aria-label="Back">‹ Back</button>
+      <span class="count" id="count">Screen 1 of 7</span>
+      <span class="side buyer" id="side">Daniel · giving</span>
+    </div>
+    <div class="dots" id="dots"></div>
+
+    <!-- 1 · BUYER: the gift -->
+    <section class="screen" data-side="buyer" data-who="Daniel · giving">
+      <div class="brand"><svg width="30" height="30" viewBox="0 0 40 40" aria-hidden="true"><g opacity=".82"><circle cx="15" cy="15" r="9" fill="#e07a4d"/><circle cx="25" cy="15" r="9" fill="#4a9e90"/><circle cx="15" cy="25" r="9" fill="#9cbf86"/><circle cx="25" cy="25" r="9" fill="#eab64a"/></g></svg><span>Good Grief Circle</span></div>
+      <span class="chip">A Christmas gift</span>
+      <h1>Give Mum <em>peace of mind.</em></h1>
+      <p class="lead">A card she opens on Christmas morning. Inside, a calm place to note what she'd want, in her own words and at her own pace. You won't see what she writes.</p>
+
+      <div class="card">
+        <span class="label">Who is it for?</span>
+        <div class="pills" data-group="for">
+          <button class="pill on">Mum</button><button class="pill">Dad</button><button class="pill">Someone else</button>
+        </div>
+        <span class="label" style="margin-top:16px">Her first name</span>
+        <input class="field" value="Jean" aria-label="Her first name">
+      </div>
+
+      <div class="card">
+        <span class="label">When should it reach her?</span>
+        <button class="opt on" data-group="when"><strong>A printed card, posted by 18 December</strong><span>To Stockport SK4 · arrives in time for you to wrap it</span></button>
+        <button class="opt" data-group="when"><strong>By email, 8am on Christmas Day</strong><span>For when you can't be there</span></button>
+      </div>
+
+      <div class="card">
+        <span class="label">Your message, printed inside</span>
+        <p class="hint">A few lines in your own words. She'll read this before anything else.</p>
+        <textarea class="field" id="msg">Mum, no rush with this. I just never want to be guessing, when the time comes, what you'd have wanted. Love you. Dan x</textarea>
+      </div>
+
+      <div class="price"><div class="amt">£39</div><div class="what">One gift, paid once. No subscription, nothing for Mum to pay. <span class="draft">Draft price</span></div></div>
+      <button class="btn" data-next>Continue to payment</button>
+      <p class="small">Payment would be by Stripe. This is a preview: nothing is charged.</p>
+    </section>
+
+    <!-- 2 · BUYER: it's on its way -->
+    <section class="screen" data-side="buyer" data-who="Daniel · giving">
+      <span class="chip">Thank you, Daniel</span>
+      <h1>Jean's card is <em>on its way.</em></h1>
+      <p class="lead">This is what will land on her doormat. It's yours to wrap.</p>
+      <div class="printed">
+        <div style="flex:1;min-width:0"><div class="face front"><small>Good Grief Circle</small><div class="for">For <em>Jean</em>,<br>to open gently</div></div><div class="facecap">Front</div></div>
+        <div style="flex:1;min-width:0"><div class="face inside"><p id="printedMsg">Mum, no rush with this…</p><div class="codebox">Your code<b>ROBIN-4821</b></div></div><div class="facecap">Inside</div></div>
+      </div>
+
+      <div class="radiant">
+        <h2>What you'll see, and <em style="color:#fff">what you won't</em></h2>
+        <div class="row"><span class="ic">✓</span><p>That she has opened her gift.</p></div>
+        <div class="row"><span class="ic">✓</span><p>That she has started, if she says you can know.</p></div>
+        <div class="row"><span class="ic">–</span><p>Anything she writes. It's hers. One day she can choose who reads it.</p></div>
+      </div>
+
+      <div class="card">
+        <p class="eyebrow">What happens next</p>
+        <ul class="steps">
+          <li><span class="d">18 Dec</span><span class="t"><b>Printed and posted</b> to you, ready to wrap.</span></li>
+          <li><span class="d">25 Dec</span><span class="t"><b>She opens it</b> and types the code once. No password, no app to download.</span></li>
+          <li><span class="d">After</span><span class="t"><b>One short email to you</b> when she has started. Then we leave you both alone.</span></li>
+        </ul>
+      </div>
+      <button class="btn" data-next>See what Jean sees</button>
+    </section>
+
+    <!-- 3 · PARENT: the gift she unties (signature) -->
+    <section class="screen" data-side="parent" data-who="Jean · opening">
+      <span class="chip">Christmas morning</span>
+      <h1>Something <em>for you,</em> Jean.</h1>
+      <p class="lead" style="margin-bottom:16px">From Daniel. Untie it whenever you're ready.</p>
+
+      <div class="gift" id="gift">
+        <div class="inside">
+          <div class="from">From Daniel</div>
+          <p class="msg" id="giftMsg">Mum, no rush with this…</p>
+          <div class="codebox">The code on your card<b>ROBIN-4821</b></div>
+        </div>
+        <button class="lid" id="lid" aria-label="Untie the ribbon">
+          <span class="pattern"></span>
+          <span class="to">For <em>Jean</em>,<br>to open gently</span>
+          <span class="tap">Tap to untie the ribbon</span>
+        </button>
+        <span class="ribbon-v"></span><span class="ribbon-h"></span>
+        <svg class="bow" viewBox="0 0 96 60" aria-hidden="true"><path d="M48 30 C30 4 6 6 8 26 C10 42 34 38 48 30Z" fill="#FFC965"/><path d="M48 30 C66 4 90 6 88 26 C86 42 62 38 48 30Z" fill="#FFC965"/><path d="M48 30 C36 30 28 52 34 58 L44 44Z" fill="#F2B544"/><path d="M48 30 C60 30 68 52 62 58 L52 44Z" fill="#F2B544"/><circle cx="48" cy="30" r="8" fill="#F2B544"/></svg>
+      </div>
+
+      <div class="after" id="after">
+        <span class="label">Type the code from inside your card</span>
+        <p class="hint">Just this once. After that, this phone remembers you, and we'll email you a link to come back on any other.</p>
+        <input class="field code" id="code" placeholder="ROBIN-4821" aria-label="Your code" autocomplete="off">
+        <button class="btn" id="redeem">Open my gift</button>
+      </div>
+    </section>
+
+    <!-- 4 · PARENT: this is yours -->
+    <section class="screen" data-side="parent" data-who="Jean · opening">
+      <div class="brand"><svg width="30" height="30" viewBox="0 0 40 40" aria-hidden="true"><g opacity=".82"><circle cx="15" cy="15" r="9" fill="#e07a4d"/><circle cx="25" cy="15" r="9" fill="#4a9e90"/><circle cx="15" cy="25" r="9" fill="#9cbf86"/><circle cx="25" cy="25" r="9" fill="#eab64a"/></g></svg><span>Good Grief Circle</span></div>
+      <h1>Hello, Jean. This is <em>yours.</em></h1>
+      <p class="lead">A quiet place to write down how you'd like things to be, so the people you love are never left guessing. There's nothing to get right.</p>
+
+      <div class="card">
+        <ul class="steps">
+          <li><span class="d" style="width:30px">1</span><span class="t"><b>Daniel can't read it.</b> He gave it to you; what you write stays with you unless you choose to share it.</span></li>
+          <li><span class="d" style="width:30px">2</span><span class="t"><b>Five minutes is plenty.</b> Three gentle questions today. Stop whenever you like.</span></li>
+          <li><span class="d" style="width:30px">3</span><span class="t"><b>Change your mind any time.</b> Nothing here is final.</span></li>
+        </ul>
+      </div>
+
+      <div class="boundary"><b>Not a legal will. A human one.</b> These are your wishes, in your words, for your family. A will is still the only way to decide who inherits; a solicitor or will-writing service can make one.</div>
+
+      <span class="label" style="margin-top:20px">Your email, so you can come back</span>
+      <input class="field" value="jean.hartley@example.co.uk" aria-label="Your email">
+      <p class="hint" style="margin-top:8px">We'll send a link to this address. You'll never need a password.</p>
+      <button class="btn" data-next>Begin with one question</button>
+    </section>
+
+    <!-- 5 · PARENT: three gentle wishes, one at a time -->
+    <section class="screen" data-side="parent" data-who="Jean · writing">
+      <div class="qhead" id="qhead"><i class="on"></i><i></i><i></i><span id="qn">Question 1 of 3</span></div>
+
+      <div class="q on" data-q="0">
+        <h2>When the time comes, how would you like to be <em>laid to rest?</em></h2>
+        <p class="lead" style="font-size:14.5px">There is no wrong answer here — only what feels right to you. You can change this whenever you like.</p>
+        <button class="opt" data-group="rest" data-v="Burial"><strong>Burial</strong><span>A traditional resting place</span></button>
+        <button class="opt" data-group="rest" data-v="Cremation"><strong>Cremation</strong><span>Ashes to keep, scatter or plant</span></button>
+        <button class="opt on" data-group="rest" data-v="Natural burial"><strong>Natural burial</strong><span>Returning gently to the earth</span></button>
+        <button class="opt" data-group="rest" data-v="Not sure yet"><strong>I'm not sure yet</strong><span>That's completely okay</span></button>
+      </div>
+
+      <div class="q" data-q="1">
+        <h2>Are there songs that should <em>be playing?</em></h2>
+        <p class="lead" style="font-size:14.5px">A song that makes people smile, or one that always meant something to you. List as many as you like.</p>
+        <textarea class="field" id="song" placeholder='e.g. "Here Comes the Sun" — it was playing the day we moved into the house…'>"Morning Has Broken" to go in. Something by Dusty Springfield to go out, loud.</textarea>
+      </div>
+
+      <div class="q" data-q="2">
+        <h2>Is there something you'd like <em>to wear?</em></h2>
+        <p class="lead" style="font-size:14.5px">A favourite outfit, a colour, jewellery — or nothing in particular.</p>
+        <input class="field" id="wear" placeholder="e.g. My green linen shirt, and no shoes" value="My blue wool coat, and Grandma's brooch">
+      </div>
+
+      <button class="btn" id="qnext">Save and go on</button>
+      <button class="quiet" id="qskip">Skip this one</button>
+      <div class="boundary">Not a legal will. These wishes guide your family; they don't decide who inherits.</div>
+    </section>
+
+    <!-- 6 · PARENT: what she's written, and the one switch she controls -->
+    <section class="screen" data-side="parent" data-who="Jean · writing">
+      <span class="chip">Saved</span>
+      <h1>Three things your family <em>won't have to guess.</em></h1>
+
+      <div class="wish"><span class="tile" style="background:var(--tG)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F8B62" stroke-width="2" stroke-linecap="round"><path d="M12 21V11"/><path d="M12 11c0-4 3-7 7-7 0 4-3 7-7 7z"/><path d="M12 14c0-3-2.5-5.5-6-5.5 0 3 2.5 5.5 6 5.5z"/></svg></span><div><div class="k">Laid to rest</div><div class="v" id="wRest">Natural burial</div></div></div>
+      <div class="wish"><span class="tile" style="background:var(--tA)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B23D10" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></span><div><div class="k">Music</div><div class="v" id="wSong"></div></div></div>
+      <div class="wish"><span class="tile" style="background:var(--tY)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B5820A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3l4 3 4-3 4 4-3 3v11H7V10L4 7z"/></svg></span><div><div class="k">To wear</div><div class="v" id="wWear"></div></div></div>
+
+      <button class="toggle on" id="tell" aria-pressed="true">
+        <span class="sw"></span>
+        <span><b>Let Daniel know you've started?</b><span>He'll get one short email. This is all it says:</span><br><span class="bubble" id="bubble">"Mum has started."</span></span>
+      </button>
+
+      <div class="nest">
+        <p class="eyebrow">In the new year, if you'd like</p>
+        <div style="font-size:14.5px;line-height:1.55;color:var(--text)"><b style="color:var(--ink)">Where things are kept.</b> Will & legal documents, insurance policies, bank & finance accounts, property & deeds. Just a note of where each one is, not the documents themselves. We'll send one gentle reminder in January, then leave it with you.</div>
+      </div>
+      <button class="btn" data-next>Done for today</button>
+      <p class="crisis">If any of this stirs up something heavy, Samaritans are there day or night on 116 123, free.</p>
+    </section>
+
+    <!-- 7 · BUYER: Mum has started -->
+    <section class="screen" data-side="buyer" data-who="Daniel · Boxing Day">
+      <div class="lock">
+        <div class="time">9:41</div>
+        <div class="date">Friday 26 December</div>
+        <div class="note">
+          <svg width="30" height="30" viewBox="0 0 40 40" aria-hidden="true" style="flex:none"><rect width="40" height="40" rx="9" fill="#FDF9F2"/><g opacity=".82"><circle cx="16" cy="16" r="7" fill="#e07a4d"/><circle cx="24" cy="16" r="7" fill="#4a9e90"/><circle cx="16" cy="24" r="7" fill="#9cbf86"/><circle cx="24" cy="24" r="7" fill="#eab64a"/></g></svg>
+          <div><div class="app">Good Grief Circle · now</div><div class="tt" id="nTitle">Mum has started.</div><div class="bb" id="nBody">Jean opened your gift and wrote her first wishes.</div></div>
+        </div>
+      </div>
+
+      <h1 id="dTitle">Mum has <em>started.</em></h1>
+      <p class="lead" id="dLead">Jean opened your card on Christmas morning and has begun writing down what she'd want. We won't tell you what. That was the point of the gift.</p>
+
+      <div class="seeboth">
+        <div class="y"><h3>You know</h3><ul><li>She opened it</li><li id="knowStarted">She has started</li></ul></div>
+        <div class="n"><h3>You don't see</h3><ul><li>Her wishes</li><li>How many, or when</li></ul></div>
+      </div>
+
+      <div class="card">
+        <p class="eyebrow">Later, when she's ready</p>
+        <p style="margin:0;font-size:14.5px;line-height:1.6">Jean can choose who may read her plan, and when. You'll only ever be asked if she names you. That part arrives next year.</p>
+      </div>
+
+      <button class="btn" id="again">Give one to Dad too</button>
+      <p class="small">Preview. The real email comes from us, once, and never nudges you to chase her.</p>
+      <button class="quiet" id="restart">Start the story again</button>
+    </section>
+  </div>
+</div>
+
+<script>
+(function(){
+  var screens = [].slice.call(document.querySelectorAll('.screen'));
+  var total = screens.length, cur = 0;
+  var back = document.getElementById('back'), count = document.getElementById('count'), side = document.getElementById('side'), dots = document.getElementById('dots');
+  for (var i = 0; i < total; i++) dots.appendChild(document.createElement('i'));
+  var state = { rest:'Natural burial', tell:true, q:0 };
+
+  function show(n){
+    cur = Math.max(0, Math.min(total-1, n));
+    screens.forEach(function(s,i){ s.classList.toggle('on', i===cur); });
+    var s = screens[cur];
+    count.textContent = 'Screen ' + (cur+1) + ' of ' + total;
+    side.textContent = s.getAttribute('data-who');
+    side.className = 'side ' + s.getAttribute('data-side');
+    back.disabled = cur === 0;
+    [].forEach.call(dots.children, function(d,i){ d.classList.toggle('on', i<=cur); });
+    sync();
+    window.scrollTo(0, document.getElementById('phone').offsetTop - 8);
+  }
+  function sync(){
+    var m = document.getElementById('msg').value.trim() || 'With love.';
+    document.getElementById('printedMsg').textContent = m.length > 110 ? m.slice(0,107) + '…' : m;
+    document.getElementById('giftMsg').textContent = m;
+    document.getElementById('wRest').textContent = state.rest;
+    document.getElementById('wSong').textContent = document.getElementById('song').value.trim() || 'Not decided yet';
+    document.getElementById('wWear').textContent = document.getElementById('wear').value.trim() || 'Not decided yet';
+    var t = state.tell;
+    document.getElementById('nTitle').textContent = t ? 'Mum has started.' : 'Mum has opened your gift.';
+    document.getElementById('nBody').textContent = t ? 'Jean opened your gift and has begun.' : 'That’s all we’ll say. The rest is hers.';
+    document.getElementById('dTitle').innerHTML = t ? 'Mum has <em>started.</em>' : 'Mum has <em>opened it.</em>';
+    document.getElementById('dLead').textContent = t
+      ? 'Jean opened your card on Christmas morning and has begun writing down what she’d want. We won’t tell you what. That was the point of the gift.'
+      : 'Jean opened your card on Christmas morning. She chose not to share anything more, and that’s hers to decide. You’ve done the kind part.';
+    document.getElementById('knowStarted').style.display = t ? '' : 'none';
+  }
+
+  back.addEventListener('click', function(){
+    if (cur === 4 && state.q > 0) { setQ(state.q - 1); return; }
+    show(cur - 1);
+  });
+  [].forEach.call(document.querySelectorAll('[data-next]'), function(b){ b.addEventListener('click', function(){ show(cur + 1); }); });
+
+  // single-choice groups
+  document.addEventListener('click', function(e){
+    var b = e.target.closest('.pills .pill') || e.target.closest('button[data-group]');
+    if (!b) return;
+    var group = b.getAttribute('data-group');
+    var sibs = group ? document.querySelectorAll('[data-group="' + group + '"]') : b.parentNode.children;
+    [].forEach.call(sibs, function(x){ x.classList.remove('on'); });
+    b.classList.add('on');
+    if (group === 'rest') state.rest = b.getAttribute('data-v');
+  });
+
+  // signature: untie the ribbon
+  var gift = document.getElementById('gift');
+  document.getElementById('lid').addEventListener('click', function(){
+    gift.classList.add('open');
+    document.getElementById('after').classList.add('ready');
+  });
+  document.getElementById('redeem').addEventListener('click', function(){
+    var c = document.getElementById('code');
+    if (!gift.classList.contains('open')) { gift.classList.add('open'); document.getElementById('after').classList.add('ready'); }
+    if (!c.value.trim()) c.value = 'ROBIN-4821';
+    setTimeout(function(){ show(3); }, 350);
+  });
+
+  // three questions, one at a time
+  var qs = document.querySelectorAll('.q'), qdots = document.querySelectorAll('#qhead i');
+  function setQ(n){
+    state.q = n;
+    [].forEach.call(qs, function(q,i){ q.classList.toggle('on', i===n); });
+    [].forEach.call(qdots, function(d,i){ d.classList.toggle('on', i<=n); });
+    document.getElementById('qn').textContent = 'Question ' + (n+1) + ' of 3';
+    document.getElementById('qnext').textContent = n === 2 ? 'Save my three wishes' : 'Save and go on';
+  }
+  function nextQ(){ if (state.q < 2) setQ(state.q + 1); else show(5); }
+  document.getElementById('qnext').addEventListener('click', nextQ);
+  document.getElementById('qskip').addEventListener('click', nextQ);
+
+  // the one switch Jean controls
+  var tell = document.getElementById('tell');
+  tell.addEventListener('click', function(){
+    state.tell = !state.tell;
+    tell.classList.toggle('on', state.tell);
+    tell.setAttribute('aria-pressed', state.tell);
+    document.getElementById('bubble').textContent = state.tell ? '"Mum has started."' : 'Nothing more. He’ll only know you opened it.';
+    sync();
+  });
+
+  document.getElementById('again').addEventListener('click', function(){
+    show(0);
+    [].forEach.call(document.querySelectorAll('.pills .pill'), function(x,i){ x.classList.toggle('on', i===1); });
+  });
+  document.getElementById('restart').addEventListener('click', function(){
+    gift.classList.remove('open'); document.getElementById('after').classList.remove('ready');
+    document.getElementById('code').value = '';
+    setQ(0); show(0);
+  });
+
+  // route card open by default on wide screens, folded on phones
+  if (window.matchMedia && window.matchMedia('(min-width: 700px)').matches) document.getElementById('route').open = true;
+
+  show(0);
+  window.scrollTo(0,0);
+})();
+</script>
+</body>
+</html>

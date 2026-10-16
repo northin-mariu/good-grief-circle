@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Twelve Small Steps</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,800;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#FDF9F2; --surface:#FFFBFF; --nest:#F7F3EC; --card:#FFFFFF; --field:#F1EDE6;
+  --ink:#393834; --text:#3E362C; --muted:#5C5247; --soft:#7A6E5E; --faint:#A0937F;
+  --accent:#F26B3C; --accentDeep:#B23D10; --glow:#FF794A;
+  --gradient:linear-gradient(135deg,#B23D10 0%,#FF794A 100%);
+  --sun:#FFC965; --onSun:#5F4200; --mint:#6DFE9C; --onMint:#005F2E; --green:#2F8B62;
+  --tA:#FCE7DD; --tG:#E2F0E6; --tGold:#FFF1D2;
+  --lift:0 18px 40px rgba(57,56,52,.06); --glowShadow:0 24px 48px -12px rgba(178,61,16,.14);
+  --btnShadow:0 10px 24px rgba(178,61,16,.26);
+  --serif:'Newsreader',Georgia,serif; --sans:'Plus Jakarta Sans',-apple-system,system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#EFE8DC;color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:420px;margin:0 auto;padding:16px 0 40px}
+@media (max-width:440px){.wrap{padding:0 0 24px}}
+
+/* Route card */
+.route{background:var(--surface);border-radius:28px;box-shadow:var(--lift);margin:0 0 18px;overflow:hidden}
+@media (max-width:440px){.route{border-radius:0 0 24px 24px;margin-bottom:10px}}
+.route summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;gap:10px}
+.route summary::-webkit-details-marker{display:none}
+.route summary .t{font-family:var(--serif);font-size:19px;font-weight:500;color:var(--ink);flex:1}
+.route summary .t em{color:var(--accentDeep)}
+.route summary .chev{font-size:12px;color:var(--accentDeep);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.route[open] summary .chev::after{content:" ▲"} .route:not([open]) summary .chev::after{content:" ▼"}
+.route dl{margin:0;padding:0 20px 18px}
+.route dt{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accentDeep);margin-top:12px}
+.route dd{margin:2px 0 0;font-size:13.5px;line-height:1.5;color:var(--text)}
+
+/* Phone */
+.phone{background:var(--page);border-radius:36px;box-shadow:0 30px 70px rgba(57,56,52,.16);overflow:hidden;min-height:760px;position:relative}
+@media (max-width:440px){.phone{border-radius:0;box-shadow:none;min-height:100vh}}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;background:var(--surface)}
+.navbtn{border:0;background:var(--nest);color:var(--ink);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;min-width:72px}
+.navbtn[disabled]{opacity:.35;cursor:default}
+.counter{font-size:12px;font-weight:600;color:var(--muted);text-align:center;line-height:1.3}
+.counter b{display:block;color:var(--ink);font-size:12.5px}
+.screen{display:none;padding:18px 18px 32px;animation:fade .35s ease}
+.screen.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accentDeep);margin:0 0 6px}
+.chip{display:inline-block;background:var(--mint);color:var(--onMint);font-size:11.5px;font-weight:700;letter-spacing:.04em;padding:4px 11px;border-radius:999px}
+h1,h2,h3{font-family:var(--serif);color:var(--ink);font-weight:500;margin:0}
+h1{font-size:38px;line-height:1.04;letter-spacing:-.6px}
+h1 em,h2 em{font-style:italic;color:var(--accentDeep);font-weight:500}
+h1 strong{font-weight:800}
+h2{font-size:27px;line-height:1.12;letter-spacing:-.4px}
+h3{font-size:20px;line-height:1.2}
+p{margin:0}
+.lede{font-size:16px;color:var(--muted);margin-top:12px}
+.small{font-size:13px;color:var(--muted)}
+.tiny{font-size:12px;color:var(--soft)}
+.card{background:var(--card);border-radius:28px;box-shadow:var(--lift);padding:20px}
+.nest{background:var(--nest);border-radius:20px;padding:14px 16px}
+.stack>*+*{margin-top:14px}
+.btn{display:block;width:100%;border:0;border-radius:999px;padding:15px 20px;font-size:15.5px;font-weight:700;color:#fff;background:var(--gradient);box-shadow:var(--btnShadow);text-align:center}
+.btn.quiet{background:var(--card);color:var(--ink);box-shadow:var(--lift);font-weight:600}
+.btn.sun{background:var(--sun);color:var(--onSun);box-shadow:none}
+.row{display:flex;gap:10px;align-items:center}
+.logo{display:flex;align-items:center;gap:8px}
+.logo span{font-family:var(--serif);font-style:italic;color:#B23D10;font-size:17px;font-weight:500}
+
+/* fields */
+.field{width:100%;border:0;border-bottom:2px solid rgba(188,185,179,.6);background:var(--field);border-radius:12px 12px 4px 4px;padding:13px 14px;font:inherit;font-size:15px;color:var(--ink)}
+.field:focus{outline:none;border-bottom-color:var(--accent);background:#fff}
+textarea.field{min-height:76px;resize:vertical}
+label.lab{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:6px}
+.seg{display:flex;background:var(--field);border-radius:999px;padding:4px}
+.seg button{flex:1;border:0;background:transparent;border-radius:999px;padding:9px 6px;font-size:13.5px;font-weight:600;color:var(--muted)}
+.seg button.on{background:#fff;color:var(--ink);box-shadow:0 4px 12px rgba(57,56,52,.08)}
+.days{display:flex;gap:6px;flex-wrap:wrap}
+.days button{border:0;background:var(--field);border-radius:999px;padding:8px 12px;font-size:13px;font-weight:600;color:var(--muted)}
+.days button.on{background:var(--sun);color:var(--onSun)}
+
+/* the twelve preview */
+.mini-path{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-top:10px}
+.mini-path i{height:8px;border-radius:999px;background:var(--field)}
+.mini-path i.w{background:#F7C6A9}.mini-path i.d{background:#BFE0CB}.mini-path i.l{background:#FFE2A3}.mini-path i.m{background:#F3CFE0}
+.lanes{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.lane{border-radius:16px;padding:10px 12px;font-size:12.5px;line-height:1.35;color:var(--text)}
+.lane b{display:block;font-size:13px;color:var(--ink)}
+
+/* email / sms */
+.mail{background:var(--card);border-radius:28px;box-shadow:var(--lift);overflow:hidden}
+.mail-head{padding:16px 18px 12px;background:var(--surface)}
+.mail-head .from{display:flex;gap:10px;align-items:center}
+.av{width:36px;height:36px;border-radius:50%;background:var(--tA);display:grid;place-items:center;flex:none}
+.mail-head .subj{font-family:var(--serif);font-size:19px;color:var(--ink);margin-top:10px;line-height:1.25}
+.mail-body{padding:16px 18px 20px}
+.sms{background:var(--nest);border-radius:28px;padding:16px 14px 18px}
+.bubble{max-width:86%;padding:10px 13px;border-radius:18px;font-size:14px;line-height:1.45;margin-top:8px}
+.bubble.them{background:#fff;color:var(--text);border-bottom-left-radius:6px;box-shadow:var(--lift)}
+.bubble.me{background:var(--accent);color:#fff;margin-left:auto;border-bottom-right-radius:6px}
+.stamp{text-align:center;font-size:11px;color:var(--faint);margin-top:4px}
+
+/* SIGNATURE: the weekly card that turns over */
+.flip{perspective:1400px;margin-top:4px}
+.flip-in{display:grid;transition:transform .8s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d}
+.flip.turned .flip-in{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:26px;padding:22px 20px;min-height:270px;display:flex;flex-direction:column}
+.face.front{background:var(--gradient);color:#fff;box-shadow:var(--btnShadow)}
+.face.front .eyebrow{color:#FFE7D6}
+.face.front h3{color:#fff;font-size:27px;line-height:1.12;margin-top:6px}
+.face.front .help{color:#FFEDE3;font-size:14px;margin-top:10px}
+.face.back{background:#fff;transform:rotateY(180deg);box-shadow:var(--glowShadow)}
+.face.plain{background:#fff;color:var(--text);box-shadow:var(--glowShadow)}
+.face.rad{background:var(--gradient);color:#fff;box-shadow:var(--btnShadow)}
+.face.rad .eyebrow{color:#FFE7D6}.face.rad h3{color:#fff;font-size:25px;line-height:1.15;margin-top:6px}.face.rad .help{color:#FFEDE3;font-size:14px;margin-top:10px}
+.face .grow{flex:1}
+.turn{align-self:flex-start;border:0;background:rgba(255,255,255,.2);color:#fff;border-radius:999px;padding:9px 16px;font-size:13.5px;font-weight:700;margin-top:16px}
+.turn.dark{background:var(--nest);color:var(--ink)}
+@media (prefers-reduced-motion:reduce){
+  .flip-in{transition:none}
+  .flip .face{transition:opacity .25s}
+  .flip.turned .flip-in{transform:none}
+  .flip .back{transform:none;opacity:0;pointer-events:none}
+  .flip.turned .back{opacity:1;pointer-events:auto}
+  .flip.turned .front{opacity:0;pointer-events:none}
+}
+
+/* options */
+.opts{display:grid;gap:8px;margin-top:4px}
+.opt{display:flex;gap:12px;align-items:center;text-align:left;border:0;background:var(--field);border-radius:18px;padding:12px 14px;color:var(--ink)}
+.opt .n{width:26px;height:26px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:12.5px;font-weight:700;color:var(--accentDeep);flex:none}
+.opt b{display:block;font-size:14.5px;font-weight:600}
+.opt span{font-size:12.5px;color:var(--muted)}
+.opt.on{background:var(--sun)}
+.opt.on .n{background:var(--onSun);color:var(--sun)}
+.timer{display:inline-flex;align-items:center;gap:6px;background:var(--tGold);color:var(--onSun);font-size:12.5px;font-weight:700;border-radius:999px;padding:5px 11px}
+.boundary{background:var(--tGold);border-radius:20px;padding:13px 15px;font-size:13px;line-height:1.5;color:var(--text)}
+.boundary b{color:var(--ink)}
+.crisis{font-size:12.5px;color:var(--muted);text-align:center;padding:4px 8px}
+.crisis b{color:var(--ink)}
+.link{color:#B23A0E;font-weight:600;text-decoration:underline;text-underline-offset:3px;background:none;border:0;padding:0;font-size:inherit}
+
+/* path */
+.path{position:relative;margin-top:6px;padding-left:4px}
+.step{display:flex;gap:14px;position:relative;padding-bottom:14px}
+.step:not(:last-child)::before{content:"";position:absolute;left:17px;top:36px;bottom:0;width:2px;background:rgba(188,185,179,.35)}
+.stone{width:36px;height:36px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:13px;font-weight:700;position:relative;z-index:1}
+.stone.done{background:var(--tG);color:var(--green)}
+.stone.rest{background:var(--page);color:var(--soft);border:2px dashed rgba(160,147,127,.55)}
+.stone.now{background:var(--gradient);color:#fff;box-shadow:var(--btnShadow)}
+.stone.later{background:var(--nest);color:var(--faint)}
+.step .what{flex:1;min-width:0;padding-top:2px}
+.step .what b{display:block;font-size:14px;color:var(--ink);font-weight:600;line-height:1.35}
+.step .what .ans{font-size:13px;color:var(--muted);line-height:1.45;margin-top:2px}
+.lane-tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:2px 8px;margin-bottom:3px}
+.lt-w{background:var(--tA);color:var(--accentDeep)} .lt-d{background:var(--tG);color:var(--onMint)} .lt-l{background:var(--tGold);color:var(--onSun)} .lt-m{background:#F7E3EC;color:#8A2F57}
+.step.tap{cursor:pointer}
+.toggle{display:flex;gap:6px}
+.toggle button{flex:1;border:0;border-radius:999px;padding:10px;font-weight:700;font-size:13.5px;background:var(--nest);color:var(--muted)}
+.toggle button.on{background:var(--ink);color:#fff}
+
+/* plan */
+.plan-sec{background:var(--card);border-radius:28px;box-shadow:var(--lift);padding:18px 18px 8px}
+.plan-sec h3{font-size:19px;margin-bottom:8px}
+.pl{display:flex;justify-content:space-between;gap:12px;padding:9px 0;font-size:13.5px}
+.pl+.pl{border-top:1px solid rgba(188,185,179,.18)}
+.pl span:first-child{color:var(--muted);flex:none;max-width:44%}
+.pl span:last-child{color:var(--ink);text-align:right;font-weight:500}
+.tick{color:var(--green);font-weight:700}
+.radiant{background:var(--gradient);color:#fff;border-radius:28px;padding:22px 20px;box-shadow:var(--btnShadow)}
+.radiant h2{color:#fff}.radiant h2 em{color:#FFE2CF}
+.price{font-family:var(--serif);font-size:34px;font-weight:800;color:var(--ink);line-height:1}
+.toast{position:absolute;left:16px;right:16px;bottom:18px;background:var(--ink);color:#fff;border-radius:18px;padding:12px 16px;font-size:13.5px;opacity:0;transform:translateY(10px);transition:.3s;pointer-events:none;z-index:5}
+.toast.on{opacity:1;transform:none}
+.dots{display:flex;justify-content:center;gap:6px;padding:0 0 10px;background:var(--surface)}
+.dots i{width:6px;height:6px;border-radius:50%;background:rgba(160,147,127,.4)}
+.dots i.on{background:var(--accent);width:18px;border-radius:999px}
+.site{background:var(--surface);border-radius:28px;padding:18px;box-shadow:var(--lift)}
+.urlbar{background:var(--nest);border-radius:999px;font-size:12px;color:var(--soft);padding:6px 12px;text-align:center;margin-bottom:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<details class="route" id="route">
+  <summary><span class="t">Route 08 · <em>Twelve Small Steps</em></span><span class="chev">Route card</span></summary>
+  <dl>
+    <dt>Thesis</dt><dd>For people who mean to "sort it one day", replace the big planner with one five-minute step a week, answered by reply, and hand them a finished plan at week 12.</dd>
+    <dt>Who it's for</dt><dd>Procrastinators, 40 to 65, who know they should and never start. They sign up to the newsletter on goodgriefcircle.com, not to an app.</dd>
+    <dt>What's cut</dt><dd>The home dashboard and the three spaces; Planning in three steps; Grief Support; Memorial; diagnosis path; song search, soundtrack and own song; will interview; find help nearby; people to call; the documents vault; the gift screen; account and sync screens. There is no app to log in to: only "this week's step" and "what you've done".</dd>
+    <dt>What's kept</dt><dd>Mari's questions and guidance, cut into 12 small steps across four lanes: wishes, where things are kept, legal pointers, and messages. Plus the finished plan to share with one person.</dd>
+    <dt>MVP for the Christmas vouchers</dt><dd>The voucher code signs you up for 12 free weeks starting the first Sunday of January. One email (or text) a week from a fixed list of 12; replies read by us and added to the plan by hand if needed; a plan page at week 12. No accounts, no app.</dd>
+    <dt>How it makes money</dt><dd>A small yearly membership (draft: £19 a year through Stripe), asked at week 12: a seasonal "keep it current" check and a nudge after life changes. Stopping never hides the finished plan from you or the person you shared it with.</dd>
+    <dt>The one metric</dt><dd>Share of sign-ups who answer at least 8 of the 12 steps.</dd>
+    <dt>The biggest risk</dt><dd>Newsletter sign-ups are browsers, not buyers, and research says families paying yearly for planning rarely lasts. If people finish the 12 weeks happily but don't want year two, this is a lead magnet, not a business.</dd>
+  </dl>
+</details>
+
+<div class="phone" id="phone">
+  <div class="bar">
+    <button class="navbtn" id="back" type="button">← Back</button>
+    <div class="counter"><b id="sname">Sign up</b><span id="count">Screen 1 of 6</span></div>
+    <button class="navbtn" id="next" type="button">Next →</button>
+  </div>
+  <div class="dots" id="dots"></div>
+
+  <!-- 1 · SIGN-UP on the website -->
+  <section class="screen on" data-name="Sign up">
+    <div class="urlbar">goodgriefcircle.com</div>
+    <div class="logo" style="margin-bottom:18px">
+      <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><g opacity=".82"><circle cx="15" cy="15" r="9" fill="#e07a4d"/><circle cx="25" cy="15" r="9" fill="#4a9e90"/><circle cx="15" cy="25" r="9" fill="#9cbf86"/><circle cx="25" cy="25" r="9" fill="#eab64a"/></g></svg>
+      <span>Good Grief Circle</span>
+    </div>
+    <span class="chip">The newsletter that does the job</span>
+    <h1 style="margin-top:12px">Sort it one day? <em>Make it</em> <strong>twelve Sundays.</strong></h1>
+    <p class="lede">One small step a week, by email or text. Each one takes under five minutes and you answer by replying. In twelve weeks your family has a plan.</p>
+
+    <div class="card stack" style="margin-top:20px">
+      <div>
+        <label class="lab">Send my step by</label>
+        <div class="seg" id="chan"><button type="button" class="on" data-v="email">Email</button><button type="button" data-v="text">Text</button></div>
+      </div>
+      <div>
+        <label class="lab" for="addr" id="addrlab">Your email</label>
+        <input class="field" id="addr" type="text" value="jo.hartley@example.co.uk" autocomplete="off">
+      </div>
+      <div>
+        <label class="lab">Which day suits you?</label>
+        <div class="days" id="days"><button type="button">Mon</button><button type="button">Wed</button><button type="button">Fri</button><button type="button" class="on">Sun</button></div>
+      </div>
+      <div>
+        <label class="lab" for="code">Got a Christmas voucher?</label>
+        <input class="field" id="code" type="text" value="GGC-WREN-0412" autocomplete="off">
+        <p class="tiny" style="margin-top:6px">Your first twelve weeks are free with it.</p>
+      </div>
+      <button class="btn" type="button" data-go="1">Send me week 1 on Sunday</button>
+      <p class="tiny" style="text-align:center">No app, no account, nothing to remember. Stop with one reply: STOP.</p>
+    </div>
+
+    <div class="nest" style="margin-top:16px">
+      <p class="eyebrow" style="margin:0">What the twelve weeks cover</p>
+      <div class="mini-path"><i class="w"></i><i class="d"></i><i class="l"></i><i class="d"></i><i class="m"></i><i class="l"></i><i class="w"></i><i class="d"></i><i class="w"></i><i class="l"></i><i class="m"></i><i class="w"></i></div>
+      <div class="lanes">
+        <div class="lane" style="background:var(--tA)"><b>Your wishes</b>How you'd like to be laid to rest, the gathering, the music.</div>
+        <div class="lane" style="background:var(--tG)"><b>Where things are</b>The will, insurance, accounts. Where, never what's inside.</div>
+        <div class="lane" style="background:var(--tGold)"><b>Legal pointers</b>Who speaks for you, pensions, organ donation. What to do next.</div>
+        <div class="lane" style="background:#F7E3EC"><b>A few words</b>One memory, one message for someone you love.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 · THE WEEKLY MESSAGE -->
+  <section class="screen" data-name="This week's message">
+    <div class="row" style="justify-content:space-between;margin-bottom:12px">
+      <p class="eyebrow" style="margin:0">Sun 14 Feb · 8:00</p>
+      <div class="toggle" id="viewtog" style="width:150px"><button type="button" class="on" data-v="email">Email</button><button type="button" data-v="text">Text</button></div>
+    </div>
+
+    <div id="asEmail" class="mail">
+      <div class="mail-head">
+        <div class="from">
+          <div class="av"><svg width="24" height="24" viewBox="0 0 40 40" aria-hidden="true"><g opacity=".82"><circle cx="15" cy="15" r="9" fill="#e07a4d"/><circle cx="25" cy="15" r="9" fill="#4a9e90"/><circle cx="15" cy="25" r="9" fill="#9cbf86"/><circle cx="25" cy="25" r="9" fill="#eab64a"/></g></svg></div>
+          <div><b style="color:var(--ink);font-size:14px">Good Grief Circle</b><div class="tiny">to Jo</div></div>
+        </div>
+        <div class="subj">Week 7 of 12 · The feeling in the room</div>
+      </div>
+      <div class="mail-body">
+        <p class="small" style="margin-bottom:12px">Morning Jo. One small one this week. Tap the card to see why it matters.</p>
+        <div class="flip" id="flip1">
+          <div class="flip-in">
+            <div class="face front">
+              <p class="eyebrow">This week · about 3 minutes</p>
+              <h3>What kind of gathering would you like?</h3>
+              <p class="help">Think about the feeling in the room more than the format.</p>
+              <div class="grow"></div>
+              <button class="turn" type="button" data-flip="flip1">Turn it over ↻</button>
+            </div>
+            <div class="face back">
+              <p class="eyebrow">Why this one</p>
+              <p style="font-size:14.5px;color:var(--text)">When nobody knows, the people closest to you have to guess on the hardest week of their lives. One line from you settles it.</p>
+              <div class="nest" style="margin-top:12px;font-size:13.5px">
+                <b style="color:var(--ink)">How to answer</b><br>
+                Just reply with a number: <b>1</b> a celebration of life · <b>2</b> a traditional service · <b>3</b> small &amp; private · <b>4</b> no formal event. Add a line if you like.
+              </div>
+              <div class="grow"></div>
+              <button class="turn dark" type="button" data-flip="flip1">↺ Turn back</button>
+            </div>
+          </div>
+        </div>
+        <button class="btn" type="button" data-go="2" style="margin-top:16px">Answer here instead</button>
+        <p class="tiny" style="margin-top:12px;text-align:center">Not this week? Reply LATER and we'll leave it for you. No reminders, no fuss.</p>
+      </div>
+    </div>
+
+    <div id="asText" class="sms" style="display:none">
+      <div class="stamp">Sun 14 Feb, 08:00</div>
+      <div class="bubble them">Good Grief Circle · Week 7 of 12. What kind of gathering would you like? Reply 1 celebration of life, 2 traditional service, 3 small &amp; private, 4 no formal event. Or LATER.</div>
+      <div class="stamp">08:41</div>
+      <div class="bubble me">3. And then the pub, everyone's welcome there</div>
+      <div class="bubble them">Thank you Jo. Added to your plan: small &amp; private, then the pub. That's 6 of 12 done. Next Sunday: where things like passwords are written down (never the passwords).</div>
+      <button class="btn quiet" type="button" data-go="3" style="margin-top:16px">See Jo's twelve steps</button>
+    </div>
+  </section>
+
+  <!-- 3 · ANSWERING -->
+  <section class="screen" data-name="Answer in 5 minutes">
+    <div class="row" style="justify-content:space-between">
+      <p class="eyebrow" style="margin:0">Week 7 of 12 · Your wishes</p>
+      <span class="timer">◷ about 3 min</span>
+    </div>
+
+    <div class="flip" id="flip2" style="margin-top:12px">
+      <div class="flip-in">
+        <div class="face front plain" style="padding:20px 18px;min-height:0" id="askFace">
+          <h2>What kind of gathering <em>would you like?</em></h2>
+          <p class="small" style="margin-top:8px">Think about the feeling in the room more than the format.</p>
+          <div class="opts" id="opts" style="margin-top:14px">
+            <button class="opt" type="button"><span class="n">1</span><span><b>A celebration of life</b><span>Joyful, full of stories</span></span></button>
+            <button class="opt" type="button"><span class="n">2</span><span><b>A traditional service</b><span>Familiar and grounding</span></span></button>
+            <button class="opt" type="button"><span class="n">3</span><span><b>Small &amp; private</b><span>Just the closest few</span></span></button>
+            <button class="opt" type="button"><span class="n">4</span><span><b>No formal event</b><span>Remember me your own way</span></span></button>
+          </div>
+          <label class="lab" for="note" style="margin-top:14px">Anything to add? <span class="tiny">(optional)</span></label>
+          <textarea class="field" id="note">And then the pub, everyone's welcome there.</textarea>
+          <button class="btn" type="button" id="saveAns" style="margin-top:14px">Done, add it to my plan</button>
+        </div>
+        <div class="face back rad" style="min-height:0" id="doneFace">
+          <p class="eyebrow">Week 7 · done</p>
+          <h3>Small &amp; private, then the pub. <span style="font-style:italic">Noted.</span></h3>
+          <p class="help">That's six of twelve. You took 2 minutes 40.</p>
+          <div style="background:rgba(255,255,255,.16);border-radius:18px;padding:12px 14px;margin-top:14px;font-size:13.5px;color:#fff">
+            <b>Next Sunday · Where things are kept</b><br>Digital accounts &amp; passwords: just where the list or password manager is. Never the passwords themselves.
+          </div>
+          <div class="grow"></div>
+          <button class="turn" type="button" data-go="3">See what you've done →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="boundary" style="margin-top:14px"><b>Not a legal will. A human one.</b> These are wishes for the people you love. To decide who inherits, you still need a will: week 2 pointed you to the options.</div>
+    <p class="crisis" style="margin-top:12px">If this stirs up something heavy, you can talk to <b>Samaritans on 116 123</b>, free, day or night.</p>
+  </section>
+
+  <!-- 4 · THE PATH -->
+  <section class="screen" data-name="Your twelve steps">
+    <p class="eyebrow">Jo Hartley · Leicester</p>
+    <h2>Twelve small steps, <em>at your own pace.</em></h2>
+
+    <div class="radiant" style="margin-top:16px">
+      <p class="eyebrow" style="color:#FFE7D6">This week's step · Sunday 21 Feb</p>
+      <h3 style="color:#fff;font-size:22px">Where are your digital accounts written down?</h3>
+      <p style="font-size:13.5px;color:#FFEDE3;margin-top:6px">A password manager or sealed list. Tell us where it is; never type a password here.</p>
+      <button class="turn" type="button" data-toast="We'll send it on Sunday at 8. You can also reply to any old email to answer early.">Arrives Sunday at 8 →</button>
+    </div>
+
+    <p class="eyebrow" style="margin-top:22px">What you've done</p>
+    <div class="path">
+      <div class="step"><div class="stone done">✓</div><div class="what"><span class="lane-tag lt-w">Wishes</span><b>How you'd like to be laid to rest</b><p class="ans">Cremation. Ashes scattered at Bradgate Park, by the deer.</p></div></div>
+      <div class="step"><div class="stone done">✓</div><div class="what"><span class="lane-tag lt-d">Where things are</span><b>Will &amp; legal documents</b><p class="ans">No will yet. Call booked with a solicitor in Loughborough, 3 March.</p></div></div>
+      <div class="step"><div class="stone done">✓</div><div class="what"><span class="lane-tag lt-l">Legal pointer</span><b>Who should speak for you if you can't?</b><p class="ans">Dave, then Ellie. Next: a Lasting Power of Attorney for Health &amp; Care.</p></div></div>
+      <div class="step"><div class="stone done">✓</div><div class="what"><span class="lane-tag lt-d">Where things are</span><b>Insurance policies</b><p class="ans">Blue folder, bottom drawer of the desk in the back bedroom.</p></div></div>
+      <div class="step"><div class="stone done">✓</div><div class="what"><span class="lane-tag lt-m">A few words</span><b>A memory you'd like remembered</b><p class="ans">Whitby, 2009. Chips in the rain and Tom refusing to get out of the car.</p></div></div>
+      <div class="step tap" data-go="4"><div class="stone rest">6</div><div class="what"><span class="lane-tag lt-l">Legal pointer</span><b>Pension &amp; life insurance nominations</b><p class="ans">Resting. Pick it up whenever you like <span class="link">→</span></p></div></div>
+      <div class="step"><div class="stone done">✓</div><div class="what"><span class="lane-tag lt-w">Wishes</span><b>The gathering</b><p class="ans">Small &amp; private, then the pub. Everyone's welcome there.</p></div></div>
+      <div class="step"><div class="stone now">8</div><div class="what"><span class="lane-tag lt-d">Where things are</span><b>Digital accounts</b><p class="ans">Sunday</p></div></div>
+      <div class="step"><div class="stone later">9</div><div class="what"><b style="color:var(--soft)">Songs that should be playing</b></div></div>
+      <div class="step"><div class="stone later">10</div><div class="what"><b style="color:var(--soft)">Organ &amp; body donation</b></div></div>
+      <div class="step"><div class="stone later">11</div><div class="what"><b style="color:var(--soft)">A message for someone you love</b></div></div>
+      <div class="step"><div class="stone later">12</div><div class="what"><b style="color:var(--soft)">How you'd like to be remembered, then your plan</b></div></div>
+    </div>
+    <p class="tiny" style="text-align:center;margin-top:4px">No streaks. A quiet week just rests on the path.</p>
+  </section>
+
+  <!-- 5 · GENTLE CATCH-UP -->
+  <section class="screen" data-name="When a week goes quiet">
+    <p class="eyebrow">Tuesday 9 February · email</p>
+    <div class="mail">
+      <div class="mail-head">
+        <div class="from"><div class="av" style="background:var(--tGold)">☁︎</div><div><b style="color:var(--ink);font-size:14px">Good Grief Circle</b><div class="tiny">to Jo</div></div></div>
+        <div class="subj">Week 6 can wait</div>
+      </div>
+      <div class="mail-body">
+        <p style="font-size:15px">Hi Jo. Sunday's step didn't get a reply, which is completely fine. Life is busy and this one's a bit of admin. Here are a few ways to leave it, all equally good:</p>
+        <div class="opts" style="margin-top:14px" id="catch">
+          <button class="opt" type="button" data-toast="Here's the two-minute version: which pensions do you have, and have you filled in an expression of wish form? Reply with a list."><span class="n">1</span><span><b>Do the short version</b><span>Two minutes: just list your pensions</span></span></button>
+          <button class="opt" type="button" data-toast="Swapped. Week 6 is now 'Pet care: who will look after Pepper?'. Pensions moves to the end."><span class="n">2</span><span><b>Swap it for an easier one</b><span>Pensions moves to the end of the path</span></span></button>
+          <button class="opt" type="button" data-toast="Paused. Your next step arrives Sunday 28 February. Nothing is lost."><span class="n">3</span><span><b>Pause for two weeks</b><span>The path waits for you</span></span></button>
+          <button class="opt" type="button" data-go="3"><span class="n">4</span><span><b>Leave it and carry on</b><span>It stays on your plan as "still to do"</span></span></button>
+        </div>
+        <div class="nest" style="margin-top:16px">
+          <p class="eyebrow" style="margin:0 0 4px">Why pensions matter, when you get to it</p>
+          <p class="small">Most pension death benefits do not pass through your will. A nomination or "expression of wish" form tells the provider who you want to benefit.</p>
+        </div>
+        <p class="tiny" style="margin-top:14px;text-align:center">You'll only ever get one of these per quiet week. If two go quiet in a row, we'll ask once if you'd like to pause.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 · WEEK 12: THE FINISHED PLAN -->
+  <section class="screen" data-name="Your plan at week 12">
+    <span class="chip">Week 12 of 12 · Sunday 21 March</span>
+    <h1 style="margin-top:12px;font-size:34px">Jo, <em>it's sorted.</em> <strong>Well, mostly.</strong></h1>
+    <p class="lede">Eleven of twelve answered, in about 40 minutes all told. Here's what your family will find.</p>
+
+    <div class="stack" style="margin-top:18px">
+      <div class="plan-sec">
+        <h3>Your wishes</h3>
+        <div class="pl"><span>Laid to rest</span><span>Cremation, Bradgate Park</span></div>
+        <div class="pl"><span>The gathering</span><span>Small &amp; private, then the pub</span></div>
+        <div class="pl"><span>Music</span><span>"Dancing Queen", loud</span></div>
+        <div class="pl"><span>Remembered for</span><span>Always saying yes to one more cup of tea</span></div>
+      </div>
+      <div class="plan-sec">
+        <h3>Where things are kept</h3>
+        <div class="pl"><span>Will</span><span>Being written, with the solicitor in Loughborough</span></div>
+        <div class="pl"><span>Insurance</span><span>Blue folder, back bedroom desk</span></div>
+        <div class="pl"><span>Digital accounts</span><span>Password manager; Dave is the emergency contact</span></div>
+      </div>
+      <div class="plan-sec">
+        <h3>What's done, what's next</h3>
+        <div class="pl"><span>Who speaks for you</span><span>Dave, then Ellie · <span class="tick">LPA started</span></span></div>
+        <div class="pl"><span>Organ donation</span><span><span class="tick">Registered yes</span></span></div>
+        <div class="pl"><span>Pension nominations</span><span style="color:var(--soft)">Still to do, no rush</span></div>
+        <div class="pl"><span>Messages</span><span>One for Ellie, one for Tom</span></div>
+      </div>
+
+      <div class="boundary"><b>Not a legal will. A human one.</b> This plan tells your family what you'd want and where things are. A will is what decides who inherits; yours is on its way.</div>
+
+      <button class="btn" type="button" data-toast="Preview: Dave would get one email with a link to read this plan. He doesn't need an account.">Share it with Dave</button>
+      <button class="btn quiet" type="button" data-toast="Preview: a printable one-page copy for the kitchen drawer.">Print a copy</button>
+
+      <div class="card" style="background:var(--surface)">
+        <p class="eyebrow">Your voucher covered these twelve weeks</p>
+        <h3>Keep it current for <em style="color:var(--accentDeep)">£19 a year</em></h3>
+        <p class="small" style="margin-top:8px">Plans go stale when life changes. Members get one short check each season ("Anything changed? Reply NO if not"), a nudge after a move or a new grandchild, and the pension step whenever you're ready.</p>
+        <p class="small" style="margin-top:8px"><b style="color:var(--ink)">If you stop, nothing disappears.</b> You and Dave can always read the plan.</p>
+        <div class="row" style="margin-top:14px;gap:8px">
+          <button class="btn sun" type="button" style="flex:1" data-toast="Preview: payment would open in Stripe. Nothing is charged here.">Become a member</button>
+          <button class="btn quiet" type="button" style="flex:1" data-toast="That's fine. Your plan stays here, and you can join any time.">Not now</button>
+        </div>
+      </div>
+      <p class="crisis">If any of this has been hard, <b>Samaritans: 116 123</b>, free, any time.</p>
+    </div>
+  </section>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</div>
+</div>
+
+<script>
+(function(){
+  var screens = Array.prototype.slice.call(document.querySelectorAll('.screen'));
+  var cur = 0;
+  var dots = document.getElementById('dots');
+  screens.forEach(function(){ dots.appendChild(document.createElement('i')); });
+  var phone = document.getElementById('phone');
+
+  function show(i){
+    if(i < 0 || i >= screens.length) return;
+    screens[cur].classList.remove('on');
+    cur = i;
+    screens[cur].classList.add('on');
+    document.getElementById('count').textContent = 'Screen ' + (cur + 1) + ' of ' + screens.length;
+    document.getElementById('sname').textContent = screens[cur].getAttribute('data-name');
+    document.getElementById('back').disabled = cur === 0;
+    document.getElementById('next').disabled = cur === screens.length - 1;
+    Array.prototype.forEach.call(dots.children, function(d, k){ d.className = k === cur ? 'on' : ''; });
+    var top = phone.getBoundingClientRect().top + window.scrollY - 8;
+    if (window.scrollY > top) window.scrollTo(0, top);
+  }
+  document.getElementById('back').addEventListener('click', function(){ show(cur - 1); });
+  document.getElementById('next').addEventListener('click', function(){ show(cur + 1); });
+
+  var toastEl = document.getElementById('toast'), toastT;
+  function toast(msg){
+    toastEl.textContent = msg; toastEl.classList.add('on');
+    clearTimeout(toastT); toastT = setTimeout(function(){ toastEl.classList.remove('on'); }, 3600);
+  }
+
+  document.addEventListener('click', function(e){
+    var el = e.target.closest('[data-go],[data-flip],[data-toast]');
+    if(!el) return;
+    if(el.hasAttribute('data-flip')) document.getElementById(el.getAttribute('data-flip')).classList.toggle('turned');
+    if(el.hasAttribute('data-toast')) toast(el.getAttribute('data-toast'));
+    if(el.hasAttribute('data-go')) show(parseInt(el.getAttribute('data-go'), 10));
+  });
+
+  function seg(id, cb){
+    var box = document.getElementById(id);
+    box.addEventListener('click', function(e){
+      var b = e.target.closest('button'); if(!b) return;
+      Array.prototype.forEach.call(box.children, function(x){ x.classList.toggle('on', x === b); });
+      if(cb) cb(b.getAttribute('data-v'));
+    });
+  }
+  seg('chan', function(v){
+    var a = document.getElementById('addr');
+    document.getElementById('addrlab').textContent = v === 'text' ? 'Your mobile' : 'Your email';
+    a.value = v === 'text' ? '07700 900 418' : 'jo.hartley@example.co.uk';
+  });
+  seg('days');
+  seg('viewtog', function(v){
+    document.getElementById('asEmail').style.display = v === 'email' ? '' : 'none';
+    document.getElementById('asText').style.display = v === 'text' ? '' : 'none';
+  });
+
+  var opts = document.getElementById('opts');
+  opts.addEventListener('click', function(e){
+    var b = e.target.closest('.opt'); if(!b) return;
+    Array.prototype.forEach.call(opts.children, function(x){ x.classList.toggle('on', x === b); });
+  });
+  opts.children[2].classList.add('on');
+  document.getElementById('saveAns').addEventListener('click', function(){
+    var chosen = opts.querySelector('.on b');
+    var note = document.getElementById('note').value.trim();
+    var h = document.querySelector('#doneFace h3');
+    h.textContent = '';
+    h.appendChild(document.createTextNode((chosen ? chosen.textContent : 'Saved') + (note ? '. ' + note.replace(/^and /i,'And ') : '') + ' '));
+    var em = document.createElement('span'); em.style.fontStyle = 'italic'; em.textContent = 'Noted.';
+    h.appendChild(em);
+    document.getElementById('flip2').classList.add('turned');
+  });
+
+  var route = document.getElementById('route');
+  if (window.matchMedia && window.matchMedia('(min-width: 700px)').matches) route.open = true;
+  show(0);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Where Things Are Kept</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,800;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#FDF9F2; --surface:#FFFBFF; --nest:#F7F3EC; --card:#FFFFFF; --field:#F1EDE6;
+  --ink:#393834; --text:#3E362C; --muted:#5C5247; --soft:#7A6E5E; --faint:#A0937F;
+  --accent:#F26B3C; --deep:#B23D10; --grad:linear-gradient(135deg,#B23D10 0%,#FF794A 100%);
+  --sun:#FFC965; --onSun:#5F4200; --mint:#6DFE9C; --onMint:#005F2E; --green:#2F8B62;
+  --tA:#FCE7DD; --tG:#E2F0E6; --tY:#FFF1D2;
+  --lift:0 18px 40px rgba(57,56,52,.06); --glow:0 24px 48px -12px rgba(178,61,16,.14); --btn:0 10px 24px rgba(178,61,16,.26);
+  --serif:'Newsreader',Georgia,serif; --sans:'Plus Jakarta Sans',-apple-system,system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:#F7F3EC;color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:980px;margin:0 auto;padding:24px 16px 48px}
+
+/* route card */
+.route{max-width:760px;margin:0 auto 22px;background:var(--surface);border-radius:28px;box-shadow:var(--lift);padding:4px 22px}
+.route summary{list-style:none;cursor:pointer;padding:16px 0;display:flex;align-items:center;gap:10px;font-weight:700;color:var(--ink)}
+.route summary::-webkit-details-marker{display:none}
+.route summary .num{font-family:var(--serif);font-style:italic;color:var(--deep);font-size:22px;font-weight:500}
+.route summary .tog{margin-left:auto;font-size:12px;font-weight:600;color:var(--deep)}
+.route dl{display:grid;grid-template-columns:150px 1fr;gap:10px 18px;margin:0 0 20px;font-size:14px}
+.route dt{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--deep);padding-top:2px}
+.route dd{margin:0;color:var(--text)}
+@media (max-width:620px){.route dl{grid-template-columns:1fr;gap:2px}.route dd{margin-bottom:10px}}
+
+/* phone column */
+.phone{max-width:420px;margin:0 auto;background:var(--page);border-radius:36px;box-shadow:0 30px 70px rgba(57,56,52,.16);overflow:hidden;min-height:760px;position:relative}
+@media (max-width:460px){.wrap{padding:12px 0 0}.route{margin:0 12px 12px}.phone{border-radius:0;box-shadow:none;min-height:100vh}}
+.bar{display:flex;align-items:center;gap:10px;padding:16px 18px 6px;background:var(--page);position:sticky;top:0;z-index:5}
+.back{width:38px;height:38px;border-radius:999px;border:0;background:var(--card);box-shadow:var(--lift);display:flex;align-items:center;justify-content:center;color:var(--ink)}
+.back[disabled]{opacity:.3;cursor:default}
+.logo{display:flex;align-items:center;gap:7px;font-family:var(--serif);font-style:italic;font-weight:500;color:var(--deep);font-size:16px}
+.count{margin-left:auto;font-size:11.5px;font-weight:600;color:var(--soft);background:var(--nest);padding:6px 11px;border-radius:999px;white-space:nowrap}
+.screen{display:none;padding:10px 20px 34px;animation:fade .35s ease}
+.screen.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* type */
+.chip{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:999px}
+.mint{background:var(--mint);color:var(--onMint)}
+.sunc{background:var(--sun);color:var(--onSun)}
+.tint{background:var(--tA);color:var(--deep)}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);margin:0 0 8px}
+h1{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:38px;line-height:1.04;letter-spacing:-.6px;margin:14px 0 12px}
+h1 em{font-style:italic;color:var(--deep)}
+h1 b{font-weight:800}
+h2{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:25px;line-height:1.15;letter-spacing:-.3px;margin:0 0 8px}
+h2 em{font-style:italic;color:var(--deep)}
+h3{font-size:15px;font-weight:700;color:var(--ink);margin:0 0 4px}
+.lead{font-size:16px;color:var(--muted);margin:0 0 18px}
+.small{font-size:12.8px;color:var(--soft);line-height:1.5}
+.card{background:var(--card);border-radius:28px;box-shadow:var(--lift);padding:18px}
+.nest{background:var(--nest);border-radius:22px;padding:16px}
+.radiant{background:var(--grad);color:#fff;border-radius:28px;padding:20px;box-shadow:var(--glow)}
+.radiant .eyebrow{color:#FFE3D4}
+.radiant h2{color:#fff}
+.btn{display:block;width:100%;border:0;border-radius:999px;padding:16px 20px;font-weight:700;font-size:15.5px;color:#fff;background:var(--grad);box-shadow:var(--btn);margin-top:20px}
+.btn2{display:inline-block;border:0;border-radius:999px;padding:11px 16px;font-weight:700;font-size:13.5px;background:var(--card);color:var(--ink);box-shadow:var(--lift)}
+.link{background:none;border:0;padding:0;color:#B23A0E;font-weight:600;font-size:13.5px;text-decoration:underline;text-underline-offset:3px}
+.gap{height:14px}
+
+/* the drawer: the signature */
+.drawer{background:var(--nest);border-radius:28px;padding:22px 12px 14px;position:relative}
+.drawer-head{display:flex;align-items:baseline;justify-content:space-between;padding:0 6px 14px}
+.drawer-head .who{font-family:var(--serif);font-size:19px;color:var(--ink);font-weight:500}
+.drawer-head .n{font-size:12.5px;font-weight:700;color:var(--green)}
+.folder{position:relative;margin-top:-22px}
+.drawer-head + .folder{margin-top:0}
+.tab{display:inline-flex;align-items:center;gap:6px;padding:6px 13px 12px;border-radius:14px 14px 0 0;font-size:11.5px;font-weight:700;letter-spacing:.02em;background:var(--tabTint);color:var(--ink);transition:background .6s ease,color .6s ease;position:relative;max-width:70%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tab .dot{width:7px;height:7px;border-radius:9px;background:var(--tabCol);flex:none;transition:background .6s}
+.folder.filled .tab{background:var(--tabCol);color:#fff}
+.folder.filled .tab .dot{background:#fff}
+.fbody{background:var(--card);border-radius:18px;padding:12px 14px 30px;box-shadow:0 -8px 18px rgba(57,56,52,.05);display:flex;gap:10px;align-items:flex-start;margin-top:-6px;position:relative;cursor:default}
+.folder.click .fbody{cursor:pointer}
+.fbody .txt{flex:1;min-width:0}
+.fbody .lab{font-weight:700;color:var(--ink);font-size:14px}
+.fbody .hint{font-size:12.5px;color:var(--soft);margin-top:1px}
+.fbody .note{font-size:12.8px;color:var(--text);margin-top:4px;background:var(--tG);border-radius:10px;padding:6px 9px}
+.folder:last-child .fbody{padding-bottom:14px}
+.folder.pulse .tab{animation:pulse 1.4s ease 1}
+@keyframes pulse{0%{transform:translateY(0)}30%{transform:translateY(-6px)}60%{transform:translateY(0)}}
+.fchip{flex:none;font-size:10.5px;font-weight:700;padding:4px 9px;border-radius:999px;white-space:nowrap;margin-top:2px}
+
+/* quiz */
+.opts{display:grid;gap:9px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;border:0;background:var(--card);box-shadow:var(--lift);border-radius:20px;padding:13px 15px;color:var(--ink);font-size:14.5px;font-weight:600;transition:background .2s}
+.opt .box{flex:none;width:22px;height:22px;border-radius:8px;background:var(--field);display:flex;align-items:center;justify-content:center;margin-top:1px}
+.opt.sel{background:var(--sun)}
+.opt.sel .box{background:var(--ink)}
+.opt .box svg{opacity:0}
+.opt.sel .box svg{opacity:1}
+.qstep{display:flex;gap:6px;margin:4px 0 16px}
+.qstep i{flex:1;height:5px;border-radius:9px;background:var(--field)}
+.qstep i.on{background:var(--accent)}
+.worth{background:var(--tY);border-radius:18px;padding:13px 15px;margin-top:14px;font-size:13.5px;color:var(--text)}
+.worth b{display:block;color:var(--onSun);font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px}
+
+/* start here */
+.task{display:flex;gap:12px;align-items:center;background:rgba(255,255,255,.16);border-radius:16px;padding:11px 13px;margin-top:8px;font-size:14px;font-weight:600}
+.task .min{margin-left:auto;font-size:11px;font-weight:700;background:rgba(255,255,255,.24);padding:3px 8px;border-radius:999px;white-space:nowrap}
+.task .ix{font-family:var(--serif);font-size:20px;font-style:italic;font-weight:500;opacity:.9}
+
+/* fields */
+.entry{background:var(--card);border-radius:24px;box-shadow:var(--lift);padding:16px;margin-top:12px}
+.entry .top{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+label.f{display:block;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin:10px 0 5px}
+.in{width:100%;border:0;border-bottom:2px solid rgba(188,185,179,.5);background:var(--field);border-radius:12px 12px 4px 4px;padding:10px 12px;font:inherit;font-size:14.5px;color:var(--ink);resize:none;line-height:1.45}
+.in:focus{outline:none;border-bottom-color:var(--accent);background:#fff}
+.seg{display:flex;background:var(--field);border-radius:999px;padding:3px;gap:3px}
+.seg button{border:0;background:none;border-radius:999px;padding:6px 10px;font-size:11.5px;font-weight:700;color:var(--soft)}
+.seg button.on{background:var(--card);color:var(--ink);box-shadow:0 2px 8px rgba(57,56,52,.08)}
+details.guide{background:var(--nest);border-radius:20px;padding:0 15px;margin-top:10px}
+details.guide summary{list-style:none;cursor:pointer;padding:13px 0;font-weight:700;font-size:13.5px;color:var(--deep);display:flex;justify-content:space-between}
+details.guide summary::-webkit-details-marker{display:none}
+details.guide summary::after{content:'+';font-size:18px;line-height:1}
+details.guide[open] summary::after{content:'–'}
+details.guide p{font-size:13.5px;margin:0 0 10px;color:var(--text)}
+details.guide .k{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--soft);margin:12px 0 3px}
+.optrow{background:var(--card);border-radius:14px;padding:9px 11px;margin-bottom:6px;font-size:13px}
+.optrow b{color:var(--ink)}
+.boundary{display:flex;gap:10px;align-items:flex-start;background:var(--tA);border-radius:18px;padding:12px 14px;margin-top:14px;font-size:13.3px}
+.boundary b{color:var(--deep)}
+
+/* plan */
+.price{font-family:var(--serif);font-size:46px;font-weight:800;line-height:1;letter-spacing:-1px}
+.price small{font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:0;opacity:.9}
+.ticks{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:8px;font-size:14px}
+.ticks li{display:flex;gap:9px;align-items:flex-start}
+.ticks li::before{content:'\2713';flex:none;width:18px;height:18px;border-radius:9px;margin-top:1px;background:rgba(255,255,255,.28);color:#fff;font-size:11px;font-weight:700;text-align:center;line-height:18px}
+.voucher{display:flex;gap:8px;margin-top:10px}
+.voucher .in{flex:1;min-width:0;letter-spacing:.08em;text-transform:uppercase}
+.toast{background:var(--tG);color:var(--onMint);border-radius:16px;padding:11px 14px;font-size:13.3px;margin-top:12px;display:none}
+.toast.on{display:block}
+
+/* family */
+.ring{display:flex;justify-content:space-between;gap:6px;margin-top:14px}
+.ring .p{flex:1;text-align:center;background:rgba(255,255,255,.16);border-radius:16px;padding:10px 4px;font-size:12.5px;font-weight:600}
+.ring .p .av{width:34px;height:34px;border-radius:99px;margin:0 auto 5px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:16px;font-weight:500;background:rgba(255,255,255,.9);color:var(--deep)}
+.ring .p.ok .av{background:var(--mint);color:var(--onMint)}
+.flow{display:grid;gap:7px;margin-top:14px;font-size:13.5px}
+.flow div{display:flex;gap:10px;align-items:flex-start}
+.flow span{flex:none;width:22px;height:22px;border-radius:99px;background:rgba(255,255,255,.26);font-size:11.5px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.ro{background:var(--card);border-radius:20px;padding:12px 14px;margin-top:8px;box-shadow:var(--lift);display:flex;gap:11px}
+.ro .bar2{flex:none;width:6px;border-radius:6px}
+.ro.empty{background:var(--nest);box-shadow:none;color:var(--faint)}
+.step{display:flex;gap:12px;padding:12px 0}
+.step + .step{border-top:0}
+.step .nn{flex:none;width:30px;height:30px;border-radius:99px;background:var(--tA);color:var(--deep);font-family:var(--serif);font-weight:500;font-size:16px;display:flex;align-items:center;justify-content:center}
+.crisis{background:var(--tY);border-radius:20px;padding:13px 15px;margin-top:14px;font-size:13.5px}
+.crisis b{color:var(--ink)}
+.hero-art{margin:4px 0 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<details class="route" id="route">
+  <summary><span class="num">03</span> Where Things Are Kept <span class="tog">Route card</span></summary>
+  <dl>
+    <dt>Thesis</dt><dd>Sell a filing drawer, not a will: note what exists and where it's kept, so your children open one drawer instead of every drawer in the house.</dd>
+    <dt>Who it's for</dt><dd>Organised planners, 50+, usually just after untangling a parent's estate: "I never want my kids to go through that."</dd>
+    <dt>What's cut</dt><dd>Reflection, wishes &amp; farewells, songs, own song, will interview, funeral options, find help nearby, people to call, memories, Grief Support, Memorial, diagnosis path, the gift. Roughly three quarters of today's demo.</dd>
+    <dt>What's kept</dt><dd>Mari's eight document types and her legal guidance (will, LPA, pensions, digital), a three-question start, the release rule, and the family's read-only view with her first steps after a death.</dd>
+    <dt>MVP for the Christmas vouchers</dt><dd>Quiz → "start here" → eight drawers of notes (no uploads, no passwords) → name three keyholders → family preview. Voucher = first year of the vault plan free. No card taken until the 30/60/90-day ask.</dd>
+    <dt>How it makes money</dt><dd>Vault plan, £29 a year (draft). Three drawers free for good. A lapsed plan never shuts the family out; the drawer just stops taking new notes.</dd>
+    <dt>The one metric</dt><dd>Voucher users with 5 of 8 drawers noted and three keyholders named within 30 days.</dd>
+    <dt>The biggest risk</dt><dd>It looks like a notebook. People may not pay yearly for what a biscuit tin does free, and notes go stale unless the yearly check-up works.</dd>
+  </dl>
+</details>
+
+<div class="phone" id="phone">
+  <div class="bar">
+    <button class="back" id="back" aria-label="Back" disabled><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"/></svg></button>
+    <div class="logo">
+      <svg width="30" height="22" viewBox="0 0 60 44" aria-hidden="true"><g opacity=".82"><circle cx="16" cy="16" r="12" fill="#e07a4d"/><circle cx="30" cy="14" r="12" fill="#4a9e90"/><circle cx="22" cy="28" r="12" fill="#9cbf86"/><circle cx="37" cy="27" r="12" fill="#eab64a"/></g></svg>
+      Good Grief Circle
+    </div>
+    <span class="count" id="count">Screen 1 of 6</span>
+  </div>
+
+  <!-- 1 · ARRIVE -->
+  <section class="screen on" data-s="1">
+    <span class="chip mint">Sent by a friend</span>
+    <h1>You've just sorted out <b>someone else's</b> paperwork. <em>Spare yours the search.</em></h1>
+    <p class="lead">Note what exists and where it's kept: the will, the pensions, the deeds, who has the dog. No uploads, no passwords. When the time comes, your family opens one drawer instead of every drawer in the house.</p>
+    <div class="radiant hero-art">
+      <p class="eyebrow">Your drawer · 8 tabs</p>
+      <svg viewBox="0 0 320 150" width="100%" aria-hidden="true">
+        <rect x="18" y="58" width="284" height="84" rx="22" fill="rgba(255,255,255,.18)"/>
+        <g font-family="Plus Jakarta Sans,sans-serif" font-size="9.5" font-weight="700">
+          <path d="M34 66 v-22 a10 10 0 0 1 10 -10 h52 a10 10 0 0 1 10 10 v22z" fill="#e07a4d"/><text x="44" y="50" fill="#fff">Will</text>
+          <path d="M96 70 v-22 a10 10 0 0 1 10 -10 h56 a10 10 0 0 1 10 10 v22z" fill="#4a9e90"/><text x="106" y="54" fill="#fff">Insurance</text>
+          <path d="M162 74 v-22 a10 10 0 0 1 10 -10 h52 a10 10 0 0 1 10 10 v22z" fill="rgba(255,255,255,.55)"/><text x="172" y="58" fill="#B23D10">Bank</text>
+          <path d="M224 78 v-22 a10 10 0 0 1 10 -10 h50 a10 10 0 0 1 10 10 v22z" fill="rgba(255,255,255,.4)"/><text x="234" y="62" fill="#B23D10">Property</text>
+        </g>
+        <rect x="26" y="74" width="268" height="62" rx="16" fill="#FFFBFF"/>
+        <rect x="44" y="90" width="150" height="8" rx="4" fill="#F1EDE6"/>
+        <rect x="44" y="106" width="210" height="8" rx="4" fill="#F7F3EC"/>
+        <rect x="140" y="118" width="40" height="8" rx="4" fill="#FCE7DD"/>
+      </svg>
+      <p style="margin:6px 0 0;font-size:14px">Each tab fills in as you go. Five minutes a tab.</p>
+    </div>
+    <div class="nest" style="margin-top:14px">
+      <p style="margin:0;font-size:14px;color:var(--text)">"It took me fourteen months to sort Dad's things. I found one of his pensions in a biscuit tin. This is the bit I wish he'd done."</p>
+      <p class="small" style="margin:6px 0 0">Ruth, who sent you the link</p>
+    </div>
+    <button class="btn" data-go="2">Start with three questions</button>
+    <p class="small" style="text-align:center;margin:10px 0 0">About two minutes. Three drawers are free for good.</p>
+  </section>
+
+  <!-- 2 · SITUATION QUIZ -->
+  <section class="screen" data-s="2">
+    <p class="eyebrow" id="qLabel">Question 1 of 3</p>
+    <div class="qstep"><i class="on" id="qs1"></i><i id="qs2"></i><i id="qs3"></i></div>
+    <div id="q1">
+      <h2>Which is <em>closest</em> to you?</h2>
+      <p class="lead" style="font-size:14.5px">So we start you in the right place. Choose one.</p>
+      <div class="opts" id="q1opts"></div>
+      <div class="worth" id="q1worth"></div>
+    </div>
+    <div id="q2" hidden>
+      <h2>What do you <em>already have</em> in place?</h2>
+      <p class="lead" style="font-size:14.5px">Start with what exists. Choose any.</p>
+      <div class="opts" id="q2opts"></div>
+    </div>
+    <div id="q3" hidden>
+      <h2>Is there anything that needs <em>looking after?</em></h2>
+      <p class="lead" style="font-size:14.5px">These tend to be what families search for longest.</p>
+      <div class="opts" id="q3opts"></div>
+    </div>
+    <button class="btn" id="qNext">Next question</button>
+  </section>
+
+  <!-- 3 · START HERE + DRAWER -->
+  <section class="screen" data-s="3">
+    <span class="chip tint">Made for you, Janet</span>
+    <h1 style="font-size:34px">Start <em>here.</em></h1>
+    <p class="lead" id="startLead">Three five-minute jobs, picked from your answers. Do one today; the drawer keeps your place.</p>
+    <div class="radiant">
+      <p class="eyebrow">Your first three</p>
+      <div id="tasks"></div>
+    </div>
+    <div class="gap"></div>
+    <div class="drawer" id="drawer3"></div>
+    <button class="btn" data-go="4">Open the first tab</button>
+  </section>
+
+  <!-- 4 · ONE TAB OPEN -->
+  <section class="screen" data-s="4">
+    <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
+      <span class="chip" style="background:#e07a4d;color:#fff">Tab 1 of 8</span>
+      <span class="chip sunc">About 5 minutes</span>
+    </div>
+    <h2 style="margin-top:12px;font-size:28px">Will &amp; legal documents</h2>
+    <p class="lead" style="font-size:14.5px;margin-bottom:6px">Solicitor details, where the original is held</p>
+
+    <div class="entry">
+      <div class="top"><h3 style="margin:0">My will</h3>
+        <div class="seg" data-seg="will"><button>Not yet</button><button class="on">In place</button></div></div>
+      <label class="f" for="wWhere">Where it's kept</label>
+      <textarea class="in" id="wWhere" rows="3">Original held by Pryce &amp; Lowe Solicitors, Corve Street, Ludlow. My copy is in the blue folder, bottom drawer of the bureau.</textarea>
+      <label class="f" for="wWho">Who to ask</label>
+      <input class="in" id="wWho" value="Gareth Pryce, 01632 960418. Executors: Mike and Ellie.">
+      <label class="f" for="wWhen">Last updated</label>
+      <input class="in" id="wWhen" value="March 2019, after we moved">
+      <details class="guide">
+        <summary>What difference does a will make?</summary>
+        <p>You choose who receives your money, property and belongings, name executors you trust, appoint guardians for children, and can leave gifts to charity. A clear will also makes probate faster and reduces the chance of family disputes.</p>
+        <p class="k">Without it</p>
+        <p>Intestacy rules decide who inherits. Unmarried partners and stepchildren receive nothing automatically, and a court may need to decide who cares for your children.</p>
+      </details>
+    </div>
+
+    <div class="entry">
+      <div class="top"><h3 style="margin:0;font-size:14px">Lasting Power of Attorney — Property &amp; Financial</h3>
+        <div class="seg" data-seg="lpa"><button class="on">Not yet</button><button>In place</button></div></div>
+      <p style="margin:0;font-size:13.5px;color:var(--muted)">Lets someone you trust manage your money, bills and property if you can no longer do it yourself.</p>
+      <details class="guide">
+        <summary>Your options</summary>
+        <p class="k" style="margin-top:0">Without it</p>
+        <p>Banks can freeze access, even for a spouse. Your family would need to apply to the Court of Protection to become a deputy, which can take months and costs more.</p>
+        <div class="optrow"><b>Do it yourself online</b> · Fill in the forms through the Office of the Public Guardian. Must be registered before it can be used.</div>
+        <div class="optrow"><b>With a solicitor</b> · Helpful if your finances or family situation are complex, or if you want advice on choosing attorneys.</div>
+        <div class="optrow"><b>Joint or several attorneys</b> · Attorneys can be required to decide together, or allowed to act independently. Each has trade-offs.</div>
+      </details>
+      <button class="link" style="margin-top:10px" id="remind">Remind me in a month</button>
+      <span class="small" id="reminded" hidden> · We'll ask again on 16 November.</span>
+    </div>
+
+    <div class="boundary">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B23D10" stroke-width="2" stroke-linecap="round" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="13"/><circle cx="12" cy="16.5" r=".6" fill="#B23D10"/></svg>
+      <div><b>Not a legal will.</b> This drawer notes where your will is; it isn't one and doesn't replace one. No will yet? A solicitor, a will-writing service, an online will or a charity's free will scheme can all make one.</div>
+    </div>
+    <p class="small" style="margin:12px 0 0">Never write a password or PIN here. Say where it is kept instead.</p>
+    <button class="btn" id="saveWill">Put it in the drawer</button>
+  </section>
+
+  <!-- 5 · DRAWER + YEARLY PLAN -->
+  <section class="screen" data-s="5">
+    <span class="chip mint">Two weeks on</span>
+    <h1 style="font-size:32px">Three tabs filled. <em>Five to go.</em></h1>
+    <p class="lead" style="font-size:14.5px">Three drawers are free for good. The rest of the drawer, and the family's way in, come with the vault plan.</p>
+    <div class="drawer" id="drawer5"></div>
+    <div class="gap"></div>
+    <div class="radiant">
+      <p class="eyebrow">The vault plan · draft price</p>
+      <div class="price">£29 <small>a year</small></div>
+      <ul class="ticks">
+        <li>All eight tabs, as many notes as you like</li>
+        <li>Your family's view, opened by your keyholders only when the time comes</li>
+        <li>A check-up each October: "Anything moved?" One email, five minutes</li>
+        <li>A printed card for the kitchen drawer: "Look in Good Grief Circle first"</li>
+      </ul>
+      <p style="font-size:13px;margin:14px 0 0;opacity:.95">If you stop paying, nothing is taken away. Your family can still read everything; the drawer just stops taking new notes.</p>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <h3>Have a Christmas voucher?</h3>
+      <p class="small" style="margin:0">Your first year is on us. No card needed until we ask, nearer the time.</p>
+      <div class="voucher"><input class="in" id="vcode" value="GGC-XMAS-0417" aria-label="Voucher code"><button class="btn2" id="redeem">Redeem</button></div>
+      <div class="toast" id="vtoast">Preview: voucher accepted. Your vault plan runs to December 2027. Nothing was charged.</div>
+    </div>
+    <button class="btn" data-go="6">See what your family will see</button>
+  </section>
+
+  <!-- 6 · WHAT THE FAMILY SEES -->
+  <section class="screen" data-s="6">
+    <span class="chip tint">Preview of the family's view</span>
+    <h1 style="font-size:32px">What Tom and Ellie <em>will see.</em></h1>
+    <p class="lead" style="font-size:14.5px">Nothing opens while you're well. Here is exactly how it opens, and what's inside.</p>
+    <div class="radiant">
+      <p class="eyebrow">Your keyholders · two of three</p>
+      <div class="ring">
+        <div class="p ok"><div class="av">T</div>Tom<br><span style="font-weight:500;opacity:.85">son</span></div>
+        <div class="p ok"><div class="av">E</div>Ellie<br><span style="font-weight:500;opacity:.85">daughter</span></div>
+        <div class="p"><div class="av">R</div>Ruth<br><span style="font-weight:500;opacity:.85">sister</span></div>
+      </div>
+      <div class="flow">
+        <div><span>1</span>Two of the three tell us you have died.</div>
+        <div><span>2</span>We wait 14 days and email you each week. One reply from you cancels it.</div>
+        <div><span>3</span>Then they can read your drawer. Read only: nobody can change your notes.</div>
+      </div>
+    </div>
+
+    <div class="gap"></div>
+    <p class="eyebrow">Mum's drawer · checked 4 October 2026</p>
+    <div id="family"></div>
+
+    <div class="gap"></div>
+    <div class="card">
+      <h2 style="font-size:21px">First things to <em>do</em></h2>
+      <p class="small" style="margin:0 0 4px">Shown above the drawer, in this order.</p>
+      <div id="steps"></div>
+      <p class="small" style="margin:8px 0 0">What this doesn't cover: it isn't a will, it can't apply for probate, and it doesn't hold documents themselves — only where they are.</p>
+    </div>
+    <div class="crisis"><b>If today is too much:</b> Samaritans are there any time, day or night, on <b>116 123</b>. Cruse Bereavement Support offers free support after a death.</div>
+    <button class="btn" data-go="1">Back to the start</button>
+  </section>
+</div>
+</div>
+
+<script>
+(function(){
+  var TOTAL = 6, cur = 1, hist = [];
+  // Mari's eight document types (mariContent.js), with a logo colour each
+  var DOCS = [
+    {id:'will', label:'Will & legal documents', hint:'Solicitor details, where the original is held', col:'#e07a4d', tint:'#FBE3D7'},
+    {id:'insurance', label:'Insurance policies', hint:'Life, home, funeral plan', col:'#4a9e90', tint:'#DDEFEB'},
+    {id:'finance', label:'Bank & finance accounts', hint:'Main accounts, pensions, investments', col:'#9cbf86', tint:'#E8F1E1'},
+    {id:'property', label:'Property & deeds', hint:'Mortgage, title, rental agreements', col:'#eab64a', tint:'#FBEFD3'},
+    {id:'digital', label:'Digital accounts & passwords', hint:'A password manager or sealed list', col:'#e07a4d', tint:'#FBE3D7'},
+    {id:'medical', label:'Medical directives', hint:'Wishes for care, organ donation', col:'#4a9e90', tint:'#DDEFEB'},
+    {id:'pets', label:'Pet care', hint:'Who will look after them, vet details', col:'#9cbf86', tint:'#E8F1E1'},
+    {id:'subs', label:'Subscriptions & bills', hint:'Recurring payments to cancel', col:'#eab64a', tint:'#FBEFD3'}
+  ];
+  var SHORT = {will:'Will',insurance:'Insurance',finance:'Bank',property:'Property',digital:'Digital',medical:'Medical',pets:'Pets',subs:'Bills'};
+  // Mari's life situations (titles and bodies word for word)
+  var SIT = [
+    ['Married or in a civil partnership','Your partner may still not inherit everything automatically. With a larger estate, part can pass to children under intestacy rules. A will makes your intentions clear.'],
+    ['Living together, unmarried','There is no such thing as common-law marriage. An unmarried partner has no automatic right to inherit — however many years you have shared. A will is essential to protect them.'],
+    ['Parents of young children','A will is the only place to name legal guardians for your children, and to set money aside in trust until they are old enough.'],
+    ['A blended family','Without planning, children from a previous relationship can be unintentionally left out. A will lets you provide for a partner and children fairly.'],
+    ['Recently separated or divorced','Divorce changes how your will works; separation often does not. It is worth checking who would inherit as things stand today.'],
+    ['No close family','Without a will, your estate can pass to distant relatives — or to the state. A will lets you choose the people and causes that mattered to you.']
+  ];
+  var HAVE = [['will','A will'],['lpa','A Lasting Power of Attorney'],['nom','Pension or life insurance nominations'],['legacy','Legacy contacts on my phone'],['none','None of these yet']];
+  var CARE = [['home','A home I own, or a mortgage'],['pensions','More than one pension'],['pets','A pet'],['subs','Lots of direct debits and subscriptions'],['nothing','Nothing in particular']];
+  var STEPS = [
+    ['Get a medical certificate','A doctor confirms the cause of death. If it happened at home, call their GP; in hospital, the staff will guide you.'],
+    ['Register the death','Within five days in England & Wales. You will receive the certificates needed for almost everything that follows.'],
+    ['Tell the right people','The government’s “Tell Us Once” service can notify most departments — tax, pensions, benefits — in a single step.'],
+    ['Find the will & wishes','A will names the executor who is responsible. If they used Good Grief Circle, their wishes for the farewell may be waiting here too.']
+  ];
+  // Janet's answers, pre-chosen so the demo reads true; tap to change
+  var S = {sit:0, have:{will:1}, care:{home:1,pensions:1,pets:1}, notes:{}, q:1, pulse:null};
+  var LATER = {
+    insurance:'Life policy and home insurance: paperwork in the blue folder. Funeral plan certificate is in the bureau, top drawer.',
+    pets:'Biscuit (spaniel) goes to Ellie. Vet: Teme Valley Vets, records under my name.'
+  };
+
+  var $ = function(id){return document.getElementById(id)};
+  var esc = function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+  var tick = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="5 12.5 10 17 19 7"/></svg>';
+
+  function go(n, noHist){
+    if(n===cur) return;
+    if(!noHist) hist.push(cur);
+    if(n===1){ hist = []; S.q=1; S.notes={}; S.pulse=null; showQ(); renderQuiz(); }
+    cur = n;
+    document.querySelectorAll('.screen').forEach(function(s){s.classList.toggle('on', +s.dataset.s===n)});
+    $('count').textContent = 'Screen '+n+' of '+TOTAL;
+    $('back').disabled = hist.length===0 && !(n===2 && S.q>1);
+    if(n===3) renderStart();
+    if(n===5) renderPlan();
+    if(n===6) renderFamily();
+    window.scrollTo(0, Math.max(0, $('phone').offsetTop - 8));
+  }
+  document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){go(+b.dataset.go)})});
+  $('back').addEventListener('click',function(){
+    if(cur===2 && S.q>1){S.q--; showQ(); return;}
+    if(hist.length) go(hist.pop(), true);
+  });
+
+  /* quiz */
+  function optHTML(label, sel, i){return '<button class="opt'+(sel?' sel':'')+'" data-i="'+i+'"><span class="box">'+tick+'</span><span>'+esc(label)+'</span></button>'}
+  function renderQuiz(){
+    $('q1opts').innerHTML = SIT.map(function(s,i){return optHTML(s[0], S.sit===i, i)}).join('');
+    $('q1worth').innerHTML = S.sit==null ? '' : '<b>Worth knowing</b>'+esc(SIT[S.sit][1]);
+    $('q1worth').style.display = S.sit==null ? 'none' : 'block';
+    $('q2opts').innerHTML = HAVE.map(function(h,i){return optHTML(h[1], !!S.have[h[0]], i)}).join('');
+    $('q3opts').innerHTML = CARE.map(function(c,i){return optHTML(c[1], !!S.care[c[0]], i)}).join('');
+  }
+  $('q1opts').addEventListener('click',function(e){var b=e.target.closest('.opt'); if(!b) return; S.sit=+b.dataset.i; renderQuiz();});
+  function multi(listId, arr, key, noneKey){
+    $(listId).addEventListener('click',function(e){
+      var b=e.target.closest('.opt'); if(!b) return;
+      var k=arr[+b.dataset.i][0], o=S[key];
+      if(k===noneKey){S[key]={}; S[key][noneKey]=1;}
+      else { delete o[noneKey]; if(o[k]) delete o[k]; else o[k]=1; }
+      renderQuiz();
+    });
+  }
+  multi('q2opts', HAVE, 'have', 'none');
+  multi('q3opts', CARE, 'care', 'nothing');
+  function showQ(){
+    [1,2,3].forEach(function(i){$('q'+i).hidden = S.q!==i; $('qs'+i).classList.toggle('on', i<=S.q)});
+    $('qLabel').textContent = 'Question '+S.q+' of 3';
+    $('qNext').textContent = S.q<3 ? 'Next question' : 'Show me where to start';
+    $('back').disabled = false;
+  }
+  $('qNext').addEventListener('click',function(){ if(S.q<3){S.q++; showQ();} else go(3); });
+
+  /* start here: three five-minute jobs from the answers */
+  function tasks(){
+    var t=[];
+    t.push(S.have.will ? ['will','Note where your will is kept'] : ['will','No will yet: note who you’d ask']);
+    if(S.care.pensions || S.have.nom) t.push(['finance','List each pension and who it’s with']);
+    if(S.care.home) t.push(['property','Say where the deeds and mortgage papers are']);
+    if(S.care.pets) t.push(['pets','Say who has the dog, and the vet']);
+    if(S.care.subs) t.push(['subs','List the direct debits to stop']);
+    if(S.have.legacy) t.push(['digital','Note who your legacy contacts are']);
+    t.push(['insurance','Note your insurance policies'],['digital','Say where your passwords are kept, not what they are']);
+    var seen={}, out=[];
+    t.forEach(function(x){ if(!seen[x[0]] && out.length<3){seen[x[0]]=1; out.push(x);} });
+    return out;
+  }
+  function renderStart(){
+    var t = tasks();
+    $('tasks').innerHTML = t.map(function(x,i){return '<div class="task"><span class="ix">'+(i+1)+'</span><span>'+esc(x[1])+'</span><span class="min">5 min</span></div>'}).join('');
+    var mark={}; t.forEach(function(x){mark[x[0]]=1});
+    $('drawer3').innerHTML = drawerHTML(mark, false);
+  }
+
+  /* the drawer */
+  function drawerHTML(startMark, gate){
+    var filled = DOCS.filter(function(d){return S.notes[d.id]}).length;
+    var h = '<div class="drawer-head"><span class="who">Janet’s drawer</span><span class="n">'+filled+' of 8 noted</span></div>';
+    DOCS.forEach(function(d,i){
+      var note = S.notes[d.id], chip='';
+      if(note) chip='<span class="fchip" style="background:var(--mint);color:var(--onMint)">Noted</span>';
+      else if(gate) chip='<span class="fchip" style="background:var(--sun);color:var(--onSun)">Vault plan</span>';
+      else if(startMark && startMark[d.id]) chip='<span class="fchip" style="background:var(--tA);color:var(--deep)">Start here</span>';
+      var x = [0,24,48,14,36,6,30,52][i];
+      h += '<div class="folder'+(note?' filled':'')+(S.pulse===d.id?' pulse':'')+'" style="--tabCol:'+d.col+';--tabTint:'+d.tint+';z-index:'+(i+1)+'">'+
+        '<span class="tab" style="margin-left:'+x+'%"><span class="dot"></span>'+SHORT[d.id]+'</span>'+
+        '<div class="fbody"><div class="txt"><div class="lab">'+esc(d.label)+'</div>'+
+        (note ? '<div class="note">'+esc(note)+'</div>' : '<div class="hint">'+esc(d.hint)+'</div>')+
+        '</div>'+chip+'</div></div>';
+    });
+    return h;
+  }
+
+  /* tab 1: will */
+  document.querySelectorAll('.seg').forEach(function(seg){
+    seg.addEventListener('click',function(e){var b=e.target.closest('button'); if(!b) return; seg.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});});
+  });
+  $('remind').addEventListener('click',function(){$('reminded').hidden=false});
+  $('saveWill').addEventListener('click',function(){
+    S.notes.will = $('wWhere').value.trim() || 'Noted';
+    S.pulse = 'will';
+    go(5);
+  });
+
+  /* plan */
+  function renderPlan(){
+    if(!S.notes.will) S.notes.will = $('wWhere').value.trim();
+    Object.keys(LATER).forEach(function(k){ if(!S.notes[k]) S.notes[k]=LATER[k]; });
+    $('drawer5').innerHTML = drawerHTML(null, true);
+    S.pulse = null;
+  }
+  $('redeem').addEventListener('click',function(){ if($('vcode').value.trim()) $('vtoast').classList.add('on'); });
+
+  /* family view */
+  function renderFamily(){
+    if(!S.notes.will) renderPlan();
+    $('family').innerHTML = DOCS.map(function(d){
+      var n=S.notes[d.id];
+      return n ? '<div class="ro"><span class="bar2" style="background:'+d.col+'"></span><div><div class="lab" style="font-weight:700;color:var(--ink);font-size:14px">'+esc(d.label)+'</div><div style="font-size:13px;margin-top:2px">'+esc(n)+'</div></div></div>'
+               : '<div class="ro empty"><span class="bar2" style="background:#E7E0D4"></span><div style="font-size:13px"><b style="color:var(--soft)">'+esc(d.label)+'</b> · Mum didn’t note this one</div></div>';
+    }).join('');
+    $('steps').innerHTML = STEPS.map(function(s,i){return '<div class="step"><span class="nn">'+(i+1)+'</span><div><h3>'+esc(s[0])+'</h3><div style="font-size:13.5px;color:var(--muted)">'+esc(s[1])+'</div></div></div>'}).join('');
+  }
+
+  /* route card: open on wider screens, folded on phones */
+  try { if(window.matchMedia('(min-width:700px)').matches) $('route').open = true; } catch(e){}
+
+  renderQuiz(); showQ(); $('back').disabled = true;
+})();
+</script>
+</body>
+</html>

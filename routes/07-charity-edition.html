@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Charity Edition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,800;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --page:#FDF9F2; --surface:#FFFBFF; --nest:#F7F3EC; --card:#FFFFFF; --field:#F1EDE6;
+  --ink:#393834; --text:#3E362C; --muted:#5C5247; --soft:#7A6E5E; --faint:#A0937F;
+  --accent:#F26B3C; --deep:#B23D10; --glow:#FF794A;
+  --gradient:linear-gradient(135deg,#B23D10 0%,#FF794A 100%);
+  --sun:#FFC965; --onSun:#5F4200; --mint:#6DFE9C; --onMint:#005F2E; --green:#2F8B62;
+  --tA:#FCE7DD; --tG:#E2F0E6; --tGold:#FFF1D2;
+  --lift:0 18px 40px rgba(57,56,52,.06); --glowShadow:0 10px 24px rgba(178,61,16,.26);
+  /* The partner seat: the only place a charity's colour lives. Swapped live from the dashboard. */
+  --partner:#1E5A73; --partnerTint:#E3EEF2; --partnerName:"Harbour Hospice";
+  --serif:'Newsreader',Georgia,serif; --sans:'Plus Jakarta Sans',-apple-system,system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:#EFE8DC;color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 16px 48px;display:flex;gap:28px;align-items:flex-start;justify-content:center;flex-wrap:wrap}
+
+/* Route card */
+.route{flex:1 1 360px;max-width:440px;background:var(--surface);border-radius:28px;box-shadow:var(--lift);padding:22px 22px 18px}
+.route summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.route summary::-webkit-details-marker{display:none}
+.route h1{font-family:var(--serif);font-weight:500;font-size:28px;line-height:1.1;color:var(--ink);margin:4px 0 0;letter-spacing:-.4px}
+.route h1 em{color:var(--deep)}
+.chip{display:inline-block;background:var(--mint);color:var(--onMint);font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:4px 10px}
+.toggle{font-size:12px;color:var(--deep);font-weight:600;white-space:nowrap}
+.route dl{margin:16px 0 0}
+.route dt{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);margin-top:13px}
+.route dd{margin:3px 0 0;font-size:14px;color:var(--text)}
+.route .note{margin-top:16px;background:var(--nest);border-radius:18px;padding:12px 14px;font-size:12.5px;color:var(--muted)}
+
+/* Phone */
+.phone{flex:0 1 420px;width:100%;max-width:420px;background:var(--page);border-radius:34px;box-shadow:0 30px 70px rgba(57,56,52,.16);overflow:hidden;position:relative;min-height:760px;display:flex;flex-direction:column}
+.ribbon{height:5px;background:var(--partner)}
+.bar{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 4px;font-size:12px;color:var(--soft)}
+.back{background:none;border:0;color:var(--deep);font-weight:600;font-size:13px;padding:6px 0;visibility:hidden}
+.back.on{visibility:visible}
+.count{background:var(--nest);border-radius:999px;padding:4px 10px;font-weight:600}
+.screen{display:none;padding:8px 20px 28px;flex:1;animation:fade .35s ease}
+.screen.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+h2{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:34px;line-height:1.08;letter-spacing:-.6px;margin:10px 0 10px}
+h2 em{color:var(--deep);font-style:italic}
+h2 b{font-weight:800}
+h3{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:21px;line-height:1.2;margin:0 0 6px}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--deep)}
+p{margin:0 0 12px}
+.muted{color:var(--muted)}
+.small{font-size:12.5px;color:var(--soft)}
+.card{background:var(--card);border-radius:28px;box-shadow:var(--lift);padding:18px;margin:14px 0}
+.nest{background:var(--nest);border-radius:22px;padding:14px 16px;margin:12px 0}
+.btn{display:block;width:100%;border:0;border-radius:999px;padding:15px 20px;font-size:15.5px;font-weight:700;color:#fff;background:var(--gradient);box-shadow:var(--glowShadow);margin-top:16px}
+.btn2{display:block;width:100%;border:0;border-radius:999px;padding:13px 20px;font-size:14.5px;font-weight:600;color:var(--ink);background:var(--card);box-shadow:var(--lift);margin-top:10px}
+.link{background:none;border:0;color:var(--deep);font-weight:600;font-size:14px;padding:8px 0;text-decoration:underline;text-underline-offset:3px}
+.boundary{display:flex;gap:10px;align-items:flex-start;background:var(--tGold);border-radius:20px;padding:12px 14px;font-size:13px;color:var(--onSun);margin:14px 0}
+.boundary b{color:#4a3300}
+.crisis{font-size:12px;color:var(--soft);text-align:center;margin-top:22px}
+.crisis b{color:var(--muted)}
+
+/* Co-brand lockup: the partner gets one seat beside the circles, never inside them */
+.lockup{display:flex;align-items:center;gap:10px}
+.lockup .pmark{width:38px;height:38px;border-radius:50%;background:var(--partner);display:grid;place-items:center;flex:none}
+.lockup .pname{font-family:var(--serif);font-size:19px;font-weight:500;color:var(--partner);line-height:1.1}
+.lockup .with{font-size:11px;color:var(--soft);line-height:1.3}
+.wordmark{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--deep)}
+.powered{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--soft)}
+
+/* Newsletter (the charity's own space) */
+.mail{background:var(--card);border-radius:24px;box-shadow:var(--lift);overflow:hidden;margin-top:6px}
+.mailhead{padding:12px 16px;background:var(--nest);font-size:12px;color:var(--muted)}
+.mailhead b{color:var(--ink)}
+.mailtop{background:var(--partner);color:#fff;padding:18px 18px 16px}
+.mailtop .t{font-family:var(--serif);font-size:24px;line-height:1.15}
+.mailbody{padding:16px 18px 18px;font-size:14px}
+.mailbtn{display:inline-block;border:0;border-radius:999px;background:var(--partner);color:#fff;font-weight:700;padding:12px 18px;font-size:14px;margin-top:6px}
+.mailother{padding:12px 18px;background:var(--nest);font-size:12.5px;color:var(--soft)}
+
+/* Welcome */
+.hero{background:var(--surface);border-radius:30px;box-shadow:var(--lift);padding:20px 18px;margin-top:4px}
+.three{display:grid;gap:10px;margin-top:14px}
+.three div{display:flex;gap:12px;align-items:center;background:var(--nest);border-radius:18px;padding:11px 13px;font-size:14px}
+.num{width:28px;height:28px;border-radius:50%;background:var(--tA);color:var(--deep);font-weight:700;display:grid;place-items:center;flex:none;font-size:13px}
+.sees{background:var(--partnerTint);border-radius:20px;padding:13px 15px;font-size:13px;margin-top:14px;color:var(--ink)}
+.sees b{color:var(--partner)}
+
+/* Wishes */
+.steps{display:flex;gap:6px;margin:6px 0 4px}
+.steps i{flex:1;height:5px;border-radius:9px;background:var(--field)}
+.steps i.on{background:var(--accent)}
+.opt{display:block;width:100%;text-align:left;border:0;border-radius:20px;background:var(--card);box-shadow:var(--lift);padding:13px 16px;margin:9px 0;color:var(--ink);font-size:15px;font-weight:600;transition:background .2s}
+.opt span{display:block;font-weight:400;font-size:13px;color:var(--muted)}
+.opt.sel{background:var(--sun);color:var(--onSun)}
+.opt.sel span{color:var(--onSun)}
+textarea{width:100%;border:0;border-bottom:2px solid rgba(188,185,179,.5);background:var(--field);border-radius:14px 14px 4px 4px;padding:12px 14px;font-family:var(--sans);font-size:15px;color:var(--text);min-height:110px;resize:vertical;outline:none}
+textarea:focus{border-bottom-color:var(--accent);background:#fff}
+
+/* Documents */
+.doc{display:flex;gap:12px;background:var(--card);border-radius:22px;box-shadow:var(--lift);padding:13px 14px;margin:9px 0;align-items:flex-start}
+.tick{width:26px;height:26px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--field);border:0;margin-top:2px}
+.doc.done .tick{background:var(--green)}
+.doc .lab{font-weight:700;color:var(--ink);font-size:14.5px}
+.doc .where{font-size:13px;color:var(--muted)}
+.doc .hint{font-size:12px;color:var(--faint)}
+
+/* Will + remember */
+.willopt{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}
+.willopt div{background:var(--nest);border-radius:18px;padding:11px 12px;font-size:12.5px;color:var(--muted)}
+.willopt b{display:block;color:var(--ink);font-size:13.5px;margin-bottom:2px}
+.remember{background:var(--surface);border-radius:28px;box-shadow:var(--lift);padding:18px;margin-top:18px;position:relative;overflow:hidden}
+.remember:before{content:"";position:absolute;inset:0 auto 0 0;width:6px;background:var(--partnerTint)}
+.rchoice{display:block;width:100%;text-align:left;border:0;border-radius:18px;background:var(--nest);padding:12px 14px;margin:8px 0;font-size:14px;color:var(--ink);font-weight:600}
+.rchoice span{display:block;font-weight:400;font-size:12.5px;color:var(--muted)}
+.rchoice.sel{background:var(--sun);color:var(--onSun)}
+.rchoice.sel span{color:var(--onSun)}
+.quiet{font-size:12.5px;color:var(--muted);margin-top:10px}
+
+/* Plan */
+.radiant{background:var(--gradient);color:#fff;border-radius:30px;padding:20px;box-shadow:var(--glowShadow);margin-top:6px}
+.radiant h3{color:#fff;font-size:26px}
+.radiant .r{display:flex;justify-content:space-between;font-size:14px;padding:7px 0;border-top:1px solid rgba(255,255,255,.18)}
+.radiant .r:first-of-type{border-top:0}
+.pill{display:inline-block;border-radius:999px;padding:3px 10px;font-size:11.5px;font-weight:700}
+.pill.ok{background:var(--mint);color:var(--onMint)}
+.pill.todo{background:rgba(255,255,255,.22);color:#fff}
+
+/* Dashboard */
+.dhead{background:var(--partner);color:#fff;border-radius:26px;padding:16px 18px;margin-top:4px}
+.dhead .t{font-family:var(--serif);font-size:23px;line-height:1.15}
+.tiles{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.tile{background:var(--card);border-radius:22px;box-shadow:var(--lift);padding:13px 14px}
+.tile .n{font-family:var(--serif);font-weight:800;font-size:30px;color:var(--ink);line-height:1}
+.tile .l{font-size:12px;color:var(--muted);margin-top:4px}
+.funnel{margin-top:6px}
+.frow{font-size:12.5px;color:var(--muted);margin:9px 0 0}
+.frow .b{height:12px;border-radius:9px;background:var(--partner);margin-top:4px;opacity:.9}
+.frow .b.lt{opacity:.45}
+.swatches{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.sw{border:0;border-radius:999px;padding:8px 12px 8px 8px;background:var(--nest);display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--ink)}
+.sw i{width:22px;height:22px;border-radius:50%;display:block}
+.sw.sel{background:var(--sun);color:var(--onSun)}
+.rules{font-size:12.5px;color:var(--muted);margin:10px 0 0;padding-left:18px}
+.rules li{margin:3px 0}
+.toast{position:absolute;left:16px;right:16px;bottom:16px;background:var(--ink);color:#fff;border-radius:18px;padding:12px 14px;font-size:13px;opacity:0;transform:translateY(10px);transition:.3s;pointer-events:none}
+.toast.on{opacity:1;transform:none}
+
+@media (max-width:860px){
+  .wrap{padding:12px 0 0;gap:12px}
+  .route{max-width:none;margin:0 12px;border-radius:24px}
+  .phone{max-width:none;border-radius:0;box-shadow:none;min-height:100vh}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<details class="route" id="route" open>
+  <summary>
+    <div>
+      <span class="chip">Route 07</span>
+      <h1>Charity <em>Edition</em></h1>
+    </div>
+    <span class="toggle" id="rtoggle">Hide card</span>
+  </summary>
+  <dl>
+    <dt>Thesis</dt>
+    <dd>A charity pays a licence to give its supporters a free, short planning tool under its own name, because people who plan are the people who remember a charity in their will.</dd>
+    <dt>Who it's for</dt>
+    <dd>Healthy supporters of a UK charity (50–75, already giving), and the charity's legacy team who buy it.</dd>
+    <dt>What's cut</dt>
+    <dd>The gift, all payments and pricing, songs and own song, the diagnosis path, Grief Support, Memorial, reflection and goals, the will interview, the directory, people to call, memories, the circle release. About 75% of today's demo.</dd>
+    <dt>What's kept</dt>
+    <dd>A three-question funeral wishes set, eight "where it's kept" document notes, the will guidance (pointer only), Mari's "causes" question, a printable plan, and a partner dashboard of anonymous totals.</dd>
+    <dt>MVP for the Christmas vouchers</dt>
+    <dd>One friendly pilot charity. The 100 printed cards are co-branded with it and open the same five-step plan. The dashboard is a monthly totals sheet made by hand, not built yet.</dd>
+    <dt>How it makes money</dt>
+    <dd>A yearly licence per charity, sized by supporter list (figure to test in pilot talks). Free to every supporter, no upsell inside.</dd>
+    <dt>The one metric</dt>
+    <dd>Finished plans per 1,000 supporters emailed: the number a legacy manager takes to renewal.</dd>
+    <dt>The biggest risk</dt>
+    <dd>Charities want names for legacy follow-up; refusing to share them may make the licence hard to sell, and sharing them would break supporters' trust. Long charity buying cycles also miss Christmas.</dd>
+  </dl>
+  <div class="note"><b>Signature idea · the partner seat.</b> The charity's colour gets exactly one seat: a circle docked beside the four logo circles, a thin ribbon at the top and its own newsletter and dashboard. Buttons, headlines and the glow always stay Good Grief Circle. Try another charity's colour on screen 7.</div>
+</details>
+
+<main class="phone" id="phone" aria-live="polite">
+  <div class="ribbon"></div>
+  <div class="bar">
+    <button class="back" id="back" type="button">‹ Back</button>
+    <span class="count" id="count">Screen 1 of 7</span>
+  </div>
+
+  <!-- 1 · The newsletter -->
+  <section class="screen on" data-title="Newsletter">
+    <div class="eyebrow">Where it starts</div>
+    <h2>The supporter <em>newsletter</em></h2>
+    <div class="mail">
+      <div class="mailhead"><b>Harbour Hospice</b> · Winter news for supporters<br>To: Carol Whitfield</div>
+      <div class="mailtop">
+        <div class="lockup"><div class="pmark" data-pmark></div><div><div style="font-size:11px;opacity:.85">From your hospice</div><div class="t" style="font-size:18px" data-pname>Harbour Hospice</div></div></div>
+        <div class="t" style="margin-top:14px">A free planning tool for our supporters</div>
+      </div>
+      <div class="mailbody">
+        <p>Every week our families tell us the same thing: <i>"I wish we'd known what Mum wanted."</i></p>
+        <p>So we've teamed up with Good Grief Circle to give you a free, private place to write down your wishes and where things are kept. It takes about twenty minutes.</p>
+        <p class="small">What you write stays yours. We only ever see how many people have used it, never who or what they wrote.</p>
+        <button class="mailbtn" type="button" data-next>Start my free plan</button>
+      </div>
+      <div class="mailother">Also in this issue: the Christmas lights walk, our new day room, volunteer drivers wanted.</div>
+    </div>
+    <p class="small" style="margin-top:14px">This screen is the charity's own space, so its colour leads. From the next screen on it gets one seat only.</p>
+  </section>
+
+  <!-- 2 · Co-branded welcome -->
+  <section class="screen" data-title="Welcome">
+    <div class="hero">
+      <div class="lockup">
+        <div class="pmark" data-pmark></div>
+        <div>
+          <div class="with">Offered free by</div>
+          <div class="pname" data-pname>Harbour Hospice</div>
+        </div>
+      </div>
+      <h2 style="margin-top:18px">Plan ahead, <em>gently,</em> <b>in twenty minutes.</b></h2>
+      <p class="muted">Write down what you'd want, and where your family would find things. Three short steps, saved as you go.</p>
+      <div class="three">
+        <div><span class="num">1</span>Three questions about your farewell</div>
+        <div><span class="num">2</span>Where your important papers are kept</div>
+        <div><span class="num">3</span>Your will: what's in place, what's next</div>
+      </div>
+      <div class="sees"><b data-pname>Harbour Hospice</b> never sees what you write. They see totals only, like "340 plans finished this winter".</div>
+      <button class="btn" type="button" data-next>Begin my plan</button>
+      <div class="powered" style="justify-content:center;margin-top:14px">
+        <svg width="34" height="20" viewBox="0 0 34 20" aria-hidden="true"><g opacity=".82"><circle cx="8" cy="10" r="7" fill="#e07a4d"/><circle cx="14" cy="10" r="7" fill="#4a9e90"/><circle cx="20" cy="10" r="7" fill="#9cbf86"/><circle cx="26" cy="10" r="7" fill="#eab64a"/></g></svg>
+        Powered by <span class="wordmark" style="font-size:14px">Good Grief Circle</span>
+      </div>
+    </div>
+    <p class="crisis">Finding this hard? Samaritans are there any time on <b>116 123</b>, free.</p>
+  </section>
+
+  <!-- 3 · Wishes -->
+  <section class="screen" data-title="Wishes">
+    <div class="eyebrow">Step 1 · Farewell &amp; ceremony</div>
+    <div class="steps" id="wsteps"><i class="on"></i><i></i><i></i></div>
+    <div class="wq on" data-q="0">
+      <h2 style="font-size:29px">When the time comes, how would you like to be <em>laid to rest?</em></h2>
+      <p class="muted">There is no wrong answer here — only what feels right to you. You can change this whenever you like.</p>
+      <div data-group="rest">
+        <button class="opt" type="button">Burial<span>A traditional resting place</span></button>
+        <button class="opt sel" type="button">Cremation<span>Ashes to keep, scatter or plant</span></button>
+        <button class="opt" type="button">Natural burial<span>Returning gently to the earth</span></button>
+        <button class="opt" type="button">I'm not sure yet<span>That's completely okay</span></button>
+      </div>
+    </div>
+    <div class="wq" data-q="1" hidden>
+      <h2 style="font-size:29px">What kind of <em>gathering</em> would you like?</h2>
+      <p class="muted">Think about the feeling in the room more than the format.</p>
+      <div data-group="gathering">
+        <button class="opt sel" type="button">A celebration of life<span>Joyful, full of stories</span></button>
+        <button class="opt" type="button">A traditional service<span>Familiar and grounding</span></button>
+        <button class="opt" type="button">Small &amp; private<span>Just the closest few</span></button>
+        <button class="opt" type="button">No formal event<span>Remember me your own way</span></button>
+      </div>
+    </div>
+    <div class="wq" data-q="2" hidden>
+      <h2 style="font-size:29px">A few words for the people <em>who will gather</em></h2>
+      <p class="muted">Not everyone writes this — but if there's something you'd want said, this is a gentle place to leave it.</p>
+      <textarea aria-label="A few words">Don't wear black. Scatter me off the end of the breakwater where Graham proposed, then go to the café and have the lemon slice. I was very lucky with all of you.</textarea>
+    </div>
+    <div class="boundary"><span>✎</span><span><b>Not a legal will.</b> These are your wishes, to guide your family. Mention them in your will and tell your executor where to find them.</span></div>
+    <button class="btn" type="button" id="wnext">Next question</button>
+  </section>
+
+  <!-- 4 · Documents -->
+  <section class="screen" data-title="Documents">
+    <div class="eyebrow">Step 2 · Important documents</div>
+    <h2>Where things <em>are kept</em></h2>
+    <p class="muted">Note what matters and where it lives — so no one has to search. Just where, never the papers or passwords themselves.</p>
+    <div id="docs">
+      <div class="doc"><button class="tick" type="button" aria-label="Mark noted"></button><div><div class="lab">Will &amp; legal documents</div><div class="where">Not made yet — see step 3</div><div class="hint">Solicitor details, where the original is held</div></div></div>
+      <div class="doc done"><button class="tick" type="button" aria-label="Noted"></button><div><div class="lab">Insurance policies</div><div class="where">Funeral plan and house insurance: blue folder, bureau top drawer</div><div class="hint">Life, home, funeral plan</div></div></div>
+      <div class="doc done"><button class="tick" type="button" aria-label="Noted"></button><div><div class="lab">Bank &amp; finance accounts</div><div class="where">Building society book and council pension letters: same drawer</div><div class="hint">Main accounts, pensions, investments</div></div></div>
+      <div class="doc done"><button class="tick" type="button" aria-label="Noted"></button><div><div class="lab">Property &amp; deeds</div><div class="where">Mortgage paid off 2019. Deeds with the building society</div><div class="hint">Mortgage, title, rental agreements</div></div></div>
+      <div class="doc done"><button class="tick" type="button" aria-label="Noted"></button><div><div class="lab">Digital accounts &amp; passwords</div><div class="where">Red notebook in the kitchen dresser. Graham knows</div><div class="hint">A password manager or sealed list</div></div></div>
+      <div class="doc done"><button class="tick" type="button" aria-label="Noted"></button><div><div class="lab">Pet care</div><div class="where">Biscuit goes to Leah. Vet: the practice on Quay Road</div><div class="hint">Who will look after them, vet details</div></div></div>
+      <div class="doc"><button class="tick" type="button" aria-label="Mark noted"></button><div><div class="lab">Subscriptions &amp; bills</div><div class="where">Tap to add later</div><div class="hint">Recurring payments to cancel</div></div></div>
+    </div>
+    <p class="small" style="margin-top:8px">Never type a password here. Say where it's kept instead.</p>
+    <button class="btn" type="button" data-next>Next: your will</button>
+  </section>
+
+  <!-- 5 · Will pointer + remember a charity -->
+  <section class="screen" data-title="Will">
+    <div class="eyebrow">Step 3 · Your will</div>
+    <h2>A will <em>makes it count</em></h2>
+    <p class="muted">Decides who inherits, who sorts out your estate, and who looks after children under 18.</p>
+    <div class="nest">
+      <h3 style="font-size:17px">Married or in a civil partnership</h3>
+      <p class="small" style="margin:0">Your partner may still not inherit everything automatically. With a larger estate, part can pass to children under intestacy rules. A will makes your intentions clear.</p>
+    </div>
+    <div class="willopt">
+      <div><b>Solicitor</b>Best for property, blended families, trusts.</div>
+      <div><b>Online will</b>Quick and affordable for straightforward estates.</div>
+      <div><b>Will-writing service</b>Check they belong to a professional body.</div>
+      <div><b>Free will schemes</b>You are invited, never required, to leave a gift.</div>
+    </div>
+
+    <div class="remember">
+      <div class="eyebrow" style="color:var(--muted)">Only if you'd like to</div>
+      <h3 style="margin-top:6px">Are there causes you would like to support, now or in your will?</h3>
+      <p class="small">A gift in your will to charity can also reduce Inheritance Tax.</p>
+      <div data-group="cause">
+        <button class="rchoice" type="button">Note <span data-pname style="display:inline;font-weight:600;color:inherit">Harbour Hospice</span> in my plan<span>A line your solicitor will see when you make your will</span></button>
+        <button class="rchoice" type="button">Note a different cause<span>Any charity, club or church that matters to you</span></button>
+        <button class="rchoice" type="button">Not now<span>We won't ask again unless you come back to it</span></button>
+      </div>
+      <p class="quiet">Whatever you choose, <span data-pname>Harbour Hospice</span> isn't told. It only appears in their totals as a number, never as you.</p>
+    </div>
+    <button class="btn" type="button" data-next>See my plan</button>
+  </section>
+
+  <!-- 6 · The plan -->
+  <section class="screen" data-title="Plan">
+    <div class="eyebrow">Your plan</div>
+    <h2>Done for <em>today,</em> Carol.</h2>
+    <div class="radiant">
+      <h3>Carol Whitfield's plan</h3>
+      <div class="r"><span>Farewell wishes</span><span class="pill ok">3 of 3</span></div>
+      <div class="r"><span>Where things are kept</span><span class="pill ok">5 of 7</span></div>
+      <div class="r"><span>Will</span><span class="pill todo">Next step</span></div>
+      <div class="r"><span>Causes</span><span class="pill todo" id="causeState">Not chosen</span></div>
+    </div>
+    <div class="card">
+      <h3>Tell Tom and Leah it exists</h3>
+      <p class="small" style="margin:0 0 4px">The plan is only useful if someone knows where to look. Print a copy for the bureau drawer, and tell your children.</p>
+      <button class="btn2" type="button" id="printBtn">Make a printable copy</button>
+    </div>
+    <div class="card" style="background:var(--nest);box-shadow:none">
+      <div class="eyebrow">One thing for January</div>
+      <p style="margin:6px 0 0">Book a will appointment. Bring this plan: your wishes and document notes save time with a solicitor.</p>
+    </div>
+    <div class="boundary"><span>✎</span><span><b>Not a legal will.</b> A human plan to sit alongside one.</span></div>
+    <div class="powered" style="justify-content:center">
+      <span class="lockup" style="gap:6px"><span class="pmark" data-pmark style="width:20px;height:20px"></span></span>
+      Free from <span data-pname style="color:var(--partner);font-weight:600">Harbour Hospice</span> · powered by <span class="wordmark">Good Grief Circle</span>
+    </div>
+    <button class="link" type="button" data-next style="display:block;margin:14px auto 0">See what the hospice sees →</button>
+  </section>
+
+  <!-- 7 · Partner dashboard -->
+  <section class="screen" data-title="Partner">
+    <div class="eyebrow">Partner view · legacy team</div>
+    <div class="dhead">
+      <div class="lockup"><div class="pmark" data-pmark style="background:rgba(255,255,255,.18)"></div><div class="t" data-pname>Harbour Hospice</div></div>
+      <div style="font-size:13px;opacity:.9;margin-top:8px">Winter newsletter · 1 Nov to 31 Dec</div>
+    </div>
+    <div class="tiles">
+      <div class="tile"><div class="n">4,800</div><div class="l">supporters emailed</div></div>
+      <div class="tile"><div class="n">612</div><div class="l">started a plan</div></div>
+      <div class="tile"><div class="n">341</div><div class="l">finished a plan</div></div>
+      <div class="tile"><div class="n">71</div><div class="l">finished per 1,000 emailed</div></div>
+    </div>
+    <div class="card">
+      <h3>How far people got</h3>
+      <div class="funnel">
+        <div class="frow">Started · 612<div class="b" style="width:100%"></div></div>
+        <div class="frow">Wishes written · 488<div class="b" style="width:80%"></div></div>
+        <div class="frow">Documents noted · 402<div class="b" style="width:66%"></div></div>
+        <div class="frow">Read the will step · 341<div class="b" style="width:56%"></div></div>
+        <div class="frow">Noted a cause in their plan · 96<div class="b lt" style="width:16%"></div></div>
+        <div class="frow">… of which named your charity · 58<div class="b lt" style="width:9.5%"></div></div>
+      </div>
+      <p class="small" style="margin:12px 0 0">No names, emails or answers, ever. Any number under 10 shows as "fewer than 10".</p>
+    </div>
+    <div class="card">
+      <h3>Your colour, in its seat</h3>
+      <p class="small" style="margin:0">Pick your charity colour. It fills the ribbon, your circle and your own pages. Buttons and headlines stay Good Grief Circle so the tool feels the same for every partner.</p>
+      <div class="swatches" id="swatches">
+        <button class="sw sel" type="button" data-c="#1E5A73" data-t="#E3EEF2" data-n="Harbour Hospice"><i style="background:#1E5A73"></i>Harbour teal</button>
+        <button class="sw" type="button" data-c="#5B3A7A" data-t="#EEE7F3" data-n="Lantern Trust"><i style="background:#5B3A7A"></i>Lantern purple</button>
+        <button class="sw" type="button" data-c="#2F6B3A" data-t="#E4F0E5" data-n="Meadow Care"><i style="background:#2F6B3A"></i>Meadow green</button>
+      </div>
+      <ul class="rules">
+        <li>Dark enough for white text on it.</li>
+        <li>Never on the main button, never in a headline.</li>
+        <li>Never placed inside the four circles.</li>
+      </ul>
+    </div>
+    <p class="small">Charity names here are made up for the prototype. Figures are illustrative.</p>
+    <button class="btn2" type="button" id="restart">Start again from the newsletter</button>
+  </section>
+
+  <div class="toast" id="toast"></div>
+</main>
+</div>
+
+<script>
+(function(){
+  var screens=[].slice.call(document.querySelectorAll('.screen'));
+  var at=0, count=document.getElementById('count'), back=document.getElementById('back'), phone=document.getElementById('phone');
+  function show(i){
+    at=Math.max(0,Math.min(screens.length-1,i));
+    screens.forEach(function(s,j){s.classList.toggle('on',j===at)});
+    count.textContent='Screen '+(at+1)+' of '+screens.length;
+    back.classList.toggle('on',at>0);
+    phone.scrollIntoView({block:'start',behavior:'smooth'});
+    if(window.scrollY>0 && window.innerWidth>860) window.scrollTo({top:0,behavior:'smooth'});
+  }
+  back.addEventListener('click',function(){show(at-1)});
+  [].forEach.call(document.querySelectorAll('[data-next]'),function(b){b.addEventListener('click',function(){show(at+1)})});
+  document.getElementById('restart').addEventListener('click',function(){show(0)});
+
+  var toastEl=document.getElementById('toast'), tt;
+  function toast(m){toastEl.textContent=m;toastEl.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){toastEl.classList.remove('on')},2600)}
+
+  // single-choice groups
+  [].forEach.call(document.querySelectorAll('[data-group]'),function(g){
+    g.addEventListener('click',function(e){
+      var b=e.target.closest('button'); if(!b||!g.contains(b)) return;
+      [].forEach.call(g.querySelectorAll('button'),function(x){x.classList.toggle('sel',x===b)});
+      if(g.dataset.group==='cause'){
+        var idx=[].indexOf.call(g.querySelectorAll('button'),b);
+        var label=['Noted','Noted','Not now'][idx];
+        document.getElementById('causeState').textContent=label;
+        toast(idx===2?'That’s fine. Nothing more about it.':'Noted in your plan. No one is told.');
+      }
+    });
+  });
+
+  // wishes: one question at a time
+  var q=0, qs=[].slice.call(document.querySelectorAll('.wq')), dots=[].slice.call(document.querySelectorAll('#wsteps i')), wnext=document.getElementById('wnext');
+  function showQ(){qs.forEach(function(x,j){x.hidden=j!==q});dots.forEach(function(d,j){d.classList.toggle('on',j<=q)});wnext.textContent=q===qs.length-1?'Save and go to documents':'Next question'}
+  wnext.addEventListener('click',function(){ if(q<qs.length-1){q++;showQ()} else {toast('Saved. You can change these whenever you like.');show(at+1)} });
+  back.addEventListener('click',function(){ /* reset wishes stepper when re-entering */ if(at===2){q=0;showQ()} });
+
+  // documents ticks
+  [].forEach.call(document.querySelectorAll('#docs .tick'),function(t){
+    t.innerHTML='<svg width="14" height="14" viewBox="0 0 14 14"><path d="M3 7.5l2.5 2.5L11 4.5" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    t.addEventListener('click',function(){t.parentNode.classList.toggle('done')});
+  });
+
+  document.getElementById('printBtn').addEventListener('click',function(){toast('Preview: in the real app this opens a one-page printable plan.')});
+
+  // partner mark: a simple harbour wave inside the partner's circle
+  var mark='<svg width="60%" height="60%" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15c2.2 0 2.2-1.6 4.5-1.6S9.8 15 12 15s2.2-1.6 4.5-1.6S18.8 15 21 15" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"/><path d="M3 19c2.2 0 2.2-1.6 4.5-1.6S9.8 19 12 19s2.2-1.6 4.5-1.6S18.8 19 21 19" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity=".6"/><circle cx="12" cy="8" r="3" fill="#fff"/></svg>';
+  [].forEach.call(document.querySelectorAll('[data-pmark]'),function(m){m.innerHTML=mark});
+
+  // the partner seat: swap colour + name live
+  document.getElementById('swatches').addEventListener('click',function(e){
+    var b=e.target.closest('.sw'); if(!b) return;
+    [].forEach.call(this.querySelectorAll('.sw'),function(x){x.classList.toggle('sel',x===b)});
+    var r=document.documentElement.style;
+    r.setProperty('--partner',b.dataset.c); r.setProperty('--partnerTint',b.dataset.t);
+    [].forEach.call(document.querySelectorAll('[data-pname]'),function(n){n.textContent=b.dataset.n});
+    toast(b.dataset.n+' now sits in the partner seat. Go back to see every screen re-dressed.');
+  });
+
+  // route card toggle label; collapse by default on phones
+  var route=document.getElementById('route'), rt=document.getElementById('rtoggle');
+  function lab(){rt.textContent=route.open?'Hide card':'Show route card'}
+  if(window.innerWidth<=860) route.open=false;
+  lab(); route.addEventListener('toggle',lab);
+})();
+</script>
+</body>
+</html>
