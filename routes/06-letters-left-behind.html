@@ -3,8 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#FFFBFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GGC Routes">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Letters Left Behind</title>
+<script>(function(){var w=window.innerWidth;var f;try{f=window.self!==window.top}catch(e){f=true}document.documentElement.className=(w>=900?"view-desktop":"view-phone")+(f?" framed":"")})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,800;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -195,9 +201,97 @@ h3{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:21px;line
 .draftflag{display:inline-block;background:var(--field);color:var(--soft);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:3px 8px;vertical-align:middle}
 .toast{position:absolute;left:50%;bottom:22px;transform:translate(-50%,30px);opacity:0;background:var(--ink);color:#fff;font-size:13px;padding:10px 16px;border-radius:999px;transition:all .3s;pointer-events:none;white-space:nowrap;z-index:20}
 .toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ---------- framed (inside the coordinator's viewer) ---------- */
+.framed .route,.framed .viewbar{display:none!important}
+.framed:not(.view-desktop) .wrap{max-width:none;padding:0;gap:0}
+.framed:not(.view-desktop) .phone{max-width:none;border-radius:0;box-shadow:none;min-height:100vh}
+
+/* ---------- view switch ---------- */
+.viewbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 20px;background:rgba(253,249,242,.94);box-shadow:0 8px 24px rgba(57,56,52,.05);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.viewbar .vl{font-size:12.5px;font-weight:600;color:var(--muted)}
+.viewbar .vl b{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--deep);font-size:15px}
+.vt{display:flex;background:var(--nest);border-radius:999px;padding:4px;gap:4px}
+.vt button{border-radius:999px;padding:7px 16px;font-size:13px;font-weight:600;color:var(--muted);transition:all .2s}
+.vt button.on{background:var(--grad);color:#fff;box-shadow:var(--btn)}
+@media (max-width:599px){.viewbar{display:none}}
+.col{display:contents}
+.desk-only{display:none!important}
+
+/* ---------- desktop view: the writing desk ---------- */
+.view-desktop .desk-only{display:block!important}
+.view-desktop .nav.desk-only{display:flex!important}
+.view-desktop .phone-only{display:none!important}
+.view-desktop .wrap{max-width:1180px;padding:24px 24px 56px}
+.view-desktop .route{max-width:1120px}
+.view-desktop .route dl{grid-template-columns:repeat(4,minmax(0,1fr))}
+.view-desktop .route dl div:last-child{grid-column:span 2}
+.view-desktop .phone{max-width:1120px;min-height:0;border-radius:28px;box-shadow:var(--lift);background:var(--page)}
+.view-desktop .bar{padding:18px 28px;gap:16px;background:var(--surface)}
+.view-desktop .logo{order:0;font-size:19px}
+.view-desktop .nav{order:1;margin:0 auto;gap:4px}
+.view-desktop .back{order:2}
+.view-desktop .step{order:3}
+.nav button{border-radius:999px;padding:8px 14px;font-size:13.5px;font-weight:600;color:var(--muted);transition:all .2s;white-space:nowrap}
+.nav button:hover{background:var(--nest)}
+.nav button.on{background:var(--sun);color:var(--onSun)}
+.view-desktop .dots{display:none}
+.view-desktop .screen{padding:32px 40px 44px}
+.view-desktop .screen.show{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px 44px;align-items:start}
+.view-desktop .col{display:block;min-width:0}
+.view-desktop h2{font-size:44px}
+.view-desktop .screen h2[style]{font-size:40px!important}
+/* 1 */
+.view-desktop .s1 .intro{padding-top:24px}
+.view-desktop .s1 .intro h2{font-size:54px}
+/* 3 · the desk: prompts | paper | envelopes */
+.view-desktop .s3.show{grid-template-columns:minmax(200px,240px) minmax(0,1fr) minmax(230px,280px);grid-template-areas:"left m1 right" "left m2 right";grid-template-rows:auto 1fr;gap:0 28px}
+.view-desktop .s3 .m1{grid-area:m1}
+.view-desktop .s3 .m2{grid-area:m2;padding-top:18px}
+.view-desktop .s3 .left{grid-area:left;background:var(--nest);border-radius:28px;padding:18px 14px;align-self:stretch}
+.view-desktop .s3 .right{grid-area:right;background:var(--nest);border-radius:28px;padding:18px 16px;align-self:stretch}
+.view-desktop .s3 .left .eyebrow{margin:0 4px 10px!important}
+.view-desktop .prompts{flex-direction:column;overflow:visible;margin:0;padding:0}
+.view-desktop .pr{width:auto;background:var(--card);box-shadow:var(--lift)}
+.view-desktop .pr:hover{background:var(--tY)}
+.view-desktop .paper{padding:34px 38px 18px;border-radius:28px}
+.view-desktop .paper .to{font-size:19px}
+.view-desktop .paper textarea{font-size:19px;line-height:34px;min-height:340px}
+.view-desktop .deskshelf h3{font-size:18px}
+.view-desktop .deskshelf .line{padding-left:22px}
+.view-desktop .deskshelf .mini{padding:9px 10px;gap:10px}
+.view-desktop .deskshelf .mini .e{width:44px;height:31px}
+.view-desktop .deskshelf .mini .e i{top:11px;width:13px;height:13px;margin-left:-6.5px}
+.view-desktop .deskshelf .mini .t{font-size:13px}
+.view-desktop .deskshelf .mini .d{font-size:11.5px}
+.view-desktop .deskshelf .tag{display:none}
+.view-desktop .deskshelf .mini.add{font-size:13px}
+@media (max-width:899px){.view-desktop .s3.show{grid-template-columns:minmax(0,1fr);grid-template-areas:"m1" "left" "m2" "right";gap:18px}}
+/* 4 · seal */
+.view-desktop .s4.show{align-items:center}
+.view-desktop .s4 .col:first-child h2,.view-desktop .s4 .col:first-child .eyebrow{text-align:left!important}
+.view-desktop .stage{height:360px}
+.view-desktop .env{transform:scale(1.2)}
+.view-desktop .holder .small{max-width:340px!important}
+/* 5 · shelf */
+.view-desktop .s5.show{grid-template-areas:"a b" "c b";grid-template-rows:auto 1fr}
+.view-desktop .s5 .a{grid-area:a}.view-desktop .s5 .b{grid-area:b}.view-desktop .s5 .c{grid-area:c}
+.view-desktop .s5 .b .line{margin-top:0}
+.view-desktop .s5 .b{background:var(--nest);border-radius:28px;padding:6px 20px 16px}
+/* 6 · delivery: both sides at once */
+.view-desktop .s6 .hd,.view-desktop .s6 .full{grid-column:1/-1}
+.view-desktop .s6 .pane{display:block;background:var(--surface);border-radius:28px;padding:22px 24px;box-shadow:var(--lift);animation:none}
+.view-desktop .s6 .full .btn{max-width:420px;margin:0 auto}
+/* 7 · pack */
+.view-desktop .s7 .col:last-child{padding-top:52px}
+.view-desktop .s7 .full .btn{margin-top:0}
 </style>
 </head>
 <body>
+<div class="viewbar" role="toolbar" aria-label="Choose a layout">
+  <span class="vl">Route 06 · <b>Letters Left Behind</b></span>
+  <div class="vt" id="vt"><button data-v="phone">Phone</button><button data-v="desktop">Desktop</button></div>
+</div>
 <div class="wrap">
 
   <!-- ROUTE CARD -->
@@ -231,17 +325,27 @@ h3{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:21px;line
         <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><g opacity=".82"><circle cx="9" cy="9" r="6" fill="#e07a4d"/><circle cx="17" cy="9" r="6" fill="#4a9e90"/><circle cx="9" cy="17" r="6" fill="#9cbf86"/><circle cx="17" cy="17" r="6" fill="#eab64a"/></g></svg>
         Good Grief Circle
       </div>
+      <nav class="nav desk-only" id="nav" aria-label="Sections">
+        <button data-go="1" data-r="1-1">Start</button>
+        <button data-go="3" data-r="2-4">The desk</button>
+        <button data-go="5" data-r="5-5">Your letters</button>
+        <button data-go="6" data-r="6-6">Delivery</button>
+        <button data-go="7" data-r="7-7">Milestone Pack</button>
+      </nav>
       <span class="step" id="stepLbl">Screen 1 of 7</span>
     </div>
     <div class="dots" id="dots"></div>
 
     <!-- 1 · A quiet start -->
-    <section class="screen show" data-s="1">
+    <section class="screen s1 show" data-s="1">
+      <div class="col intro">
       <div class="gap"></div>
       <span class="chip">Letters for later</span>
       <h2>Words for the <em>days you might miss.</em></h2>
       <p class="lede">Write to your children now. We keep each letter sealed until the day it's meant for: an 18th birthday, a wedding, the day they become a parent.</p>
-      <div class="gap"></div>
+      </div>
+      <div class="col">
+      <div class="gap phone-only"></div>
       <div class="card">
         <p class="eyebrow">What brought you here tonight?</p>
         <p class="small" style="margin:4px 0 12px">No wrong answer. It just helps us suggest where to start.</p>
@@ -259,10 +363,12 @@ h3{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:21px;line
       <div class="gap"></div>
       <button class="btn" data-go="2">Write my first letter</button>
       <p class="small" style="text-align:center;margin-top:12px">Writing is free. You only pay if you want letters delivered.</p>
+      </div>
     </section>
 
     <!-- 2 · Who and when -->
-    <section class="screen" data-s="2">
+    <section class="screen s2" data-s="2">
+      <div class="col">
       <p class="eyebrow" style="margin-top:8px">Who it's for</p>
       <h2 style="font-size:30px">Who is this <em>message</em> for?</h2>
       <p class="small" style="margin-bottom:12px">You can write as many as you like — start with one person.</p>
@@ -271,14 +377,18 @@ h3{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:21px;line
         <button class="kid" data-k="ollie"><div class="nm">Ollie</div><div class="ag">3 · born 4 Aug 2023</div></button>
       </div>
       <p class="small" style="margin:8px 0 18px">+ <span class="link">Add someone</span> (Jonny, your sister, a godchild)</p>
-      <p class="eyebrow">When it should arrive</p>
+      </div>
+      <div class="col">
+      <p class="eyebrow" style="margin-top:8px">When it should arrive</p>
       <div style="margin-top:10px" id="milestones"></div>
       <p class="small" style="margin:4px 0 16px">Some days can't go in a calendar. For those, one of your keyholders tells us when it's time.</p>
       <button class="btn" data-go="3">Start writing</button>
+      </div>
     </section>
 
     <!-- 3 · Write -->
-    <section class="screen" data-s="3">
+    <section class="screen s3" data-s="3">
+      <div class="col m1">
       <p class="eyebrow" style="margin-top:8px" id="writeEyebrow">For Isla · on her 18th birthday</p>
       <h3 style="margin:6px 0 4px">What would you like to say?</h3>
       <p class="small" style="margin-bottom:12px">Take your time. You can come back and edit this whenever you wish.</p>
@@ -289,8 +399,12 @@ h3{font-family:var(--serif);font-weight:500;color:var(--ink);font-size:21px;line
 I want you to know</textarea>
         <div class="meta"><span>Saved on this device</span><span id="wc">0 words</span></div>
       </div>
+      </div>
+      <div class="col left">
       <p class="eyebrow" style="margin:18px 0 8px">Stuck? Borrow a question</p>
       <div class="prompts" id="prompts"></div>
+      </div>
+      <div class="col m2">
       <h3 style="font-size:17px;margin:8px 0 4px">A memory you'd like remembered</h3>
       <p class="small" style="margin-bottom:8px">A moment, a feeling, an ordinary day that mattered.</p>
       <textarea class="field" id="memory" aria-label="A memory">The morning you learned to whistle and wouldn't stop, all the way to Roundhay Park and back.</textarea>
@@ -301,10 +415,18 @@ I want you to know</textarea>
       </div>
       <div class="gap"></div>
       <button class="btn" data-go="4">Ready to seal</button>
+      </div>
+      <aside class="col right deskshelf desk-only" aria-label="Your sealed letters">
+        <p class="eyebrow">On your desk</p>
+        <h3 style="margin:4px 0 2px">Waiting for <em style="color:var(--deep)">their day</em></h3>
+        <p class="small">Sealed envelopes, in the order they'll arrive.</p>
+        <div class="line" id="deskLine"></div>
+      </aside>
     </section>
 
     <!-- 4 · Seal (signature) -->
-    <section class="screen" data-s="4">
+    <section class="screen s4" data-s="4">
+      <div class="col">
       <p class="eyebrow" style="margin-top:8px;text-align:center">Seal it</p>
       <h2 style="text-align:center;font-size:30px">Press and hold <em>to seal.</em></h2>
       <div class="stage">
@@ -323,6 +445,8 @@ I want you to know</textarea>
           </svg>
         </div>
       </div>
+      </div>
+      <div class="col">
       <div class="holder" id="holder">
         <div class="press" id="press" role="button" tabindex="0" aria-label="Press and hold to seal">
           <svg class="ring" viewBox="0 0 112 112"><circle cx="56" cy="56" r="52" fill="none" stroke="rgba(178,61,16,.15)" stroke-width="4"/><circle id="ringFill" cx="56" cy="56" r="52" fill="none" stroke="#FFC965" stroke-width="4" stroke-linecap="round" stroke-dasharray="327" stroke-dashoffset="327"/></svg>
@@ -339,10 +463,12 @@ I want you to know</textarea>
         <div class="gap"></div>
         <button class="btn" data-go="5">See all your letters</button>
       </div>
+      </div>
     </section>
 
     <!-- 5 · The shelf -->
-    <section class="screen" data-s="5">
+    <section class="screen s5" data-s="5">
+      <div class="col a">
       <p class="eyebrow" style="margin-top:8px">Your letters</p>
       <h2 style="font-size:30px">Laura's <em>letters</em></h2>
       <div class="hero">
@@ -352,25 +478,31 @@ I want you to know</textarea>
         </div>
         <div class="meter"><i id="meterFill" style="width:25%"></i></div>
       </div>
-      <div class="line" id="timeline"></div>
+      </div>
+      <div class="col b"><div class="line" id="timeline"></div></div>
+      <div class="col c">
       <div class="nest" style="margin-top:10px">
         <p style="font-size:14px;color:var(--ink);font-weight:600">Next idea: Ollie's first day at school</p>
         <p class="small">September 2027 is close. A few lines in your own words would mean a lot to a four-year-old later on.</p>
       </div>
       <div class="gap"></div>
       <button class="btn" data-go="6">How delivery works</button>
+      </div>
     </section>
 
     <!-- 6 · Delivery -->
-    <section class="screen" data-s="6">
+    <section class="screen s6" data-s="6">
+      <div class="col hd">
       <p class="eyebrow" style="margin-top:8px">How delivery works</p>
       <h2 style="font-size:30px">Nothing goes <em>without you.</em></h2>
-      <div class="seg" id="seg">
+      <div class="seg phone-only" id="seg">
         <button class="on" data-p="alive">While you're here</button>
         <button data-p="died">If you die</button>
       </div>
+      </div>
 
       <div class="pane show" data-p="alive">
+        <h3 class="desk-only">While you're here</h3>
         <div class="steps">
           <div class="st"><span class="n"></span><div><div class="t">Your letters stay yours</div><div class="d">Open, rewrite or delete any of them whenever you like. Nothing is ever sent early.</div></div></div>
           <div class="st"><span class="n"></span><div><div class="t">A month before each date, we ask you</div><div class="d">"Isla's 18th is on 12 March. Give it to her yourself, let us post it, or keep it for later?" No answer means we keep holding it.</div></div></div>
@@ -380,6 +512,7 @@ I want you to know</textarea>
       </div>
 
       <div class="pane" data-p="died">
+        <h3 class="desk-only">If you die</h3>
         <p class="small" style="margin-top:14px">Your keyholders. You choose three; two of them must confirm.</p>
         <div class="keys">
           <div class="key"><div class="av" style="background:#e07a4d">J</div><div class="nm">Jonny</div><div class="rl">Husband</div></div>
@@ -394,12 +527,15 @@ I want you to know</textarea>
         </div>
         <div class="help">If you're writing this because of something hard right now, Samaritans are there any time, day or night: <b>116 123</b>, free.</div>
       </div>
-      <div class="gap"></div>
+      <div class="col full">
+      <div class="gap phone-only"></div>
       <button class="btn" data-go="7">Keep my letters safe for their day</button>
+      </div>
     </section>
 
     <!-- 7 · The pack -->
-    <section class="screen" data-s="7">
+    <section class="screen s7" data-s="7">
+      <div class="col">
       <p class="eyebrow" style="margin-top:8px">The Milestone Pack</p>
       <h2 style="font-size:30px">Delivered <em>on the day,</em> however far away.</h2>
       <div class="pack">
@@ -412,7 +548,9 @@ I want you to know</textarea>
           <li>Your keyholders get a printed copy of the list, so it never depends on us alone</li>
         </ul>
       </div>
-      <div class="gap"></div>
+      </div>
+      <div class="col">
+      <div class="gap phone-only"></div>
       <div class="card">
         <p class="eyebrow">Got a Christmas card from us?</p>
         <p class="small" style="margin:4px 0 8px">Your code gives you the founding pack free, for good.</p>
@@ -425,6 +563,7 @@ I want you to know</textarea>
       <div class="gap"></div>
       <button class="btn" id="payBtn">Choose keyholders</button>
       <p class="small" style="text-align:center;margin-top:10px">Preview: payments aren't switched on yet. Writing and sealing will always be free.</p>
+      </div>
     </section>
 
     <div class="toast" id="toast"></div>
@@ -447,7 +586,8 @@ I want you to know</textarea>
     var ph=document.getElementById('phone');
     if(ph.getBoundingClientRect().top<0) ph.scrollIntoView({behavior:'smooth'});
     if(n===4)resetSeal();
-    if(n===5)drawTimeline();
+    if(n===5||n===3)drawTimeline();
+    [].forEach.call(document.querySelectorAll('#nav button'),function(b){var r=b.dataset.r.split('-');b.classList.toggle('on',n>=+r[0]&&n<=+r[1])});
   }
   document.addEventListener('click',function(e){
     var g=e.target.closest('[data-go]'); if(g){show(+g.dataset.go)}
@@ -601,6 +741,7 @@ I want you to know</textarea>
     });
     html+='<button class="mini add" data-go="2">+ Write another letter</button>';
     document.getElementById('timeline').innerHTML=html;
+    document.getElementById('deskLine').innerHTML=html;
   }
 
   /* 6 · delivery toggle */
@@ -619,8 +760,28 @@ I want you to know</textarea>
   });
   document.getElementById('payBtn').addEventListener('click',function(){toast('Preview ends here: keyholders come next')});
 
-  drawMs();
+  /* view switch */
+  var root=document.documentElement;
+  var framed=root.classList.contains('framed');
+  function setView(v){
+    if(window.innerWidth<600&&!framed)v='phone';
+    root.classList.toggle('view-desktop',v==='desktop');root.classList.toggle('view-phone',v!=='desktop');
+    [].forEach.call(document.querySelectorAll('#vt button'),function(b){b.classList.toggle('on',b.dataset.v===v)});
+  }
+  document.getElementById('vt').addEventListener('click',function(e){var b=e.target.closest('button');if(b)setView(b.dataset.v)});
+  window.addEventListener('resize',function(){if(!framed&&window.innerWidth<600&&root.classList.contains('view-desktop'))setView('phone')});
+  setView(window.innerWidth>=900?'desktop':'phone');
+
+  drawMs(); drawTimeline(); show(1,false);
 })();
 </script>
+<a id="ggc-all-routes" href="./" aria-label="All routes" style="position:fixed;z-index:9999;left:calc(12px + env(safe-area-inset-left,0px));
+bottom:calc(12px + env(safe-area-inset-bottom,0px));font:600 13px/1 'Plus Jakarta Sans',-apple-system,sans-serif;
+color:#B23D10;background:#FFFFFF;text-decoration:none;padding:10px 14px;border-radius:999px;
+box-shadow:0 10px 24px rgba(57,56,52,.16)">&larr; All routes</a>
+<script>try { if (window.self !== window.top) document.getElementById('ggc-all-routes').remove(); } catch (e) {}</script>
+<script>if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}</script>
 </body>
 </html>

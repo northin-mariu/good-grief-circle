@@ -3,8 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#FFFBFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GGC Routes">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Where Things Are Kept</title>
+<script>(function(){var w=window.innerWidth||1024,f=false;try{f=window.self!==window.top}catch(e){f=true}document.documentElement.className=(w>=900?'view-desktop':'view-phone')+(f?' framed':'');})();</script>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,800;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -159,9 +165,94 @@ details.guide .k{font-size:11px;font-weight:700;letter-spacing:.1em;text-transfo
 .crisis{background:var(--tY);border-radius:20px;padding:13px 15px;margin-top:14px;font-size:13.5px}
 .crisis b{color:var(--ink)}
 .hero-art{margin:4px 0 0}
+
+/* ===== Phone / Desktop switch ===== */
+:root{--vb:52px}
+.viewbar{position:sticky;top:0;z-index:30;background:rgba(247,243,236,.94);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.vb-in{max-width:1152px;margin:0 auto;padding:9px 16px;display:flex;align-items:center;gap:12px;min-height:52px}
+.vb-t{font-size:12.5px;font-weight:600;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.vb-t b{font-family:var(--serif);font-style:italic;font-weight:500;color:var(--deep);font-size:15px;margin-right:4px}
+.switch{margin-left:auto;flex:none;display:flex;background:var(--field);border-radius:999px;padding:3px;gap:3px}
+.switch button{border:0;background:none;border-radius:999px;padding:7px 15px;font-size:12.5px;font-weight:700;color:var(--soft)}
+.switch button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 2px 8px rgba(57,56,52,.1)}
+.bar{top:var(--vb)}
+@media (max-width:599px){:root{--vb:0px}.viewbar{display:none}}
+
+/* desktop-only pieces are hidden in the phone view */
+.rail,.desk,.crumb{display:none}
+
+/* ===== Desktop view: the eight tabs as a left rail, the open drawer beside it ===== */
+html.view-desktop .wrap{max-width:1152px;padding-top:18px}
+html.view-desktop .route{max-width:none;margin-bottom:18px}
+html.view-desktop .route dl{grid-template-columns:118px minmax(0,1fr) 118px minmax(0,1fr);gap:12px 20px}
+html.view-desktop .phone{max-width:1120px;min-height:720px;border-radius:32px;display:grid;grid-template-columns:236px minmax(0,1fr);grid-template-rows:auto 1fr;box-shadow:0 30px 70px rgba(57,56,52,.10);overflow:visible}
+html.view-desktop .rail{display:flex;flex-direction:column;grid-column:1;grid-row:1 / 3;background:var(--nest);border-radius:32px 0 0 32px;padding:22px 0 22px 14px}
+html.view-desktop .rail-in{position:sticky;top:calc(var(--vb) + 14px);display:flex;flex-direction:column}
+html.view-desktop .bar{grid-column:2;grid-row:1;padding:20px 34px 8px;border-radius:0 32px 0 0}
+html.view-desktop .bar .logo{display:none}
+html.view-desktop .crumb{display:block;font-size:13px;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+html.view-desktop .screen.on{grid-column:2;grid-row:2;padding:8px 34px 40px;min-width:0}
+html.view-desktop .desk{display:block}
+html.view-desktop .cols{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:30px;align-items:start}
+html.view-desktop .cols.hero{align-items:center;min-height:560px}
+html.view-desktop .cB{position:sticky;top:calc(var(--vb) + 78px)}
+html.view-desktop .cB > .gap:first-child{display:none}
+html.view-desktop .screen h1{font-size:46px!important;max-width:15ch}
+html.view-desktop .screen h1.wide{max-width:none}
+html.view-desktop .screen .lead{max-width:52ch}
+html.view-desktop .opts{grid-template-columns:1fr 1fr}
+@media (max-width:1100px){
+  html.view-desktop .phone{grid-template-columns:212px minmax(0,1fr)}
+  html.view-desktop .opts{grid-template-columns:1fr}
+  html.view-desktop .screen h1{font-size:40px!important}
+}
+@media (max-width:860px){
+  html.view-desktop .cols{grid-template-columns:1fr}
+  html.view-desktop .cB{position:static}
+}
+
+/* the rail */
+.rlogo{padding:0 14px 18px 6px}
+.rhead{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:0 16px 10px 8px}
+.rhead span{font-family:var(--serif);font-size:19px;color:var(--ink);font-weight:500}
+.rhead b{font-size:11.5px;font-weight:700;color:var(--green);white-space:nowrap}
+.rtab{display:flex;align-items:center;gap:11px;width:100%;border:0;background:none;text-align:left;padding:9px 14px 9px 8px;border-radius:18px 0 0 18px;margin:1px 0;color:var(--ink);position:relative;transition:background .25s}
+.rtab:hover{background:rgba(255,255,255,.6)}
+.rtab .sw{flex:none;width:9px;height:30px;border-radius:6px;background:var(--tabTint);transition:background .6s}
+.rtab.filled .sw{background:var(--tabCol)}
+.rtab .rl{flex:1;min-width:0;font-size:13px;font-weight:700;line-height:1.25}
+.rtab .rs{display:block;font-size:11px;font-weight:600;color:var(--soft);margin-top:2px}
+.rtab.filled .rs{color:var(--green)}
+.rtab.start .rs{color:var(--deep)}
+.rtab.open{background:var(--page);box-shadow:-12px 6px 22px rgba(57,56,52,.05)}
+.rtab.open::after{content:'';position:absolute;right:0;top:-14px;width:14px;height:14px;background:radial-gradient(circle at 0 0,transparent 13.5px,var(--page) 14px)}
+.rtab.open::before{content:'';position:absolute;right:0;bottom:-14px;width:14px;height:14px;background:radial-gradient(circle at 0 100%,transparent 13.5px,var(--page) 14px)}
+.rtab.pulse .sw{animation:pulse 1.4s ease 1}
+.rfoot{margin:18px 16px 0 8px;background:var(--tA);border-radius:18px;padding:11px 13px;font-size:12px;line-height:1.45;color:var(--text)}
+.rfoot b{color:var(--deep)}
+
+/* inside the coordinator's viewer (iframe): product only */
+html.framed{--vb:0px}
+html.framed .viewbar,html.framed .route{display:none}
+html.framed.view-phone .wrap{max-width:none;padding:0}
+html.framed.view-phone .phone{max-width:none;border-radius:0;box-shadow:none;min-height:100vh}
+html.framed.view-desktop .wrap{padding:16px}
+
+/* live preview of the open tab (desktop) */
+.prev{background:var(--card);border-radius:24px;box-shadow:var(--lift);padding:16px 18px;margin-top:0}
+.prev .ro{box-shadow:none;background:var(--nest);margin-top:10px}
 </style>
 </head>
 <body>
+<div class="viewbar">
+  <div class="vb-in">
+    <span class="vb-t"><b>03</b> Where Things Are Kept</span>
+    <div class="switch" role="group" aria-label="Show as">
+      <button type="button" data-view="phone" aria-pressed="false">Phone</button>
+      <button type="button" data-view="desktop" aria-pressed="false">Desktop</button>
+    </div>
+  </div>
+</div>
 <div class="wrap">
 
 <details class="route" id="route">
@@ -179,20 +270,33 @@ details.guide .k{font-size:11px;font-weight:700;letter-spacing:.1em;text-transfo
 </details>
 
 <div class="phone" id="phone">
+  <aside class="rail" aria-label="Janet’s drawer">
+    <div class="rail-in">
+      <div class="logo rlogo">
+        <svg width="30" height="22" viewBox="0 0 60 44" aria-hidden="true"><g opacity=".82"><circle cx="16" cy="16" r="12" fill="#e07a4d"/><circle cx="30" cy="14" r="12" fill="#4a9e90"/><circle cx="22" cy="28" r="12" fill="#9cbf86"/><circle cx="37" cy="27" r="12" fill="#eab64a"/></g></svg>
+        Good Grief Circle
+      </div>
+      <p class="rhead"><span>Janet’s drawer</span><b id="railN">0 of 8 noted</b></p>
+      <nav id="railTabs"></nav>
+      <div class="rfoot"><b>Not a legal will.</b> The drawer notes where things are kept. It holds no documents and no passwords.</div>
+    </div>
+  </aside>
   <div class="bar">
     <button class="back" id="back" aria-label="Back" disabled><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 5 8 12 15 19"/></svg></button>
     <div class="logo">
       <svg width="30" height="22" viewBox="0 0 60 44" aria-hidden="true"><g opacity=".82"><circle cx="16" cy="16" r="12" fill="#e07a4d"/><circle cx="30" cy="14" r="12" fill="#4a9e90"/><circle cx="22" cy="28" r="12" fill="#9cbf86"/><circle cx="37" cy="27" r="12" fill="#eab64a"/></g></svg>
       Good Grief Circle
     </div>
+    <span class="crumb" id="crumb">Arrive</span>
     <span class="count" id="count">Screen 1 of 6</span>
   </div>
 
   <!-- 1 · ARRIVE -->
-  <section class="screen on" data-s="1">
+  <section class="screen on" data-s="1"><div class="cols hero"><div class="cA">
     <span class="chip mint">Sent by a friend</span>
     <h1>You've just sorted out <b>someone else's</b> paperwork. <em>Spare yours the search.</em></h1>
     <p class="lead">Note what exists and where it's kept: the will, the pensions, the deeds, who has the dog. No uploads, no passwords. When the time comes, your family opens one drawer instead of every drawer in the house.</p>
+    </div><div class="cB">
     <div class="radiant hero-art">
       <p class="eyebrow">Your drawer · 8 tabs</p>
       <svg viewBox="0 0 320 150" width="100%" aria-hidden="true">
@@ -216,10 +320,10 @@ details.guide .k{font-size:11px;font-weight:700;letter-spacing:.1em;text-transfo
     </div>
     <button class="btn" data-go="2">Start with three questions</button>
     <p class="small" style="text-align:center;margin:10px 0 0">About two minutes. Three drawers are free for good.</p>
-  </section>
+  </div></div></section>
 
   <!-- 2 · SITUATION QUIZ -->
-  <section class="screen" data-s="2">
+  <section class="screen" data-s="2"><div class="cols"><div class="cA">
     <p class="eyebrow" id="qLabel">Question 1 of 3</p>
     <div class="qstep"><i class="on" id="qs1"></i><i id="qs2"></i><i id="qs3"></i></div>
     <div id="q1">
@@ -239,10 +343,15 @@ details.guide .k{font-size:11px;font-weight:700;letter-spacing:.1em;text-transfo
       <div class="opts" id="q3opts"></div>
     </div>
     <button class="btn" id="qNext">Next question</button>
+    </div><div class="cB desk">
+      <p class="eyebrow">Your drawer, as you answer</p>
+      <div class="drawer" id="drawer2"></div>
+      <p class="small" style="margin:10px 4px 0">Tabs marked “Start here” change with your answers.</p>
+    </div></div>
   </section>
 
   <!-- 3 · START HERE + DRAWER -->
-  <section class="screen" data-s="3">
+  <section class="screen" data-s="3"><div class="cols"><div class="cA">
     <span class="chip tint">Made for you, Janet</span>
     <h1 style="font-size:34px">Start <em>here.</em></h1>
     <p class="lead" id="startLead">Three five-minute jobs, picked from your answers. Do one today; the drawer keeps your place.</p>
@@ -250,13 +359,14 @@ details.guide .k{font-size:11px;font-weight:700;letter-spacing:.1em;text-transfo
       <p class="eyebrow">Your first three</p>
       <div id="tasks"></div>
     </div>
+    </div><div class="cB">
     <div class="gap"></div>
     <div class="drawer" id="drawer3"></div>
     <button class="btn" data-go="4">Open the first tab</button>
-  </section>
+  </div></div></section>
 
   <!-- 4 · ONE TAB OPEN -->
-  <section class="screen" data-s="4">
+  <section class="screen" data-s="4"><div class="cols"><div class="cA">
     <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
       <span class="chip" style="background:#e07a4d;color:#fff">Tab 1 of 8</span>
       <span class="chip sunc">About 5 minutes</span>
@@ -296,6 +406,12 @@ details.guide .k{font-size:11px;font-weight:700;letter-spacing:.1em;text-transfo
       <button class="link" style="margin-top:10px" id="remind">Remind me in a month</button>
       <span class="small" id="reminded" hidden> · We'll ask again on 16 November.</span>
     </div>
+    </div><div class="cB">
+    <div class="prev desk">
+      <p class="eyebrow" style="margin:0">How Tom and Ellie will read this tab</p>
+      <div class="ro"><span class="bar2" style="background:#e07a4d"></span><div><div style="font-weight:700;color:var(--ink);font-size:14px">My will</div><div style="font-size:13px;margin-top:2px" id="pvWhere"></div><div class="small" style="margin-top:6px" id="pvWho"></div></div></div>
+      <p class="small" style="margin:8px 0 0">Updates as you type. Read only for them.</p>
+    </div>
 
     <div class="boundary">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B23D10" stroke-width="2" stroke-linecap="round" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="13"/><circle cx="12" cy="16.5" r=".6" fill="#B23D10"/></svg>
@@ -303,14 +419,15 @@ details.guide .k{font-size:11px;font-weight:700;letter-spacing:.1em;text-transfo
     </div>
     <p class="small" style="margin:12px 0 0">Never write a password or PIN here. Say where it is kept instead.</p>
     <button class="btn" id="saveWill">Put it in the drawer</button>
-  </section>
+  </div></div></section>
 
   <!-- 5 · DRAWER + YEARLY PLAN -->
-  <section class="screen" data-s="5">
+  <section class="screen" data-s="5"><div class="cols"><div class="cA">
     <span class="chip mint">Two weeks on</span>
     <h1 style="font-size:32px">Three tabs filled. <em>Five to go.</em></h1>
     <p class="lead" style="font-size:14.5px">Three drawers are free for good. The rest of the drawer, and the family's way in, come with the vault plan.</p>
     <div class="drawer" id="drawer5"></div>
+    </div><div class="cB">
     <div class="gap"></div>
     <div class="radiant">
       <p class="eyebrow">The vault plan · draft price</p>
@@ -330,10 +447,10 @@ details.guide .k{font-size:11px;font-weight:700;letter-spacing:.1em;text-transfo
       <div class="toast" id="vtoast">Preview: voucher accepted. Your vault plan runs to December 2027. Nothing was charged.</div>
     </div>
     <button class="btn" data-go="6">See what your family will see</button>
-  </section>
+  </div></div></section>
 
   <!-- 6 · WHAT THE FAMILY SEES -->
-  <section class="screen" data-s="6">
+  <section class="screen" data-s="6"><div class="cols"><div class="cA">
     <span class="chip tint">Preview of the family's view</span>
     <h1 style="font-size:32px">What Tom and Ellie <em>will see.</em></h1>
     <p class="lead" style="font-size:14.5px">Nothing opens while you're well. Here is exactly how it opens, and what's inside.</p>
@@ -354,7 +471,7 @@ details.guide .k{font-size:11px;font-weight:700;letter-spacing:.1em;text-transfo
     <div class="gap"></div>
     <p class="eyebrow">Mum's drawer · checked 4 October 2026</p>
     <div id="family"></div>
-
+    </div><div class="cB">
     <div class="gap"></div>
     <div class="card">
       <h2 style="font-size:21px">First things to <em>do</em></h2>
@@ -364,7 +481,7 @@ details.guide .k{font-size:11px;font-weight:700;letter-spacing:.1em;text-transfo
     </div>
     <div class="crisis"><b>If today is too much:</b> Samaritans are there any time, day or night, on <b>116 123</b>. Cruse Bereavement Support offers free support after a death.</div>
     <button class="btn" data-go="1">Back to the start</button>
-  </section>
+  </div></div></section>
 </div>
 </div>
 
@@ -418,10 +535,14 @@ details.guide .k{font-size:11px;font-weight:700;letter-spacing:.1em;text-transfo
     cur = n;
     document.querySelectorAll('.screen').forEach(function(s){s.classList.toggle('on', +s.dataset.s===n)});
     $('count').textContent = 'Screen '+n+' of '+TOTAL;
+    $('crumb').textContent = CRUMB[n];
     $('back').disabled = hist.length===0 && !(n===2 && S.q>1);
+    S.open = n===4 ? 'will' : null;
     if(n===3) renderStart();
+    if(n===4) renderPreview();
     if(n===5) renderPlan();
     if(n===6) renderFamily();
+    renderRail();
     window.scrollTo(0, Math.max(0, $('phone').offsetTop - 8));
   }
   document.querySelectorAll('[data-go]').forEach(function(b){b.addEventListener('click',function(){go(+b.dataset.go)})});
@@ -438,7 +559,47 @@ details.guide .k{font-size:11px;font-weight:700;letter-spacing:.1em;text-transfo
     $('q1worth').style.display = S.sit==null ? 'none' : 'block';
     $('q2opts').innerHTML = HAVE.map(function(h,i){return optHTML(h[1], !!S.have[h[0]], i)}).join('');
     $('q3opts').innerHTML = CARE.map(function(c,i){return optHTML(c[1], !!S.care[c[0]], i)}).join('');
+    var mark={}; tasks().forEach(function(x){mark[x[0]]=1});
+    $('drawer2').innerHTML = drawerHTML(mark, false);
+    renderRail();
   }
+
+  /* desktop rail: the eight tabs down the left, the open one joined to the page */
+  var CRUMB = ['','Arrive','Three questions','Start here','Tab 1 · Will & legal documents','Your drawer & the vault plan','What the family sees'];
+  function renderRail(){
+    var filled = DOCS.filter(function(d){return S.notes[d.id]}).length;
+    $('railN').textContent = filled+' of 8 noted';
+    var mark={}; if(cur===2||cur===3) tasks().forEach(function(x){mark[x[0]]=1});
+    var gate = cur>=5;
+    $('railTabs').innerHTML = DOCS.map(function(d){
+      var note=S.notes[d.id], st, cls='rtab';
+      if(note){st='Noted'; cls+=' filled';}
+      else if(gate) st='Vault plan';
+      else if(mark[d.id]){st='Start here'; cls+=' start';}
+      else st=d.hint;
+      if(S.open===d.id) cls+=' open';
+      if(S.railPulse===d.id) cls+=' pulse';
+      return '<button type="button" class="'+cls+'" data-tab="'+d.id+'" style="--tabCol:'+d.col+';--tabTint:'+d.tint+'"'+(S.open===d.id?' aria-current="true"':'')+'>'+
+        '<span class="sw"></span><span class="rl">'+esc(d.label)+'<span class="rs">'+esc(st)+'</span></span></button>';
+    }).join('');
+    S.railPulse = null;
+  }
+  $('railTabs').addEventListener('click',function(e){
+    var b=e.target.closest('.rtab'); if(!b) return;
+    var id=b.dataset.tab;
+    if(id==='will'){ go(4); return; }
+    S.pulse=id; S.railPulse=id;
+    if(cur===5){ $('drawer5').innerHTML=drawerHTML(null,true); S.pulse=null; }
+    else go(5);
+    S.open=id; renderRail();
+  });
+
+  /* desktop: live preview of the will tab */
+  function renderPreview(){
+    $('pvWhere').textContent = $('wWhere').value.trim() || 'Nothing noted yet.';
+    $('pvWho').textContent = $('wWho').value.trim() ? 'Who to ask: '+$('wWho').value.trim() : '';
+  }
+  ['wWhere','wWho'].forEach(function(id){ $(id).addEventListener('input', renderPreview); });
   $('q1opts').addEventListener('click',function(e){var b=e.target.closest('.opt'); if(!b) return; S.sit=+b.dataset.i; renderQuiz();});
   function multi(listId, arr, key, noneKey){
     $(listId).addEventListener('click',function(e){
@@ -533,8 +694,32 @@ details.guide .k{font-size:11px;font-weight:700;letter-spacing:.1em;text-transfo
   /* route card: open on wider screens, folded on phones */
   try { if(window.matchMedia('(min-width:700px)').matches) $('route').open = true; } catch(e){}
 
-  renderQuiz(); showQ(); $('back').disabled = true;
+  /* Phone / Desktop switch: one set of state, only the layout class changes */
+  var chosen = null, root = document.documentElement;
+  function applyView(){
+    if(root.classList.contains('framed')) return; // the viewer sets view-desktop / view-phone itself
+    var w = window.innerWidth;
+    var v = w < 600 ? 'phone' : (chosen || (w >= 900 ? 'desktop' : 'phone'));
+    root.classList.toggle('view-desktop', v==='desktop');
+    root.classList.toggle('view-phone', v==='phone');
+    document.querySelectorAll('.switch button').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.view===v ? 'true' : 'false'); });
+  }
+  document.querySelectorAll('.switch button').forEach(function(b){
+    b.addEventListener('click',function(){ chosen = b.dataset.view; applyView(); });
+  });
+  window.addEventListener('resize', applyView);
+  applyView();
+
+  renderQuiz(); showQ(); $('back').disabled = true; renderRail();
 })();
 </script>
+<a id="ggc-all-routes" href="./" aria-label="All routes" style="position:fixed;z-index:9999;left:calc(12px + env(safe-area-inset-left,0px));
+bottom:calc(12px + env(safe-area-inset-bottom,0px));font:600 13px/1 'Plus Jakarta Sans',-apple-system,sans-serif;
+color:#B23D10;background:#FFFFFF;text-decoration:none;padding:10px 14px;border-radius:999px;
+box-shadow:0 10px 24px rgba(57,56,52,.16)">&larr; All routes</a>
+<script>try { if (window.self !== window.top) document.getElementById('ggc-all-routes').remove(); } catch (e) {}</script>
+<script>if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}</script>
 </body>
 </html>

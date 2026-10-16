@@ -3,8 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#FFFBFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GGC Routes">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ten-Minute Funeral Wishes</title>
+<script>(function(){var d=document.documentElement,w=window.innerWidth||1024,f=true;try{f=window.self!==window.top}catch(e){f=true}if(f)d.classList.add('framed');d.classList.add(w>=900?'view-desktop':'view-phone')})()</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,800;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -90,7 +96,7 @@ h2.q{font-family:var(--serif);font-weight:500;font-size:27px;line-height:1.12;le
 .fillhead .ttl em{font-weight:500;color:var(--deep)}
 .fillhead .left{font-size:11.5px;color:var(--muted);font-weight:600}
 .ring{margin-left:auto;flex:none}
-.tiles{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.tiles{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:5px}
 .tile{border-radius:12px;padding:6px 9px;background:var(--nest);min-height:40px;transition:background .35s}
 .tile .k{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--faint)}
 .tile .v{font-family:var(--serif);font-style:italic;font-size:13px;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.3}
@@ -165,9 +171,117 @@ h2.q{font-family:var(--serif);font-weight:500;font-size:27px;line-height:1.12;le
 
 .toast{position:absolute;left:50%;bottom:22px;transform:translateX(-50%) translateY(20px);opacity:0;background:var(--ink);color:#fff;font-size:13px;font-weight:600;border-radius:999px;padding:10px 16px;transition:all .3s;pointer-events:none;width:max-content;max-width:88%;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ===== view switch bar ===== */
+.viewbar{position:sticky;top:0;z-index:50;background:rgba(253,249,242,.94);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.vb-in{max-width:1180px;margin:0 auto;padding:9px 16px;display:flex;align-items:center;gap:12px}
+.vb-l{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.02em}
+.seg{margin-left:auto;display:inline-flex;background:var(--field);border-radius:999px;padding:3px}
+.seg button{border:0;background:transparent;border-radius:999px;padding:7px 16px;font-size:13px;font-weight:700;color:var(--muted)}
+html.view-phone .seg [data-view=phone],html.view-desktop .seg [data-view=desktop]{background:var(--card);color:var(--deep);box-shadow:0 4px 12px rgba(57,56,52,.08)}
+@media (max-width:599px){.viewbar{display:none}}
+.phone{scroll-margin-top:64px}
+
+/* wrappers vanish in phone view: children stay direct flex items of .screen */
+.cA,.cB,.cC{display:contents}
+.dnav,.fillnote{display:none}
+
+/* ===== desktop view ===== */
+html.view-desktop .wrap{max-width:1180px;padding:16px 30px 64px}
+html.view-desktop .fields{grid-template-columns:repeat(4,minmax(0,1fr))}
+html.view-desktop .field.wide:first-child{grid-column:span 2}
+html.view-desktop .field.wide:last-child{grid-column:1/-1}
+html.view-desktop .phone{max-width:1120px;border-radius:28px;min-height:0;box-shadow:var(--lift)}
+html.view-desktop .bar{padding:16px 28px;gap:16px;background:var(--surface)}
+html.view-desktop .logo{order:0;font-size:19px}
+html.view-desktop .dnav{order:1;display:flex;gap:4px;margin:0 auto}
+html.view-desktop .dnav button{border:0;background:transparent;border-radius:999px;padding:8px 15px;font-size:14px;font-weight:600;color:var(--muted)}
+html.view-desktop .dnav button:hover{background:var(--nest)}
+html.view-desktop .dnav button.on{background:var(--tA);color:var(--deep)}
+html.view-desktop .step{order:2;margin-left:0}
+html.view-desktop .back{order:3}
+html.view-desktop .screen{padding:34px 48px 48px;background:var(--surface)}
+html.view-desktop .screen.on{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto 1fr;grid-template-areas:"a b" "c b";column-gap:56px;align-items:start}
+html.view-desktop .cA,html.view-desktop .cB,html.view-desktop .cC{display:flex;flex-direction:column;min-width:0}
+html.view-desktop .cA{grid-area:a} html.view-desktop .cB{grid-area:b} html.view-desktop .cC{grid-area:c}
+html.view-desktop .foot{margin-top:18px;flex-direction:row;align-items:center;gap:10px;flex-wrap:wrap}
+html.view-desktop .foot .btn{width:auto;padding:16px 30px}
+html.view-desktop h2.big{font-size:58px;margin-top:18px}
+html.view-desktop h2.q{font-size:38px}
+html.view-desktop .lead{font-size:18px}
+/* 1 landing: paper sheet as the hero on the right */
+html.view-desktop [data-s="1"] .cB{padding-top:40px}
+html.view-desktop .paper{height:330px;margin:10px 24px}
+html.view-desktop .sheet{padding:30px 34px}
+html.view-desktop .sheet .t{font-size:30px}
+html.view-desktop .sheet .ln{margin-top:22px;font-size:12.5px}
+html.view-desktop .sheet .stamp{width:84px;height:84px;font-size:32px;right:26px;bottom:24px}
+/* 2 questions: question left, the card filling in live on the right */
+html.view-desktop [data-s="2"].on{grid-template-areas:"a b" "a b";grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}
+html.view-desktop [data-s="2"] .cA{padding-top:20px}
+html.view-desktop [data-s="2"] .cB{position:sticky;top:76px}
+html.view-desktop .fill{padding:24px 24px 20px;border-radius:28px;box-shadow:var(--glowShadow);margin:0}
+html.view-desktop .fillhead{margin-bottom:16px}
+html.view-desktop .fillhead .ttl{font-size:26px}
+html.view-desktop .fillhead .left{font-size:13px}
+html.view-desktop .ring{width:64px;height:64px}
+html.view-desktop .tiles{gap:8px}
+html.view-desktop .tile{padding:10px 13px;min-height:68px;border-radius:16px}
+html.view-desktop .tile .k{font-size:10.5px}
+html.view-desktop .tile .v{font-size:15.5px;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+html.view-desktop .tile .v.empty{display:block;height:8px;margin-top:9px}
+html.view-desktop .fillnote{display:block;margin-top:12px;font-size:12px;color:var(--soft)}
+html.view-desktop .opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+html.view-desktop .opt{padding:16px 18px}
+html.view-desktop .pill{padding:11px 17px;font-size:14.5px}
+/* 3 card: big card on the right */
+html.view-desktop [data-s="3"].on,html.view-desktop [data-s="6"].on{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}
+html.view-desktop [data-s="3"] .cA,html.view-desktop [data-s="5"] .cA,html.view-desktop [data-s="6"] .cA{padding-top:12px}
+html.view-desktop .wcard{padding:30px 32px 24px}
+html.view-desktop .wcard h3{font-size:40px}
+html.view-desktop .row .l{width:120px}
+/* 4 share: people left, note + send right */
+html.view-desktop [data-s="4"].on{grid-template-areas:"a b" "a b"}
+html.view-desktop [data-s="4"] .cB{background:var(--nest);border-radius:28px;padding:22px 24px;margin-top:20px}
+html.view-desktop [data-s="4"] .cB .inp{background:var(--card)}
+/* 5 booklet: offer panel right */
+html.view-desktop [data-s="5"] .radiant{padding:30px 30px 26px;margin-top:12px}
+html.view-desktop .cover{width:130px;height:178px;padding:16px 14px}
+html.view-desktop .cover .ct{font-size:17px}
+html.view-desktop .radiant .price{font-size:52px}
+html.view-desktop .voucher{max-width:440px}
+html.view-desktop .voucher button{padding:0 22px}
+/* 6 family: the message left, Mum's card right */
+html.view-desktop [data-s="6"] .msg{font-size:15px;padding:16px 18px;max-width:440px}
+html.view-desktop .crisis{text-align:left}
+html.view-desktop .toast{position:fixed;bottom:28px}
+/* inside the viewer's iframe: product only */
+html.framed .route,html.framed .viewbar{display:none}
+html.framed .phone{scroll-margin-top:0}
+html.framed.view-phone .wrap{max-width:none;padding:0}
+html.framed.view-phone .phone{max-width:none;margin:0;border-radius:0;box-shadow:none;min-height:100vh}
+html.framed.view-desktop .wrap{padding-top:24px}
+/* desktop chosen on a mid-size window: stack */
+@media (max-width:880px){
+  html.view-desktop .screen.on,html.view-desktop [data-s].on{grid-template-columns:minmax(0,1fr);grid-template-areas:"a" "b" "c";grid-template-rows:auto}
+  html.view-desktop [data-s="2"] .cB{position:static;margin-bottom:20px}
+  html.view-desktop [data-s="2"].on{grid-template-areas:"b" "a"}
+  html.view-desktop [data-s="4"].on{grid-template-areas:"a" "b"}
+  html.view-desktop .screen{padding:26px 26px 36px}
+  html.view-desktop .dnav{display:none}
+  html.view-desktop .fields{grid-template-columns:1fr 1fr}
+}
 </style>
 </head>
 <body>
+<div class="viewbar" id="viewbar">
+  <div class="vb-in">
+    <span class="vb-l">Route 02 &middot; concept prototype</span>
+    <div class="seg" role="group" aria-label="Show layout">
+      <button type="button" data-view="phone" onclick="setView('phone',true)">Phone</button><button type="button" data-view="desktop" onclick="setView('desktop',true)">Desktop</button>
+    </div>
+  </div>
+</div>
 <div class="wrap">
 
 <details class="route" id="route" open>
@@ -191,14 +305,20 @@ h2.q{font-family:var(--serif);font-weight:500;font-size:27px;line-height:1.12;le
       <svg width="30" height="22" viewBox="0 0 30 22" aria-hidden="true"><g opacity=".82"><circle cx="7" cy="11" r="6.5" fill="#e07a4d"/><circle cx="13" cy="11" r="6.5" fill="#4a9e90"/><circle cx="18" cy="11" r="6.5" fill="#9cbf86"/><circle cx="23" cy="11" r="6.5" fill="#eab64a"/></g></svg>
       <span class="wm">Good Grief Circle</span>
     </div>
+    <nav class="dnav" aria-label="Sections">
+      <button type="button" data-go="2" onclick="go(2)">Questions</button><button type="button" data-go="3" onclick="go(3)">My card</button><button type="button" data-go="4" onclick="go(4)">Share</button><button type="button" data-go="5" onclick="go(5)">Booklet</button><button type="button" data-go="6" onclick="go(6)">Family view</button>
+    </nav>
     <span class="step" id="step">Screen 1 of 6</span>
   </div>
 
   <!-- 1 · LANDING -->
   <section class="screen on" data-s="1">
+    <div class="cA">
     <span class="chip" style="align-self:flex-start">Free · no sign-up · about 10 minutes</span>
     <h2 class="big">Your funeral wishes, <em>written down</em> in <strong>ten minutes.</strong></h2>
     <p class="lead">Ten gentle questions, one at a time. At the end you have a one-page card your family can keep, so nobody ever has to guess.</p>
+    </div>
+    <div class="cB">
     <div class="paper" aria-hidden="true">
       <div class="sheet b"></div>
       <div class="sheet">
@@ -210,6 +330,8 @@ h2.q{font-family:var(--serif);font-weight:500;font-size:27px;line-height:1.12;le
         <div class="stamp">10<small>MINUTES</small></div>
       </div>
     </div>
+    </div>
+    <div class="cC">
     <ul class="ticks">
       <li><span>&#10003;</span>One question per screen. Skip anything.</li>
       <li><span>&#10003;</span>Watch your card fill in as you go.</li>
@@ -219,10 +341,12 @@ h2.q{font-family:var(--serif);font-weight:500;font-size:27px;line-height:1.12;le
     <div class="foot">
       <button class="btn main" onclick="go(2)">Start my ten minutes</button>
     </div>
+    </div>
   </section>
 
   <!-- 2 · QUESTIONS (one per screen, card fills in) -->
   <section class="screen" data-s="2">
+    <div class="cB">
     <div class="fill" aria-label="Your card so far">
       <div class="fillhead">
         <div>
@@ -237,7 +361,10 @@ h2.q{font-family:var(--serif);font-weight:500;font-size:27px;line-height:1.12;le
         </svg>
       </div>
       <div class="tiles" id="tiles"></div>
+      <div class="fillnote">Not a legal will. Your card fills in as you answer.</div>
     </div>
+    </div>
+    <div class="cA">
     <div class="eyebrow" id="qeye">Farewell &amp; Ceremony · 1 of 10</div>
     <h2 class="q" id="qprompt"></h2>
     <p class="helper" id="qhelper"></p>
@@ -246,26 +373,34 @@ h2.q{font-family:var(--serif);font-weight:500;font-size:27px;line-height:1.12;le
       <button class="btn main" id="qnext" onclick="nextQ()">Next</button>
       <button class="btn quiet" id="qskip" onclick="skipQ()">Skip for now</button>
     </div>
+    </div>
   </section>
 
   <!-- 3 · THE CARD -->
   <section class="screen" data-s="3">
+    <div class="cA">
     <span class="chip" style="align-self:flex-start">Done in 8 minutes 40</span>
     <h2 class="q" style="font-size:30px;margin:12px 0 4px">That's it, Carol. <em style="color:var(--deep)">It's written down.</em></h2>
     <p class="helper">Here is your card. You can change any answer, whenever you like.</p>
-    <div id="fullcard"></div>
+    </div>
+    <div class="cB"><div id="fullcard"></div></div>
+    <div class="cC">
     <div class="foot">
       <button class="btn main" onclick="go(4)">Send it to my family</button>
       <button class="btn quiet" onclick="editFrom(0)">Change an answer</button>
+    </div>
     </div>
   </section>
 
   <!-- 4 · SHARE -->
   <section class="screen" data-s="4">
+    <div class="cA">
     <div class="eyebrow">Free · private until you send it</div>
     <h2 class="q">Who should <em style="color:var(--deep)">have a copy?</em></h2>
     <p class="helper">They get a link to your card. Nobody can change it but you.</p>
     <div class="people" id="people"></div>
+    </div>
+    <div class="cB">
     <div class="small" style="font-weight:600;color:var(--muted)">A note with it</div>
     <textarea class="inp" rows="4" id="covernote" style="margin-top:6px">I've written down what I'd like, so you never have to guess. No need to talk about it today. Just keep it somewhere safe. Love, Mum x</textarea>
     <div class="via" role="group" aria-label="Send by">
@@ -275,13 +410,17 @@ h2.q{font-family:var(--serif);font-weight:500;font-size:27px;line-height:1.12;le
     <div class="foot">
       <button class="btn main" onclick="sendCard()">Send to 2 people</button>
     </div>
+    </div>
   </section>
 
   <!-- 5 · BOOKLET (the paid thing) -->
   <section class="screen" data-s="5">
+    <div class="cA">
     <span class="chip" style="align-self:flex-start;background:var(--tG);color:var(--green)">&#10003; Sent to Hannah and Liam</span>
     <h2 class="q" style="margin-top:12px">Keep it in the drawer, <em style="color:var(--deep)">not just on a phone.</em></h2>
     <p class="helper">Phones get replaced. A printed copy sits with the will and the birth certificates, where people look first.</p>
+    </div>
+    <div class="cB">
     <div class="radiant">
       <div class="book">
         <div class="cover"><div class="ct">My funeral<em>wishes</em></div><div class="cn">Carol Whitfield</div></div>
@@ -297,6 +436,8 @@ h2.q{font-family:var(--serif);font-weight:500;font-size:27px;line-height:1.12;le
       </div>
       <div style="font-size:12.5px;opacity:.92">Printed and posted within 7 days in the UK. Change your answers later and order a fresh one.</div>
     </div>
+    </div>
+    <div class="cC">
     <div class="small" style="font-weight:600;color:var(--muted);margin-bottom:6px">Got a Christmas card with a code?</div>
     <div class="voucher"><input class="inp" id="code" value="GGC-XMAS-0417" aria-label="Voucher code"><button onclick="redeem()">Use it</button></div>
     <div class="ok" id="ok">&#10003; Code accepted: your booklet is free. Just add the address.</div>
@@ -305,18 +446,23 @@ h2.q{font-family:var(--serif);font-weight:500;font-size:27px;line-height:1.12;le
       <button class="btn main" id="buy" onclick="buy()">Order my booklet · £24</button>
       <button class="btn quiet" onclick="go(6)">Not now, the card is enough</button>
     </div>
+    </div>
   </section>
 
   <!-- 6 · WHAT HANNAH SEES -->
   <section class="screen" data-s="6">
+    <div class="cA">
     <div class="eyebrow">What Hannah sees on her phone</div>
     <div class="msg" style="margin-top:10px"><div class="from">Mum · Text message</div>I've written down what I'd like, so you never have to guess. No need to talk about it today. Just keep it somewhere safe. Love, Mum x<br><span style="color:var(--deep);font-weight:600">goodgriefcircle.com/c/carol-w</span></div>
-    <div id="familycard"></div>
+    </div>
+    <div class="cB"><div id="familycard"></div></div>
+    <div class="cC">
     <div class="foot" style="padding-top:14px">
       <button class="btn sun" onclick="toast('Preview: saved to Hannah\'s phone.')">Keep Mum's card on my phone</button>
     </div>
     <div class="loop"><b>Write your own, in ten minutes.</b><span class="small" style="color:var(--muted)">The same ten questions. Free, no sign-up.</span><br><button class="btn quiet" style="padding:8px 0;text-align:left;color:var(--deep)" onclick="restart()">Start mine &rarr;</button></div>
     <div class="crisis">If this brings up something hard, Samaritans are there any time: 116 123.</div>
+    </div>
   </section>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -361,6 +507,7 @@ function go(n){
   document.querySelectorAll('.screen').forEach(function(s){s.classList.toggle('on',+s.dataset.s===n)});
   document.getElementById('step').textContent='Screen '+n+' of '+TOTAL;
   document.getElementById('back').disabled=(n===1);
+  document.querySelectorAll('.dnav button').forEach(function(b){b.classList.toggle('on',+b.dataset.go===n)});
   if(n===2)renderQ(); if(n===3)renderCard('fullcard',false); if(n===4)renderPeople(); if(n===6)renderCard('familycard',true);
   if(started)document.getElementById('phone').scrollIntoView({block:'start',behavior:'smooth'});
   started=true;
@@ -438,8 +585,28 @@ function buy(){toast(free?'Preview: the booklet would be posted to you.':'Previe
 
 var tt;function toast(m){var t=document.getElementById('toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('show')},2400)}
 
+// Phone / Desktop switch: one set of state, only the class on <html> changes
+var userView=null;
+function setView(v,byUser){
+  if(byUser)userView=v;
+  if(window.innerWidth<600)v='phone';
+  var d=document.documentElement;
+  d.classList.toggle('view-phone',v==='phone');d.classList.toggle('view-desktop',v==='desktop');
+}
+function autoView(){setView(userView||(window.innerWidth>=900?'desktop':'phone'))}
+var framed=document.documentElement.classList.contains('framed');
+// when framed, the viewer owns the view-* class: never override it
+if(!framed){window.addEventListener('resize',autoView);autoView();}
 try{ if(window.matchMedia('(max-width:640px)').matches)document.getElementById('route').open=false }catch(e){}
 go(1);
 </script>
+<a id="ggc-all-routes" href="./" aria-label="All routes" style="position:fixed;z-index:9999;left:calc(12px + env(safe-area-inset-left,0px));
+bottom:calc(12px + env(safe-area-inset-bottom,0px));font:600 13px/1 'Plus Jakarta Sans',-apple-system,sans-serif;
+color:#B23D10;background:#FFFFFF;text-decoration:none;padding:10px 14px;border-radius:999px;
+box-shadow:0 10px 24px rgba(57,56,52,.16)">&larr; All routes</a>
+<script>try { if (window.self !== window.top) document.getElementById('ggc-all-routes').remove(); } catch (e) {}</script>
+<script>if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}</script>
 </body>
 </html>

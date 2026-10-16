@@ -1,8 +1,13 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="en-GB" class="view-phone">
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#FFFBFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GGC Routes">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Gift</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -174,10 +179,116 @@ textarea.field{min-height:96px;resize:vertical;line-height:1.55}
 .seeboth h3{margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 .seeboth .y h3{color:var(--green)}.seeboth .n h3{color:var(--deep)}
 .seeboth ul{margin:0;padding-left:16px;font-size:13.5px;line-height:1.5;color:var(--text)}
+/* ===== View switch (Phone / Desktop) ===== */
+.viewbar{position:sticky;top:0;z-index:50;background:rgba(253,249,242,.94);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.viewbar .in{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;gap:12px}
+.viewbar .lbl{font-size:13px;font-weight:600;color:var(--soft)}
+.viewbar .lbl b{font-family:var(--serif);font-style:italic;font-weight:500;font-size:17px;color:var(--deep);margin-right:4px}
+.vswitch{margin-left:auto;display:inline-flex;background:var(--field);border-radius:99px;padding:4px}
+.vswitch button{border:none;background:none;border-radius:99px;padding:7px 18px;font-size:13px;font-weight:700;color:var(--soft)}
+.vswitch button.on{background:#fff;color:var(--deep);box-shadow:var(--lift)}
+@media(max-width:599px){.viewbar{display:none}}
+
+/* Phone view: desktop-only parts hidden */
+.dlogo,.dnav,.desk-only{display:none}
+.opts{display:block}
+
+/* ===== Desktop view ===== */
+.view-desktop .wrap{max-width:1180px;padding:20px 24px 64px}
+.view-desktop .route{padding:4px 26px}
+.view-desktop .route dl{grid-template-columns:repeat(4,minmax(0,1fr))}
+.view-desktop .route .f.wide{grid-column:1/-1}
+.view-desktop .phone{max-width:none;border-radius:28px;min-height:0;box-shadow:0 30px 70px rgba(57,56,52,.10)}
+.view-desktop .bar{padding:14px 28px;gap:16px}
+.view-desktop .dlogo{display:flex;align-items:center;gap:9px;order:0;margin-right:10px}
+.view-desktop .dlogo span{font-family:var(--serif);font-style:italic;font-weight:500;font-size:19px;color:var(--deep);white-space:nowrap}
+.view-desktop .dnav{display:flex;gap:4px;order:1;margin-right:auto;flex-wrap:wrap}
+.dnav button{border:none;background:none;border-radius:99px;padding:8px 15px;font-size:14px;font-weight:600;color:var(--soft)}
+.dnav button:hover{background:var(--nest)}
+.dnav button.on{background:var(--tA);color:var(--deep)}
+.dnav .who{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);align-self:center;padding:0 4px 0 12px}
+.view-desktop .back{order:2}
+.view-desktop .count{order:3}
+.view-desktop .side{order:4;margin-left:0}
+.view-desktop .dots{padding:0 28px 16px}
+.view-desktop .desk-only{display:block}
+.view-desktop .screen{padding:48px 56px 60px}
+.view-desktop .screen.on{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:56px;align-items:start}
+.view-desktop .screen .brand{display:none}
+.view-desktop h1{font-size:54px;letter-spacing:-.9px}
+.view-desktop h2{font-size:30px}
+.view-desktop .lead{font-size:17px}
+.view-desktop .sticky{position:sticky;top:84px}
+/* Buyer checkout: form left, live order summary right */
+.view-desktop .s1 .ca .card{padding:24px 26px}
+.view-desktop .s1 .twin{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.view-desktop .s1 .twin .card{margin-bottom:16px}
+.summary{background:var(--card);border-radius:28px;padding:24px;box-shadow:var(--glow)}
+.summary .mini{background:var(--grad);color:#fff;border-radius:20px;padding:18px 20px;min-height:200px;display:flex;flex-direction:column;margin-bottom:16px}
+.summary .mini small{font-size:12px;opacity:.9}
+.summary .mini .for{font-family:var(--serif);font-size:30px;font-weight:500;line-height:1.1;margin-top:auto}
+.summary .mini .for em{font-style:italic}
+.summary .mini .quote{font-family:var(--serif);font-style:italic;font-size:14px;line-height:1.4;opacity:.92;margin-top:10px}
+.sumlist{list-style:none;margin:0 0 6px;padding:0}
+.sumlist li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;font-size:14px;color:var(--text)}
+.sumlist li+li{border-top:1px solid var(--field)}
+.sumlist li span:last-child{font-weight:700;color:var(--ink);text-align:right}
+.view-desktop .s1 .price{margin-top:12px}
+/* Buyer confirmation: card left, what happens right */
+.view-desktop .s2 .printed .face{min-height:300px;padding:22px 20px}
+.view-desktop .s2 .printed .front .for{font-size:32px}
+.view-desktop .s2 .printed .inside p{font-size:17px}
+/* Parent screens: calm, large, one column */
+.view-desktop .screen.calm.on{display:block;max-width:660px;margin:0 auto;width:100%}
+.view-desktop .calm .chip{display:table;margin:0 auto 16px}
+.view-desktop .calm > h1,.view-desktop .calm > .lead{text-align:center}
+.view-desktop .s3 .gift{height:420px}
+.view-desktop .s3 .gift .inside{padding:36px 36px}
+.view-desktop .s3 .gift .inside .msg{font-size:26px}
+.view-desktop .s3 .gift .lid .to{font-size:40px;margin-top:190px}
+.view-desktop .s3 .field.code{font-size:24px;padding:18px}
+.view-desktop .parent .steps .t,.view-desktop .parent .toggle span,.view-desktop .parent .boundary{font-size:16px}
+.view-desktop .parent .btn{font-size:17px;padding:18px 24px}
+.view-desktop .parent .field{font-size:17px;padding:15px 16px}
+.view-desktop .s5 h2{font-size:36px}
+.view-desktop .s5 .opts{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-bottom:8px}
+.view-desktop .s5 .opts .opt{margin:0;padding:20px 22px}
+.view-desktop .s5 .opt strong{font-size:17px}
+.view-desktop .s5 .opt span{font-size:14.5px}
+.view-desktop .s5 textarea.field{min-height:140px}
+.view-desktop .s6 .wish .v{font-size:22px}
+.view-desktop .s6 .wish{padding:20px 22px}
+/* Boxing Day: notification left, what Daniel knows right */
+.view-desktop .s7 .lock{padding:48px 26px 40px}
+.view-desktop .s7 .lock .time{font-size:64px}
+.capt{font-size:12px;font-weight:600;color:var(--faint);text-align:center;margin-top:-8px}
+@media(max-width:1100px){
+  .view-desktop .screen{padding:36px 32px 48px}
+  .view-desktop .screen.on{gap:32px}
+  .view-desktop .route dl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .view-desktop .dnav .who{display:none}
+}
+@media(max-width:899px){
+  .view-desktop .screen.on{grid-template-columns:minmax(0,1fr)}
+  .view-desktop .s1 .twin{grid-template-columns:minmax(0,1fr)}
+  .view-desktop .sticky{position:static}
+  .view-desktop .dlogo span{display:none}
+}
+/* Inside the coordinator's viewer iframe: product only */
+.framed .viewbar,.framed .route{display:none!important}
+.framed.view-phone .wrap{max-width:none;padding:0}
+.framed.view-phone .phone{max-width:none;border-radius:0;box-shadow:none;min-height:100vh}
+.framed.view-desktop .wrap{padding-top:24px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
+<div class="viewbar"><div class="in">
+  <span class="lbl"><b>01</b> The Gift</span>
+  <div class="vswitch" role="group" aria-label="Preview as">
+    <button type="button" data-view="phone">Phone</button><button type="button" data-view="desktop">Desktop</button>
+  </div>
+</div></div>
 <div class="wrap">
 
   <details class="route" id="route">
@@ -196,6 +307,11 @@ textarea.field{min-height:96px;resize:vertical;line-height:1.55}
 
   <div class="phone" id="phone">
     <div class="bar">
+      <div class="dlogo"><svg width="30" height="30" viewBox="0 0 40 40" aria-hidden="true"><g opacity=".82"><circle cx="15" cy="15" r="9" fill="#e07a4d"/><circle cx="25" cy="15" r="9" fill="#4a9e90"/><circle cx="15" cy="25" r="9" fill="#9cbf86"/><circle cx="25" cy="25" r="9" fill="#eab64a"/></g></svg><span>Good Grief Circle</span></div>
+      <nav class="dnav" aria-label="Destinations">
+        <span class="who">Giving</span><button type="button" data-go="0">Give a gift</button><button type="button" data-go="6">Updates</button>
+        <span class="who">Receiving</span><button type="button" data-go="2">Open a gift</button><button type="button" data-go="4">My wishes</button>
+      </nav>
       <button class="back" id="back" aria-label="Back">‹ Back</button>
       <span class="count" id="count">Screen 1 of 7</span>
       <span class="side buyer" id="side">Daniel · giving</span>
@@ -203,25 +319,28 @@ textarea.field{min-height:96px;resize:vertical;line-height:1.55}
     <div class="dots" id="dots"></div>
 
     <!-- 1 · BUYER: the gift -->
-    <section class="screen" data-side="buyer" data-who="Daniel · giving">
+    <section class="screen s1" data-side="buyer" data-who="Daniel · giving">
+     <div class="ca">
       <div class="brand"><svg width="30" height="30" viewBox="0 0 40 40" aria-hidden="true"><g opacity=".82"><circle cx="15" cy="15" r="9" fill="#e07a4d"/><circle cx="25" cy="15" r="9" fill="#4a9e90"/><circle cx="15" cy="25" r="9" fill="#9cbf86"/><circle cx="25" cy="25" r="9" fill="#eab64a"/></g></svg><span>Good Grief Circle</span></div>
       <span class="chip">A Christmas gift</span>
       <h1>Give Mum <em>peace of mind.</em></h1>
       <p class="lead">A card she opens on Christmas morning. Inside, a calm place to note what she'd want, in her own words and at her own pace. You won't see what she writes.</p>
 
+      <div class="twin">
       <div class="card">
         <span class="label">Who is it for?</span>
         <div class="pills" data-group="for">
           <button class="pill on">Mum</button><button class="pill">Dad</button><button class="pill">Someone else</button>
         </div>
         <span class="label" style="margin-top:16px">Her first name</span>
-        <input class="field" value="Jean" aria-label="Her first name">
+        <input class="field" id="name" value="Jean" aria-label="Her first name">
       </div>
 
       <div class="card">
         <span class="label">When should it reach her?</span>
-        <button class="opt on" data-group="when"><strong>A printed card, posted by 18 December</strong><span>To Stockport SK4 · arrives in time for you to wrap it</span></button>
-        <button class="opt" data-group="when"><strong>By email, 8am on Christmas Day</strong><span>For when you can't be there</span></button>
+        <button class="opt on" data-group="when" data-sum="Printed card, posted by 18 Dec"><strong>A printed card, posted by 18 December</strong><span>To Stockport SK4 · arrives in time for you to wrap it</span></button>
+        <button class="opt" data-group="when" data-sum="Email, 8am Christmas Day"><strong>By email, 8am on Christmas Day</strong><span>For when you can't be there</span></button>
+      </div>
       </div>
 
       <div class="card">
@@ -229,21 +348,36 @@ textarea.field{min-height:96px;resize:vertical;line-height:1.55}
         <p class="hint">A few lines in your own words. She'll read this before anything else.</p>
         <textarea class="field" id="msg">Mum, no rush with this. I just never want to be guessing, when the time comes, what you'd have wanted. Love you. Dan x</textarea>
       </div>
+     </div>
 
+     <div class="cb sticky">
+      <div class="summary desk-only">
+        <p class="eyebrow">Your gift, as it stands</p>
+        <div class="mini"><small>Good Grief Circle</small><div class="for">For <em class="nm">Jean</em>,<br>to open gently</div><div class="quote" id="sumMsg"></div></div>
+        <ul class="sumlist">
+          <li><span>Delivery</span><span id="sumWhen">Printed card, posted by 18 Dec</span></li>
+          <li><span>Her wishes, kept for good</span><span>Free for her</span></li>
+          <li><span>What you'll be told</span><span>Only that she's started</span></li>
+        </ul>
+      </div>
       <div class="price"><div class="amt">£39</div><div class="what">One gift, paid once. No subscription, nothing for Mum to pay. <span class="draft">Draft price</span></div></div>
       <button class="btn" data-next>Continue to payment</button>
       <p class="small">Payment would be by Stripe. This is a preview: nothing is charged.</p>
+     </div>
     </section>
 
     <!-- 2 · BUYER: it's on its way -->
-    <section class="screen" data-side="buyer" data-who="Daniel · giving">
+    <section class="screen s2" data-side="buyer" data-who="Daniel · giving">
+     <div class="ca">
       <span class="chip">Thank you, Daniel</span>
       <h1>Jean's card is <em>on its way.</em></h1>
       <p class="lead">This is what will land on her doormat. It's yours to wrap.</p>
       <div class="printed">
-        <div style="flex:1;min-width:0"><div class="face front"><small>Good Grief Circle</small><div class="for">For <em>Jean</em>,<br>to open gently</div></div><div class="facecap">Front</div></div>
+        <div style="flex:1;min-width:0"><div class="face front"><small>Good Grief Circle</small><div class="for">For <em class="nm">Jean</em>,<br>to open gently</div></div><div class="facecap">Front</div></div>
         <div style="flex:1;min-width:0"><div class="face inside"><p id="printedMsg">Mum, no rush with this…</p><div class="codebox">Your code<b>ROBIN-4821</b></div></div><div class="facecap">Inside</div></div>
       </div>
+     </div>
+     <div class="cb">
 
       <div class="radiant">
         <h2>What you'll see, and <em style="color:#fff">what you won't</em></h2>
@@ -261,10 +395,11 @@ textarea.field{min-height:96px;resize:vertical;line-height:1.55}
         </ul>
       </div>
       <button class="btn" data-next>See what Jean sees</button>
+     </div>
     </section>
 
     <!-- 3 · PARENT: the gift she unties (signature) -->
-    <section class="screen" data-side="parent" data-who="Jean · opening">
+    <section class="screen s3 calm parent" data-side="parent" data-who="Jean · opening">
       <span class="chip">Christmas morning</span>
       <h1>Something <em>for you,</em> Jean.</h1>
       <p class="lead" style="margin-bottom:16px">From Daniel. Untie it whenever you're ready.</p>
@@ -293,10 +428,13 @@ textarea.field{min-height:96px;resize:vertical;line-height:1.55}
     </section>
 
     <!-- 4 · PARENT: this is yours -->
-    <section class="screen" data-side="parent" data-who="Jean · opening">
+    <section class="screen s4 parent" data-side="parent" data-who="Jean · opening">
+     <div class="ca">
       <div class="brand"><svg width="30" height="30" viewBox="0 0 40 40" aria-hidden="true"><g opacity=".82"><circle cx="15" cy="15" r="9" fill="#e07a4d"/><circle cx="25" cy="15" r="9" fill="#4a9e90"/><circle cx="15" cy="25" r="9" fill="#9cbf86"/><circle cx="25" cy="25" r="9" fill="#eab64a"/></g></svg><span>Good Grief Circle</span></div>
       <h1>Hello, Jean. This is <em>yours.</em></h1>
       <p class="lead">A quiet place to write down how you'd like things to be, so the people you love are never left guessing. There's nothing to get right.</p>
+     </div>
+     <div class="cb">
 
       <div class="card">
         <ul class="steps">
@@ -312,19 +450,22 @@ textarea.field{min-height:96px;resize:vertical;line-height:1.55}
       <input class="field" value="jean.hartley@example.co.uk" aria-label="Your email">
       <p class="hint" style="margin-top:8px">We'll send a link to this address. You'll never need a password.</p>
       <button class="btn" data-next>Begin with one question</button>
+     </div>
     </section>
 
     <!-- 5 · PARENT: three gentle wishes, one at a time -->
-    <section class="screen" data-side="parent" data-who="Jean · writing">
+    <section class="screen s5 calm parent" data-side="parent" data-who="Jean · writing">
       <div class="qhead" id="qhead"><i class="on"></i><i></i><i></i><span id="qn">Question 1 of 3</span></div>
 
       <div class="q on" data-q="0">
         <h2>When the time comes, how would you like to be <em>laid to rest?</em></h2>
         <p class="lead" style="font-size:14.5px">There is no wrong answer here — only what feels right to you. You can change this whenever you like.</p>
+        <div class="opts">
         <button class="opt" data-group="rest" data-v="Burial"><strong>Burial</strong><span>A traditional resting place</span></button>
         <button class="opt" data-group="rest" data-v="Cremation"><strong>Cremation</strong><span>Ashes to keep, scatter or plant</span></button>
         <button class="opt on" data-group="rest" data-v="Natural burial"><strong>Natural burial</strong><span>Returning gently to the earth</span></button>
         <button class="opt" data-group="rest" data-v="Not sure yet"><strong>I'm not sure yet</strong><span>That's completely okay</span></button>
+        </div>
       </div>
 
       <div class="q" data-q="1">
@@ -345,13 +486,16 @@ textarea.field{min-height:96px;resize:vertical;line-height:1.55}
     </section>
 
     <!-- 6 · PARENT: what she's written, and the one switch she controls -->
-    <section class="screen" data-side="parent" data-who="Jean · writing">
+    <section class="screen s6 parent" data-side="parent" data-who="Jean · writing">
+     <div class="ca">
       <span class="chip">Saved</span>
       <h1>Three things your family <em>won't have to guess.</em></h1>
 
       <div class="wish"><span class="tile" style="background:var(--tG)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F8B62" stroke-width="2" stroke-linecap="round"><path d="M12 21V11"/><path d="M12 11c0-4 3-7 7-7 0 4-3 7-7 7z"/><path d="M12 14c0-3-2.5-5.5-6-5.5 0 3 2.5 5.5 6 5.5z"/></svg></span><div><div class="k">Laid to rest</div><div class="v" id="wRest">Natural burial</div></div></div>
       <div class="wish"><span class="tile" style="background:var(--tA)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B23D10" stroke-width="2" stroke-linecap="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg></span><div><div class="k">Music</div><div class="v" id="wSong"></div></div></div>
       <div class="wish"><span class="tile" style="background:var(--tY)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B5820A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3l4 3 4-3 4 4-3 3v11H7V10L4 7z"/></svg></span><div><div class="k">To wear</div><div class="v" id="wWear"></div></div></div>
+     </div>
+     <div class="cb">
 
       <button class="toggle on" id="tell" aria-pressed="true">
         <span class="sw"></span>
@@ -364,10 +508,12 @@ textarea.field{min-height:96px;resize:vertical;line-height:1.55}
       </div>
       <button class="btn" data-next>Done for today</button>
       <p class="crisis">If any of this stirs up something heavy, Samaritans are there day or night on 116 123, free.</p>
+     </div>
     </section>
 
     <!-- 7 · BUYER: Mum has started -->
-    <section class="screen" data-side="buyer" data-who="Daniel · Boxing Day">
+    <section class="screen s7" data-side="buyer" data-who="Daniel · Boxing Day">
+     <div class="ca">
       <div class="lock">
         <div class="time">9:41</div>
         <div class="date">Friday 26 December</div>
@@ -376,7 +522,9 @@ textarea.field{min-height:96px;resize:vertical;line-height:1.55}
           <div><div class="app">Good Grief Circle · now</div><div class="tt" id="nTitle">Mum has started.</div><div class="bb" id="nBody">Jean opened your gift and wrote her first wishes.</div></div>
         </div>
       </div>
-
+      <p class="capt desk-only">On Daniel's phone, Boxing Day</p>
+     </div>
+     <div class="cb">
       <h1 id="dTitle">Mum has <em>started.</em></h1>
       <p class="lead" id="dLead">Jean opened your card on Christmas morning and has begun writing down what she'd want. We won't tell you what. That was the point of the gift.</p>
 
@@ -393,6 +541,7 @@ textarea.field{min-height:96px;resize:vertical;line-height:1.55}
       <button class="btn" id="again">Give one to Dad too</button>
       <p class="small">Preview. The real email comes from us, once, and never nudges you to chase her.</p>
       <button class="quiet" id="restart">Start the story again</button>
+     </div>
     </section>
   </div>
 </div>
@@ -414,11 +563,19 @@ textarea.field{min-height:96px;resize:vertical;line-height:1.55}
     side.className = 'side ' + s.getAttribute('data-side');
     back.disabled = cur === 0;
     [].forEach.call(dots.children, function(d,i){ d.classList.toggle('on', i<=cur); });
+    var grp = cur < 2 ? 0 : cur < 4 ? 2 : cur < 6 ? 4 : 6;
+    [].forEach.call(document.querySelectorAll('.dnav button'), function(b){ b.classList.toggle('on', +b.getAttribute('data-go') === grp); });
     sync();
-    window.scrollTo(0, document.getElementById('phone').offsetTop - 8);
+    var vb = document.querySelector('.viewbar'), off = vb && vb.offsetHeight ? vb.offsetHeight : 0;
+    window.scrollTo(0, document.getElementById('phone').offsetTop - 8 - off);
   }
   function sync(){
     var m = document.getElementById('msg').value.trim() || 'With love.';
+    var nm = document.getElementById('name').value.trim() || 'Mum';
+    [].forEach.call(document.querySelectorAll('.nm'), function(x){ x.textContent = nm; });
+    document.getElementById('sumMsg').textContent = '“' + (m.length > 80 ? m.slice(0,77) + '…' : m) + '”';
+    var w = document.querySelector('.opt.on[data-group="when"]');
+    if (w) document.getElementById('sumWhen').textContent = w.getAttribute('data-sum');
     document.getElementById('printedMsg').textContent = m.length > 110 ? m.slice(0,107) + '…' : m;
     document.getElementById('giftMsg').textContent = m;
     document.getElementById('wRest').textContent = state.rest;
@@ -449,7 +606,36 @@ textarea.field{min-height:96px;resize:vertical;line-height:1.55}
     [].forEach.call(sibs, function(x){ x.classList.remove('on'); });
     b.classList.add('on');
     if (group === 'rest') state.rest = b.getAttribute('data-v');
+    sync();
   });
+  document.addEventListener('input', function(e){ if (e.target.id === 'msg' || e.target.id === 'name') sync(); });
+
+  // desktop destinations
+  [].forEach.call(document.querySelectorAll('.dnav button'), function(b){
+    b.addEventListener('click', function(){ var n = +b.getAttribute('data-go'); if (n === 4) setQ(0); show(n); });
+  });
+
+  // Phone / Desktop switch: one set of state, layout changes with a class on <html>
+  var root = document.documentElement, chosen = null;
+  function applyView(){
+    var w = window.innerWidth;
+    var v = w < 600 ? 'phone' : (chosen || (w >= 900 ? 'desktop' : 'phone'));
+    root.classList.toggle('view-desktop', v === 'desktop');
+    root.classList.toggle('view-phone', v === 'phone');
+    [].forEach.call(document.querySelectorAll('.vswitch button'), function(b){
+      var on = b.getAttribute('data-view') === v;
+      b.classList.toggle('on', on); b.setAttribute('aria-pressed', on);
+    });
+  }
+  [].forEach.call(document.querySelectorAll('.vswitch button'), function(b){
+    b.addEventListener('click', function(){ chosen = b.getAttribute('data-view'); applyView(); });
+  });
+  var framed = true;
+  try { framed = window.self !== window.top; } catch (e) { framed = true; }
+  if (framed) root.classList.add('framed');
+  applyView();
+  // Framed: the viewer owns view-desktop / view-phone after load, so don't override it on resize.
+  if (!framed) window.addEventListener('resize', applyView);
 
   // signature: untie the ribbon
   var gift = document.getElementById('gift');
@@ -504,5 +690,13 @@ textarea.field{min-height:96px;resize:vertical;line-height:1.55}
   window.scrollTo(0,0);
 })();
 </script>
+<a id="ggc-all-routes" href="./" aria-label="All routes" style="position:fixed;z-index:9999;left:calc(12px + env(safe-area-inset-left,0px));
+bottom:calc(12px + env(safe-area-inset-bottom,0px));font:600 13px/1 'Plus Jakarta Sans',-apple-system,sans-serif;
+color:#B23D10;background:#FFFFFF;text-decoration:none;padding:10px 14px;border-radius:999px;
+box-shadow:0 10px 24px rgba(57,56,52,.16)">&larr; All routes</a>
+<script>try { if (window.self !== window.top) document.getElementById('ggc-all-routes').remove(); } catch (e) {}</script>
+<script>if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}</script>
 </body>
 </html>

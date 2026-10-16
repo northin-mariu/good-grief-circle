@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#FFFBFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GGC Routes">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Route Viewer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;1,6..72,500&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap">
+<style>
+/* One route shown three ways: a laptop browser, a phone browser, and an installed app on a phone. */
+:root {
+  --page: #f3eee6; --card: #ffffff; --ink: #393834; --muted: #6a6158; --accent: #b23d10;
+  --chip: #f7f3ec; --device: #1d1b19; --bezel: #2b2825; --chrome: #f2f2f4; --chrome-ink: #3c3c43;
+  --display: 'Newsreader', Georgia, serif; --body: 'Plus Jakarta Sans', -apple-system, 'Segoe UI', sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--page); color: var(--ink); font-family: var(--body); display: flex; flex-direction: column; overflow: hidden; }
+header { display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  padding: calc(10px + env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) 10px max(16px, env(safe-area-inset-left, 0px));
+  background: rgba(255,251,255,.9); box-shadow: 0 6px 24px rgba(57,56,52,.06); position: relative; z-index: 2; }
+.back { color: var(--accent); font-weight: 600; font-size: 14px; text-decoration: none; white-space: nowrap; }
+.title { display: grid; line-height: 1.15; min-width: 0; flex: 1 1 180px; }
+.title small { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.title b { font-family: var(--display); font-weight: 500; font-style: italic; font-size: 21px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.seg { display: inline-flex; background: var(--chip); border-radius: 999px; padding: 4px; gap: 2px; }
+.seg button { border: 0; background: transparent; font: 600 14px var(--body); color: var(--muted); padding: 9px 16px; border-radius: 999px; cursor: pointer; display: inline-flex; gap: 7px; align-items: center; }
+.seg button[aria-pressed="true"] { background: var(--card); color: var(--ink); box-shadow: 0 4px 12px rgba(57,56,52,.12); }
+.seg button:focus-visible, .full:focus-visible, .back:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.seg svg { width: 16px; height: 16px; }
+.full { font-size: 13px; color: var(--muted); text-decoration: none; white-space: nowrap; }
+.nav { display: inline-flex; gap: 6px; }
+.nav a { font-size: 13px; font-weight: 600; color: var(--muted); text-decoration: none; padding: 8px 10px; border-radius: 999px; background: var(--chip); }
+
+.stage { flex: 1; min-height: 0; position: relative; display: grid; place-items: center; padding: 20px; overflow: hidden; }
+.caption { position: absolute; left: 0; right: 0; bottom: calc(8px + env(safe-area-inset-bottom, 0px)); text-align: center; font-size: 12.5px; color: var(--muted); pointer-events: none; }
+.device { position: absolute; left: 50%; top: 50%; transform-origin: center center; }
+
+/* laptop browser */
+.browser { width: 1280px; height: 820px; background: var(--card); border-radius: 14px; overflow: hidden; box-shadow: 0 40px 80px rgba(57,56,52,.22); display: flex; flex-direction: column; }
+.browser .bar { height: 44px; background: var(--chrome); display: flex; align-items: center; gap: 14px; padding: 0 16px; flex: none; }
+.dots { display: flex; gap: 8px; } .dots i { width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; display: block; } .dots i:nth-child(2) { background: #febc2e; } .dots i:nth-child(3) { background: #28c840; }
+.url { flex: 1; max-width: 560px; margin: 0 auto; height: 28px; border-radius: 8px; background: #fff; color: var(--chrome-ink); font-size: 13px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+/* phones */
+.phone { width: 414px; height: 868px; background: var(--device); border-radius: 64px; padding: 12px; box-shadow: 0 40px 80px rgba(57,56,52,.28), inset 0 0 0 2px var(--bezel); }
+.screen { width: 390px; height: 844px; border-radius: 52px; overflow: hidden; background: #fff; position: relative; display: flex; flex-direction: column; }
+.island { position: absolute; top: 11px; left: 50%; transform: translateX(-50%); width: 122px; height: 35px; border-radius: 20px; background: #000; z-index: 3; }
+.status { height: 54px; flex: none; display: flex; align-items: flex-end; justify-content: space-between; padding: 0 30px 8px 36px; font: 600 15px -apple-system, var(--body); color: #000; }
+.status .icons { display: flex; gap: 6px; align-items: center; }
+.safari-top { flex: none; padding: 4px 12px 8px; background: var(--chrome); }
+.safari-top .url { height: 36px; border-radius: 12px; font-size: 15px; max-width: none; }
+.safari-bottom { flex: none; height: 82px; background: var(--chrome); display: flex; justify-content: space-around; align-items: flex-start; padding-top: 12px; color: #007aff; }
+.safari-bottom svg { width: 24px; height: 24px; }
+.home { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); width: 134px; height: 5px; border-radius: 3px; background: rgba(0,0,0,.85); z-index: 3; }
+.app .status { background: #fffbff; }
+iframe { border: 0; width: 100%; flex: 1; display: block; background: #fff; }
+.browser iframe { width: 1280px; }
+[hidden] { display: none !important; }
+@media (max-width: 640px) { .full, .nav { display: none; } .seg button { padding: 8px 11px; font-size: 13px; } .title b { font-size: 18px; } }
+@media (prefers-reduced-motion: no-preference) { .device { transition: opacity .25s ease; } }
+</style>
+
+<header>
+  <a class="back" href="./">&larr; All routes</a>
+  <div class="title"><small id="num">Route</small><b id="name">Loading…</b></div>
+  <div class="seg" role="group" aria-label="View as">
+    <button type="button" data-v="desktop" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>Desktop</button>
+    <button type="button" data-v="mobile" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M10 5h4"/></svg>Mobile</button>
+    <button type="button" data-v="app" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="5"/><circle cx="12" cy="12" r="3"/></svg>App</button>
+  </div>
+  <nav class="nav" aria-label="Other routes"><a id="prev" href="#">&larr; Prev</a><a id="next" href="#">Next &rarr;</a></nav>
+  <a class="full" id="full" href="#" target="_top">Open on its own</a>
+</header>
+
+<main class="stage" id="stage">
+  <div class="device browser" id="desktop" hidden>
+    <div class="bar"><div class="dots"><i></i><i></i><i></i></div><div class="url"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>goodgriefcircle.com</div></div>
+    <iframe title="Desktop view" data-for="desktop"></iframe>
+  </div>
+  <div class="device phone" id="mobile" hidden>
+    <div class="screen">
+      <div class="island"></div>
+      <div class="status" style="background:var(--chrome)"><span>9:41</span><span class="icons">●●●● <svg width="18" height="12" viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3" fill="none" stroke="#000"/><rect x="2" y="2" width="17" height="8" rx="2"/></svg></span></div>
+      <div class="safari-top"><div class="url">goodgriefcircle.com</div></div>
+      <iframe title="Mobile browser view" data-for="mobile"></iframe>
+      <div class="safari-bottom" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" opacity=".35"><path d="M9 5l7 7-7 7"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 5h6a2 2 0 0 1 2 2v13a2 2 0 0 0-2-2H4zM20 5h-6a2 2 0 0 0-2 2v13a2 2 0 0 1 2-2h6z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="4" width="11" height="11" rx="2"/><rect x="9" y="9" width="11" height="11" rx="2"/></svg>
+      </div>
+      <div class="home"></div>
+    </div>
+  </div>
+  <div class="device phone app" id="app" hidden>
+    <div class="screen">
+      <div class="island"></div>
+      <div class="status"><span>9:41</span><span class="icons">●●●● <svg width="18" height="12" viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3" fill="none" stroke="#000"/><rect x="2" y="2" width="17" height="8" rx="2"/></svg></span></div>
+      <iframe title="App view" data-for="app"></iframe>
+      <div class="home"></div>
+    </div>
+  </div>
+  <p class="caption" id="caption"></p>
+</main>
+
+<script>
+const ROUTES = [
+  ['01-the-gift.html', 'The Gift'], ['02-ten-minute-wishes.html', 'Ten-Minute Funeral Wishes'],
+  ['03-where-things-are-kept.html', 'Where Things Are Kept'], ['04-the-keyholders.html', 'The Keyholders'],
+  ['05-serious-news.html', 'Serious News'], ['06-letters-left-behind.html', 'Letters Left Behind'],
+  ['07-charity-edition.html', 'Charity Edition'], ['08-twelve-small-steps.html', 'Twelve Small Steps'],
+  ['09-together.html', 'Together'], ['10-after-someone-dies.html', 'After Someone Dies']
+];
+const CAPTIONS = {
+  desktop: 'Desktop: a laptop browser at 1280 × 820, shrunk to fit your screen.',
+  mobile: 'Mobile: the website on a phone, inside Safari.',
+  app: 'App: full screen on a phone, as it looks once added to the home screen.'
+};
+const params = new URLSearchParams(location.search);
+let idx = Math.max(0, ROUTES.findIndex(r => r[0] === params.get('p')));
+const [file, name] = ROUTES[idx];
+document.getElementById('num').textContent = 'Route ' + file.slice(0, 2);
+document.getElementById('name').textContent = name;
+document.title = name + ' · Route Viewer';
+document.getElementById('full').href = file;
+const link = (i) => 'view.html?p=' + ROUTES[(i + ROUTES.length) % ROUTES.length][0] + location.hash;
+document.getElementById('prev').href = link(idx - 1);
+document.getElementById('next').href = link(idx + 1);
+
+const stage = document.getElementById('stage');
+const devices = { desktop: document.getElementById('desktop'), mobile: document.getElementById('mobile'), app: document.getElementById('app') };
+const loaded = {};
+let view = null;
+
+function fit() {
+  const el = devices[view]; if (!el) return;
+  const pad = 56, w = el.offsetWidth, h = el.offsetHeight;
+  const s = Math.min(1, (stage.clientWidth - 24) / w, (stage.clientHeight - pad) / h);
+  el.style.transform = `translate(-50%, calc(-50% - 10px)) scale(${s})`;
+}
+function setView(v) {
+  if (!devices[v]) v = 'desktop';
+  view = v;
+  for (const [k, el] of Object.entries(devices)) el.hidden = k !== v;
+  document.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.v === v)));
+  document.getElementById('caption').textContent = CAPTIONS[v];
+  const frame = devices[v].querySelector('iframe');
+  if (!loaded[v]) { frame.src = file; loaded[v] = true; }
+  try { history.replaceState(null, '', '#' + v); } catch (e) {}
+  document.getElementById('prev').href = link(idx - 1); document.getElementById('next').href = link(idx + 1);
+  requestAnimationFrame(fit);
+}
+// Tell each prototype which of its own layouts to use (they share one origin here).
+document.querySelectorAll('iframe').forEach(f => f.addEventListener('load', () => {
+  try {
+    const root = f.contentDocument.documentElement;
+    const want = f.dataset.for === 'desktop' ? 'view-desktop' : 'view-phone';
+    root.classList.remove('view-desktop', 'view-phone'); root.classList.add(want);
+  } catch (e) {}
+}));
+document.querySelectorAll('.seg button').forEach(b => b.addEventListener('click', () => setView(b.dataset.v)));
+addEventListener('resize', fit);
+const start = location.hash.slice(1) || (innerWidth < 640 ? 'app' : 'desktop');
+setView(start);
+</script>
+
+<script>if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}</script>

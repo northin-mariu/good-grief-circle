@@ -3,8 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#FFFBFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GGC Routes">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>After Someone Dies</title>
+<script>(function(){var d=document.documentElement,w=window.innerWidth||1280,f=true;try{f=window.self!==window.top;}catch(e){f=true;}d.className+=(w>=900?' view-desktop':' view-phone')+(f?' framed':'');})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,800;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -126,9 +132,100 @@ p{margin:0 0 12px}
 .toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(30px);opacity:0;background:var(--ink);color:#fff;border-radius:999px;padding:10px 18px;font-size:13.5px;font-weight:600;transition:.3s;pointer-events:none;max-width:90vw;text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 @media (max-width:440px){ .wrap{padding:12px 10px 32px} .phone{border-radius:26px} h1{font-size:33px} }
+
+/* view switch */
+.viewbar{position:sticky;top:0;z-index:30;background:rgba(253,249,242,.94);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);box-shadow:0 8px 24px rgba(57,56,52,.05)}
+.viewbar-in{max-width:1180px;margin:0 auto;padding:9px 28px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.viewbar-in .lbl{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--soft)}
+.seg{display:inline-flex;background:var(--field);border-radius:999px;padding:3px}
+.seg button{border:0;background:none;border-radius:999px;padding:6px 15px;font-size:13px;font-weight:700;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--deep);box-shadow:0 4px 12px rgba(57,56,52,.08)}
+@media (max-width:599px){ .viewbar{display:none} }
+
+/* inside the comparison viewer's iframe: product only */
+.framed .viewbar,.framed .route,.framed .note{display:none}
+.framed.view-phone .wrap{max-width:none;padding:0}
+.framed.view-phone .phone{border-radius:0;box-shadow:none;min-height:100vh}
+.framed.view-desktop .rail{top:16px}
+
+/* shared bits that only show in one view */
+.nav,.rail-foot,.board,.desk-only{display:none}
+.view-phone .s1{display:flex;flex-direction:column}
+.view-phone .s1>div{display:contents}
+.view-phone .s1 .chip{align-self:flex-start}
+.view-phone .s1 .crisis{order:2}
+.rail{display:block}
+
+/* ============ desktop view ============ */
+html.view-desktop body{font-size:15.5px}
+.view-desktop .wrap{max-width:1180px;padding:20px 28px 48px}
+.view-desktop .route{padding:4px 26px}
+.view-desktop .route dl{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 26px;margin-bottom:20px}
+.view-desktop .phone{display:grid;grid-template-columns:236px minmax(0,1fr);min-height:740px;border-radius:32px;background:linear-gradient(90deg,var(--surface) 236px,var(--page) 236px)}
+.view-desktop .rail{position:sticky;top:58px;align-self:start;padding:24px 16px 22px;display:flex;flex-direction:column;gap:14px}
+.view-desktop .bar{flex-direction:column;align-items:flex-start;gap:16px;padding:0 6px;background:none}
+.view-desktop .bar .logo{order:-1}
+.view-desktop .bar .spacer{display:none}
+.view-desktop .count{text-align:left;padding:0 6px;background:none}
+.view-desktop .dots{display:none}
+.view-desktop .desk-only{display:block}
+.view-desktop .phone-only{display:none}
+.view-desktop .foot .btn{margin:0!important}
+.view-desktop .nav{display:flex;flex-direction:column;gap:4px}
+.nav button{display:flex;align-items:center;gap:10px;border:0;background:none;text-align:left;border-radius:16px;padding:9px 10px;font-size:14px;font-weight:600;color:var(--muted)}
+.nav button i{flex:0 0 auto;width:24px;height:24px;border-radius:50%;background:var(--field);color:var(--muted);font-style:normal;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.nav button:hover{background:var(--nest)}
+.nav button.on{background:var(--tA);color:var(--deep)}
+.nav button.on i{background:var(--grad);color:#fff}
+.view-desktop .rail-foot{display:block;margin-top:8px;background:var(--tA);border-radius:18px;padding:12px;font-size:12.5px;line-height:1.5;color:var(--deep)}
+.view-desktop .stage{min-width:0}
+.view-desktop .screen{padding:38px 44px 46px}
+.view-desktop h1{font-size:46px}
+.view-desktop .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px;align-items:start}
+.view-desktop .split.lean{grid-template-columns:minmax(0,1.55fr) minmax(0,1fr)}
+.view-desktop .sticky{position:sticky;top:80px}
+.view-desktop .btn:not(.small){display:inline-block;width:auto;min-width:260px;padding:15px 28px}
+.view-desktop .foot{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:8px}
+.view-desktop .foot .preview{flex:1 1 320px;margin:0}
+.view-desktop .grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:14px}
+.view-desktop .grid3 .card{margin:0;display:flex;flex-direction:column}
+.view-desktop .grid3 .card .actions{margin-top:auto}
+.view-desktop .family{overflow:visible;flex-wrap:wrap;gap:14px}
+/* the family task board */
+.view-desktop #tasks{display:none}
+.view-desktop .board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:6px 0 18px}
+.col{background:var(--nest);border-radius:28px;padding:16px 14px 8px;min-width:0}
+.col-h{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:0 4px 4px}
+.col-h h3{font-size:20px}
+.col-h .n{font-size:12px;font-weight:700;border-radius:999px;padding:2px 9px;background:var(--card);color:var(--muted)}
+.col-sub{font-size:12.5px;color:var(--soft);padding:0 4px 10px;margin:0}
+.col.on-it .col-h .n{background:var(--tY);color:var(--onSun)}
+.col.done .col-h .n{background:var(--tG);color:var(--green)}
+.col .task{margin:0 0 10px;border-radius:22px}
+.col .task h3{font-size:16.5px;line-height:1.3}
+.col .task .meta{margin:4px 0 8px}
+.col .due{font-size:11.5px}
+.col.done .task h3{color:var(--muted)}
+.col .acts{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:10px}
+.col .acts .take{padding:7px 12px;font-size:12.5px}
+.col .acts .soft{border:0;background:var(--field);color:var(--ink);border-radius:999px;padding:7px 12px;font-size:12.5px;font-weight:700}
+.col .taken{margin-top:10px}
+.col .empty{font-size:13px;color:var(--soft);padding:10px 6px 14px;text-align:center}
+@media (max-width:1180px){
+  .view-desktop .phone{grid-template-columns:208px minmax(0,1fr);background:linear-gradient(90deg,var(--surface) 208px,var(--page) 208px)}
+  .view-desktop .screen{padding:32px 28px 40px}
+  .view-desktop .split{gap:28px}
+  .view-desktop h1{font-size:40px}
+}
 </style>
 </head>
 <body>
+<div class="viewbar"><div class="viewbar-in">
+  <span class="lbl">Route 10 · concept</span>
+  <div class="seg" role="group" aria-label="Show as">
+    <button type="button" data-view="phone" aria-pressed="false">Phone</button><button type="button" data-view="desktop" aria-pressed="false">Desktop</button>
+  </div>
+</div></div>
 <div class="wrap">
 
   <details class="route" open>
@@ -146,22 +243,32 @@ p{margin:0 0 12px}
   </details>
 
   <div class="phone">
+   <aside class="rail">
     <div class="bar">
       <button class="back" id="back" disabled aria-label="Back">&larr; Back</button>
       <div class="logo" aria-label="Good Grief Circle">
         <svg width="34" height="24" viewBox="0 0 34 24" aria-hidden="true"><g opacity=".82"><circle cx="8" cy="12" r="7" fill="#e07a4d"/><circle cx="14" cy="12" r="7" fill="#4a9e90"/><circle cx="20" cy="12" r="7" fill="#9cbf86"/><circle cx="26" cy="12" r="7" fill="#eab64a"/></g></svg>
         <span>Good Grief Circle</span>
       </div>
-      <span style="width:62px"></span>
+      <span class="spacer" style="width:62px"></span>
     </div>
     <div class="count" id="count">Screen 1 of 6</div>
     <div class="dots" id="dots"></div>
+    <nav class="nav" id="nav" aria-label="Steps"></nav>
+    <div class="rail-foot">If you are struggling, <b>Samaritans 116 123</b>, free, any time.</div>
+   </aside>
+   <main class="stage">
 
     <!-- 1 · Arrive from search -->
     <section class="screen on" data-title="Arrive">
+     <div class="split s1">
+      <div>
       <span class="chip">What to do when someone dies</span>
       <h1>We're so sorry. <em>Here's what comes first.</em></h1>
       <p class="lede">Two quick questions and we'll put the next few weeks in order — with the dates that matter. Nothing to sign up for.</p>
+      <div class="crisis">If you are in crisis or worried about your safety, call 999 or <b>Samaritans on 116 123</b>, free, any time.</div>
+      </div>
+      <div>
 
       <div class="card">
         <p class="label">Who has died?</p>
@@ -180,7 +287,8 @@ p{margin:0 0 12px}
 
       <button class="btn" data-go="1">Show me the steps</button>
       <p class="small" style="text-align:center;margin-top:10px">Free for families. No account needed to see your list.</p>
-      <div class="crisis">If you are in crisis or worried about your safety, call 999 or <b>Samaritans on 116 123</b>, free, any time.</div>
+      </div>
+     </div>
     </section>
 
     <!-- 2 · The ordered list -->
@@ -188,7 +296,8 @@ p{margin:0 0 12px}
       <p class="eyebrow">For Dad · Brian Ashworth · died Thu 8 Oct</p>
       <h2>What to do, <em style="font-family:var(--serif);color:var(--deep)">in order</em></h2>
       <p class="small">Dates worked out for England &amp; Wales, from Thursday 8 October.</p>
-
+     <div class="split lean">
+      <div>
       <div class="step done">
         <div class="num">&#10003;</div>
         <div><h3>Get a medical certificate</h3>
@@ -227,23 +336,34 @@ p{margin:0 0 12px}
           <p>Only the executor does this, once the money and property are known. It can wait until after the funeral.</p>
           <span class="due later">In the coming months</span></div>
       </div>
-
+      </div>
+      <div class="sticky">
+      <div class="card desk-only"><p class="eyebrow" style="margin-bottom:4px">This week</p><h3>Register by Tuesday 13 October</h3><p class="small" style="margin:6px 0 0">Two days left. Everything after it needs the certificate, so it comes first.</p></div>
       <div class="nest"><p class="small" style="margin:0"><b>What this list doesn't cover:</b> the rules in Scotland and Northern Ireland, deaths reported to a coroner, or deaths abroad. It isn't legal advice. For those, GOV.UK and Citizens Advice have full guidance.</p></div>
       <button class="btn" data-go="2">Share the list with the family</button>
+      </div>
+     </div>
     </section>
 
     <!-- 3 · Signature: the family task list -->
     <section class="screen" data-title="Share it out">
+     <div class="split">
+      <div>
       <span class="chip">Shared with 4 people</span>
       <h1 style="font-size:32px">Nobody has to <em>do it all.</em></h1>
       <p class="lede" style="font-size:15.5px">Tap “I'll do this” and everyone sees who has it. You're viewing as <b>Claire</b>.</p>
-
+      </div>
+      <div>
       <div class="family" id="family"></div>
       <div class="tally"><div class="meter"><i id="meter" style="width:0"></i></div><span class="small" id="tallyTxt" style="margin:0;white-space:nowrap"></span></div>
+      </div>
+     </div>
       <div id="tasks"></div>
-
+      <div class="board" id="board"></div>
+     <div class="foot">
       <div class="preview">Preview: in this concept nothing is sent. In the real thing, family join from a link in WhatsApp or a text — no account, no password.</div>
       <button class="btn" data-go="3">Next: find a funeral director</button>
+     </div>
     </section>
 
     <!-- 4 · Funeral directors: listings, not recommendations -->
@@ -254,7 +374,7 @@ p{margin:0 0 12px}
       <div class="filter">
         <button class="opt on">All</button><button class="opt">Direct cremation</button><button class="opt">Burial</button><button class="opt">Green / woodland</button>
       </div>
-
+     <div class="grid3">
       <div class="card fd">
         <div class="task-top"><h3>Torkington Lane Funerals</h3><span class="small" style="margin:0;white-space:nowrap">0.8 mi</span></div>
         <div class="row"><span class="pill">Family-run</span><span class="pill">Funerals from £3,450</span><span class="pill">Open today till 6pm</span></div>
@@ -273,6 +393,7 @@ p{margin:0 0 12px}
         <p class="small">You can still hold your own gathering, anywhere, on another day.</p>
         <div class="actions"><button class="btn small" data-toast="In the real app this would ring them.">Call</button><button class="btn small ghost" data-toast="Saved to the family list for Mark to look at.">Add to family list</button></div>
       </div>
+     </div>
       <div class="nest"><p class="small" style="margin:0"><b>Worried about the cost?</b> Down to Earth (run by Quaker Social Action) helps people facing funeral costs they cannot afford. You may also be able to get a Funeral Expenses Payment.</p></div>
       <button class="btn" data-go="4">Next: support for you</button>
     </section>
@@ -282,6 +403,8 @@ p{margin:0 0 12px}
       <p class="eyebrow" style="color:var(--green)">For you, not the paperwork</p>
       <h2>Someone to talk to</h2>
       <p class="small">Free, confidential support by phone, chat or one-to-one sessions. Choose one and we will pass on your details so they can get in touch, or show you how to reach them directly.</p>
+     <div class="split">
+      <div>
 
       <div class="radiant">
         <h3>Samaritans</h3>
@@ -289,6 +412,11 @@ p{margin:0 0 12px}
         <div class="phoneNum">116 123</div>
         <p class="small" style="color:rgba(255,255,255,.88);margin:2px 0 0">Free · 24/7 · If you are in danger now, call 999.</p>
       </div>
+      <div class="nest desk-only" style="background:var(--tG)">
+        <p style="font-size:14.5px;color:#2F5A45;margin:0">Grief isn’t a checklist. It doesn’t move in neat stages, and it doesn’t end on a schedule. It can arrive as exhaustion, anger, numbness — or unexpected laughter. All of it is normal. Be patient with yourself, and let people help.</p>
+      </div>
+      </div>
+      <div>
 
       <div class="card org">
         <div class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F8B62" stroke-width="2" stroke-linecap="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></div>
@@ -300,22 +428,30 @@ p{margin:0 0 12px}
         <div><h3>Marie Curie Support Line</h3><p class="small" style="margin:4px 0 0">Bereavement support from trained staff, including a series of free telephone sessions.</p></div>
       </div>
 
-      <div class="nest" style="background:var(--tG)">
+      </div>
+     </div>
+      <div class="nest phone-only" style="background:var(--tG)">
         <p style="font-size:14.5px;color:#2F5A45;margin:0">Grief isn’t a checklist. It doesn’t move in neat stages, and it doesn’t end on a schedule. It can arrive as exhaustion, anger, numbness — or unexpected laughter. All of it is normal. Be patient with yourself, and let people help.</p>
       </div>
+     <div class="foot">
       <button class="btn ghost" data-toast="We'll check in once, in six weeks. Nothing else." style="margin-bottom:10px">Check in on me in six weeks</button>
       <button class="btn" data-go="5">See the six-week check-in</button>
+     </div>
     </section>
 
     <!-- 6 · Six weeks later -->
     <section class="screen" data-title="Six weeks on">
       <p class="eyebrow">Thursday 19 November · six weeks on</p>
+     <div class="split">
+      <div>
       <div class="letter">
         <p class="date">A note from Good Grief Circle</p>
         <h2 style="margin-top:6px">Hello Claire. <em style="font-family:var(--serif);color:var(--deep)">How are you doing?</em></h2>
         <p style="font-size:15px">Your family ticked off 9 of 11 things on Brian's list. The two left are the executor's — probate and closing the last bank account — and they can take their time.</p>
         <p style="font-size:15px;margin:0">If grief is heavier now than at the start, that's common. Cruse and Samaritans (116 123) are still there.</p>
       </div>
+      </div>
+      <div>
 
       <div class="radiant">
         <h3>Would you like to make this easier for your own family?</h3>
@@ -329,26 +465,57 @@ p{margin:0 0 12px}
         <button class="btn small ghost" data-toast="This would show local will-writers, by distance.">See will-writers</button>
       </div>
       <div class="boundary">Your wishes in Good Grief Circle are not a legal will. They sit alongside one, and help your family find it.</div>
+      </div>
+     </div>
       <button class="btn ghost" data-go="0">Start again</button>
     </section>
+   </main>
   </div>
-  <p class="small" style="text-align:center;margin-top:14px">Concept prototype · Brian, Claire and family are invented · listings are made up</p>
+  <p class="small note" style="text-align:center;margin-top:14px">Concept prototype · Brian, Claire and family are invented · listings are made up</p>
 </div>
 <div class="toast" id="toast" role="status"></div>
 
 <script>
 (function(){
+  // Phone / Desktop switch: sets view-phone or view-desktop on <html>
+  var root = document.documentElement, chosen = null;
+  var framed = root.classList.contains('framed');
+  function applyView(){
+    if(framed && chosen === null && applyView.done) return; // inside the viewer: it sets view-* itself
+    applyView.done = true;
+    var w = window.innerWidth;
+    var v = w < 600 ? 'phone' : (chosen || (w >= 900 ? 'desktop' : 'phone'));
+    root.classList.remove('view-phone','view-desktop'); root.classList.add('view-' + v);
+    Array.prototype.forEach.call(document.querySelectorAll('[data-view]'), function(b){ b.setAttribute('aria-pressed', b.getAttribute('data-view') === v ? 'true' : 'false'); });
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-view]'), function(b){
+    b.addEventListener('click', function(){ chosen = b.getAttribute('data-view'); applyView(); });
+  });
+  window.addEventListener('resize', function(){ if(!framed) applyView(); });
+  applyView();
+
   var screens = Array.prototype.slice.call(document.querySelectorAll('.screen'));
   var cur = 0, hist = [];
-  var dots = document.getElementById('dots');
-  screens.forEach(function(){ dots.appendChild(document.createElement('i')); });
+  var dots = document.getElementById('dots'), nav = document.getElementById('nav');
+  var navNames = ['Start here','Your list','Family board','Funeral directors','Support for you','Six weeks on'];
+  screens.forEach(function(sc, k){
+    dots.appendChild(document.createElement('i'));
+    var b = document.createElement('button'); b.type = 'button'; b.setAttribute('data-go', k);
+    b.innerHTML = '<i>' + (k+1) + '</i>' + (navNames[k] || sc.getAttribute('data-title'));
+    nav.appendChild(b);
+  });
   function show(i, push){
     if(push !== false && i !== cur) hist.push(cur);
     screens[cur].classList.remove('on'); cur = i; screens[cur].classList.add('on');
     document.getElementById('count').textContent = 'Screen ' + (i+1) + ' of ' + screens.length + ' · ' + screens[i].getAttribute('data-title');
     Array.prototype.forEach.call(dots.children, function(d,k){ d.className = k===i ? 'on' : ''; });
+    Array.prototype.forEach.call(nav.children, function(d,k){ d.className = k===i ? 'on' : ''; });
     document.getElementById('back').disabled = hist.length === 0;
-    try { window.scrollTo({top:document.querySelector('.phone').offsetTop - 8, behavior:'smooth'}); } catch(e){}
+    try {
+      var bar = document.querySelector('.viewbar'), off = bar && bar.offsetHeight ? bar.offsetHeight : 0;
+      var top = document.querySelector('.phone').getBoundingClientRect().top + window.pageYOffset - off - 8;
+      if (window.pageYOffset > top) window.scrollTo({top:top, behavior:'smooth'});
+    } catch(e){}
   }
   document.getElementById('back').addEventListener('click', function(){ if(hist.length) show(hist.pop(), false); });
   document.addEventListener('click', function(e){
@@ -361,57 +528,107 @@ p{margin:0 0 12px}
   var tt;
   function toast(msg){ var el = document.getElementById('toast'); el.textContent = msg; el.classList.add('on'); clearTimeout(tt); tt = setTimeout(function(){ el.classList.remove('on'); }, 2400); }
 
-  // Signature: the shared family task list
+  // Signature: the shared family task board (one set of state, drawn as a list on phone and as columns on desktop)
   var people = [
     {id:'claire', name:'Claire', role:'daughter', c:'#e07a4d', me:true},
     {id:'mark', name:'Mark', role:'son', c:'#4a9e90'},
     {id:'jean', name:'Auntie Jean', role:'his sister', c:'#9cbf86'},
     {id:'sam', name:'Sam', role:'grandson', c:'#eab64a'}
   ];
+  // due.k: now = this week, soon = has a legal clock, later = no fixed date, ok = done
   var tasks = [
-    {t:'Register the death', m:'By Tue 13 Oct · Stockport Register Office, book a slot', by:'claire'},
-    {t:'Use Tell Us Once', m:'Code arrives after registering · 20 minutes online', by:null},
-    {t:'Choose a funeral director', m:'This week · see the listings', by:'mark'},
-    {t:'Look for the will', m:'Dad’s bureau, or ask Hargreaves the solicitor', by:null},
-    {t:'Ring Dad’s friends from the bowls club', m:'Jean has the numbers', by:'jean'},
-    {t:'Cancel the newspaper and the window cleaner', m:'Small, but one less thing', by:null},
-    {t:'Pick the music for the service', m:'When the date is set', by:null}
+    {t:'Register the death', due:{x:'By Tue 13 Oct · 2 days left', k:'now'}, m:'Stockport Register Office, book a slot', by:'claire'},
+    {t:'Use Tell Us Once', due:{x:'Within 28 days of registering', k:'soon'}, m:'Code arrives after registering · 20 minutes online', by:null},
+    {t:'Choose a funeral director', due:{x:'This week if you can', k:'now'}, m:'See the listings', by:'mark'},
+    {t:'Look for the will', due:{x:'Before the funeral, ideally', k:'later'}, m:'Dad’s bureau, or ask Hargreaves the solicitor', by:null},
+    {t:'Ring Dad’s friends from the bowls club', due:{x:'Once the date is set', k:'later'}, m:'Jean has the numbers', by:'jean'},
+    {t:'Cancel the newspaper and the window cleaner', due:{x:'No rush', k:'later'}, m:'Small, but one less thing', by:null},
+    {t:'Pick the music for the service', due:{x:'When the date is set', k:'later'}, m:'Ask Sam for the songs Dad played', by:null},
+    {t:'Get the medical certificate', due:{x:'Done Fri 9 Oct', k:'ok'}, m:'Stepping Hill Hospital sent it to the register office', by:'claire', done:true},
+    {t:'Let the neighbours know', due:{x:'Done Sat 10 Oct', k:'ok'}, m:'Sam went round with a card', by:'sam', done:true}
   ];
+  var rank = {now:0, soon:1, later:2, ok:3};
   function p(id){ for(var i=0;i<people.length;i++) if(people[i].id===id) return people[i]; }
   function initials(n){ return n.split(' ').map(function(w){return w[0];}).join('').slice(0,2); }
+  function av(x, size){ return '<span class="av" style="background:'+x.c+(size?';width:'+size+'px;height:'+size+'px':'')+'">'+initials(x.name)+'</span>'; }
+  function dueChip(k){ var c = k.done ? 'due ok' : (k.due.k==='now' ? 'due' : (k.due.k==='soon' ? 'due' : 'due later')); return '<span class="'+c+'">'+(k.done ? k.due.x : k.due.x)+'</span>'; }
+
+  function card(k, i){
+    var who = k.by ? p(k.by) : null, h = '';
+    h += '<div class="task"><h3>'+k.t+'</h3><div class="meta">'+k.m+'</div>'+dueChip(k);
+    if(!who) h += '<div class="acts"><button class="take" data-take="'+i+'">I’ll do this</button></div>';
+    else if(k.done) h += '<div class="taken">'+av(who)+(who.me?'You did this':'Done by '+who.name)+(who.me?'<button data-undo="'+i+'">Undo</button>':'')+'</div>';
+    else {
+      h += '<div class="taken">'+av(who)+(who.me?'You’re on it':who.name+' is on it')+'</div>';
+      if(who.me) h += '<div class="acts"><button class="take" data-finish="'+i+'">Mark done</button><button class="soft" data-drop="'+i+'">Hand back</button></div>';
+      else h += '<div class="acts"><button class="soft" data-toast="Preview: this would send '+who.name+' a gentle nudge.">Ask how it’s going</button></div>';
+    }
+    return h + '</div>';
+  }
+
   function render(){
     var fam = document.getElementById('family'); fam.innerHTML = '';
     people.forEach(function(x){
-      var n = tasks.filter(function(k){return k.by===x.id;}).length;
+      var n = tasks.filter(function(k){return k.by===x.id && !k.done;}).length;
       var b = document.createElement('div'); b.className = 'person' + (x.me?' me':'');
-      b.innerHTML = '<span class="av" style="background:'+x.c+'">'+initials(x.name)+'</span><small>'+x.name+(x.me?' (you)':'')+' · '+n+'</small>';
+      b.innerHTML = av(x)+'<small>'+x.name+(x.me?' (you)':'')+' · '+n+'</small>';
       fam.appendChild(b);
     });
     var add = document.createElement('div'); add.className='person';
     add.innerHTML = '<span class="av" style="background:#F1EDE6;color:#B23D10;font-size:20px">+</span><small>Invite</small>';
     add.style.cursor='pointer'; add.setAttribute('data-toast','Preview: this would make a link to send in WhatsApp or a text.');
     fam.appendChild(add);
+
+    // phone: one list, in order
     var box = document.getElementById('tasks'); box.innerHTML = '';
     tasks.forEach(function(k,i){
       var d = document.createElement('div'); d.className='task';
       var who = k.by ? p(k.by) : null;
-      d.innerHTML = '<div class="task-top"><div><h3>'+k.t+'</h3><div class="meta">'+k.m+'</div></div>' +
+      d.innerHTML = '<div class="task-top"><div><h3>'+k.t+'</h3><div class="meta">'+k.due.x+' · '+k.m+'</div></div>' +
         (who ? '' : '<button class="take" data-take="'+i+'">I’ll do this</button>') + '</div>' +
-        (who ? '<div class="taken"><span class="av" style="background:'+who.c+'">'+initials(who.name)+'</span>'+(who.me?'You’re doing this':who.name+' is doing this')+(who.me?'<button data-drop="'+i+'">Hand back</button>':'')+'</div>' : '');
+        (who ? '<div class="taken">'+av(who)+(k.done?(who.me?'You did this':'Done by '+who.name):(who.me?'You’re doing this':who.name+' is doing this'))+(who.me&&!k.done?'<button data-drop="'+i+'">Hand back</button>':'')+'</div>' : '');
       box.appendChild(d);
     });
-    var taken = tasks.filter(function(k){return k.by;}).length;
+
+    // desktop: three columns, soonest deadline first
+    var cols = [
+      {cls:'todo', h:'To do', sub:'Nobody has these yet', f:function(k){return !k.by;}},
+      {cls:'on-it', h:'Someone’s on it', sub:'Everyone can see who', f:function(k){return k.by && !k.done;}},
+      {cls:'done', h:'Done', sub:'Ticked off, together', f:function(k){return k.done;}}
+    ];
+    var html = '';
+    cols.forEach(function(c){
+      var list = tasks.map(function(k,i){return {k:k,i:i};}).filter(function(o){return c.f(o.k);})
+        .sort(function(a,b){return rank[a.k.due.k]-rank[b.k.due.k] || a.i-b.i;});
+      html += '<section class="col '+c.cls+'"><div class="col-h"><h3>'+c.h+'</h3><span class="n">'+list.length+'</span></div><p class="col-sub">'+c.sub+'</p>' +
+        (list.length ? list.map(function(o){return card(o.k,o.i);}).join('') : '<div class="empty">Nothing here right now.</div>') + '</section>';
+    });
+    document.getElementById('board').innerHTML = html;
+
+    var taken = tasks.filter(function(k){return k.by;}).length, done = tasks.filter(function(k){return k.done;}).length;
     document.getElementById('meter').style.width = (taken/tasks.length*100)+'%';
-    document.getElementById('tallyTxt').textContent = taken+' of '+tasks.length+' taken';
+    document.getElementById('tallyTxt').textContent = taken+' of '+tasks.length+' taken · '+done+' done';
   }
-  document.getElementById('tasks').addEventListener('click', function(e){
-    var a = e.target.closest('[data-take]'), d = e.target.closest('[data-drop]');
+  function onBoard(e){
+    var a = e.target.closest('[data-take]'), d = e.target.closest('[data-drop]'), f = e.target.closest('[data-finish]'), u = e.target.closest('[data-undo]');
     if(a){ tasks[+a.getAttribute('data-take')].by='claire'; render(); toast('Mark, Jean and Sam can now see you’ve got this.'); }
     if(d){ tasks[+d.getAttribute('data-drop')].by=null; render(); toast('Handed back. Anyone can pick it up.'); }
-  });
+    if(f){ var k = tasks[+f.getAttribute('data-finish')]; k.done=true; k._due=k.due; k.due={x:'Done today', k:'ok'}; render(); toast('Ticked off. The family can see it’s done.'); }
+    if(u){ var k2 = tasks[+u.getAttribute('data-undo')]; k2.done=false; if(k2._due){ k2.due=k2._due; } else { k2.due={x:'Back on the list', k:'now'}; } render(); toast('Moved back to “Someone’s on it”.'); }
+  }
+  document.getElementById('tasks').addEventListener('click', onBoard);
+  document.getElementById('board').addEventListener('click', onBoard);
   render();
   show(0, false);
 })();
 </script>
+<a id="ggc-all-routes" href="./" aria-label="All routes" style="position:fixed;z-index:9999;left:calc(12px + env(safe-area-inset-left,0px));
+bottom:calc(12px + env(safe-area-inset-bottom,0px));font:600 13px/1 'Plus Jakarta Sans',-apple-system,sans-serif;
+color:#B23D10;background:#FFFFFF;text-decoration:none;padding:10px 14px;border-radius:999px;
+box-shadow:0 10px 24px rgba(57,56,52,.16)">&larr; All routes</a>
+<script>try { if (window.self !== window.top) document.getElementById('ggc-all-routes').remove(); } catch (e) {}</script>
+<script>if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}</script>
 </body>
 </html>

@@ -3,6 +3,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#FFFBFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GGC Routes">
 <title>Ten Routes</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -95,6 +100,7 @@ footer { font-size: 13px; color: var(--muted); }
       <span class="eyebrow">Good Grief Circle · ten routes · 16 October 2026</span>
       <h1><i>Ten ways</i> to narrow it.<br>Pick the one we build.</h1>
       <p class="lede">Ten designers each took one route and cut today's demo down to a single job. Each route below opens a clickable prototype: tap through it on your phone or in a narrow window.</p>
+      <p class="small"><strong>Public link for Mari</strong> (no sign-in, hidden from search): northin-mariu.github.io/good-grief-circle/routes/ There each route opens in a viewer that flicks between desktop, mobile and app, and the whole set can be added to a phone's home screen like an app.</p>
       <p class="small">These are concept pages, not the app. Each one invents its own person, so nothing comes from the Rita demo. Mari's wording is reused wherever a screen already existed; new wording is a draft, not Mari's voice. Every price is a draft placeholder, not a decision.</p>
     </div>
 
@@ -259,7 +265,7 @@ const routes = [
 const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fitPill = r => r.fit === 'direct' ? '<span class="pill direct">Voucher</span>' : '<span class="pill recast">Recast</span>';
 document.getElementById('rows').innerHTML = routes.map(r => `<tr>
-  <td><a href="${r.file}" target="_blank" rel="noopener"><span class="num">${r.n}</span>${esc(r.name)}</a></td>
+  <td><a href="view.html?p=${r.file}"><span class="num">${r.n}</span>${esc(r.name)}</a></td>
   <td>${esc(r.who)}</td><td>${esc(r.way)}</td><td>${esc(r.paid)}</td><td>${esc(r.metric)}</td>
   <td>${fitPill(r)}${r.pick ? ` <span class="pill pick">${esc(r.pick)}</span>` : ''}</td></tr>`).join('');
 const field = (k, v) => `<div><dt>${k}</dt><dd>${esc(v)}</dd></div>`;
@@ -269,6 +275,10 @@ document.getElementById('cards').innerHTML = routes.map(r => `<article class="ca
   <p class="thesis">${esc(r.thesis)}</p>
   <dl>${field("Who it's for", r.who)}${field("What's cut", r.cut)}${field("What's kept", r.kept)}${field('Christmas MVP', r.mvp)}${field('Money', r.money)}${field('The metric', r.metric)}${field('Biggest risk', r.risk)}</dl>
   <div class="sig"><strong>Signature idea:</strong> ${esc(r.sig)}</div>
-  <a class="open" href="${r.file}" target="_blank" rel="noopener">Open the prototype →</a>
+  <a class="open" href="view.html?p=${r.file}">Open: desktop, mobile or app →</a>
 </article>`).join('');
 </script>
+
+<script>if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}</script>

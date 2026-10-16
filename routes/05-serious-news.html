@@ -3,8 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#FFFBFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GGC Routes">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Serious News</title>
+<script>(function(){var f=true;try{f=window.self!==window.top;}catch(e){f=true;}var h=document.documentElement;h.className=(innerWidth>=900?'view-desktop':'view-phone')+(f?' framed':'');})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,800;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -21,18 +27,29 @@
 html,body{margin:0;padding:0}
 body{background:var(--nest);color:var(--text);font-family:var(--sans);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 button{font-family:inherit;cursor:pointer}
+:root{--sb:56px}
+@media (max-width:599px){:root{--sb:0px}}
 .wrap{max-width:420px;margin:0 auto;padding:16px 0 40px}
-@media (min-width:900px){.wrap{max-width:900px;display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:start;padding:32px 24px 60px}}
+@media (min-width:900px){.view-phone .wrap{max-width:900px;display:grid;grid-template-columns:1fr 420px;gap:32px;align-items:start;padding:32px 24px 60px}}
+
+/* phone / desktop switch */
+.switchbar{position:sticky;top:0;z-index:12;height:var(--sb);background:var(--nest);box-shadow:var(--lift);display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 24px}
+.switchbar .sl{font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.switchbar .sl b{font-family:var(--serif);font-style:italic;font-weight:500;font-size:17px;color:var(--deep)}
+.seg{display:flex;background:var(--field);border-radius:999px;padding:4px;gap:4px;flex:none}
+.seg button{border:none;background:none;border-radius:999px;min-height:38px;padding:0 18px;font-size:14px;font-weight:700;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:var(--lift)}
+@media (max-width:599px){.switchbar{display:none}}
 
 /* route card */
 .route{background:var(--surface);border-radius:28px;box-shadow:var(--lift);margin:0 16px 16px;padding:0;overflow:hidden}
-@media (min-width:900px){.route{margin:0;position:sticky;top:24px}}
+@media (min-width:900px){.view-phone .route{margin:0;position:sticky;top:calc(var(--sb) + 24px)}}
 .route summary{list-style:none;cursor:pointer;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .route summary::-webkit-details-marker{display:none}
 .route .rt{font-family:var(--serif);font-weight:500;font-size:22px;color:var(--ink);line-height:1.15}
 .route .rt i{color:var(--deep)}
 .route .tog{font-size:13px;font-weight:600;color:var(--deep);white-space:nowrap}
-.route[open] .tog .o{display:none}.route:not([open]) .tog .c{display:none}
+.route[open] .tog .c{display:none}.route:not([open]) .tog .o{display:none}
 .route dl{margin:0;padding:0 22px 20px}
 .route dt{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--deep);margin-top:14px}
 .route dd{margin:3px 0 0;font-size:14.5px;line-height:1.55;color:var(--text)}
@@ -41,7 +58,7 @@ button{font-family:inherit;cursor:pointer}
 /* phone */
 .phone{background:var(--page);min-height:100vh;position:relative}
 @media (min-width:480px){.phone{border-radius:36px;box-shadow:var(--lift);overflow:hidden;min-height:860px}}
-.bar{position:sticky;top:0;z-index:5;background:var(--page);display:flex;align-items:center;gap:10px;padding:calc(12px + env(safe-area-inset-top)) 16px 10px}
+.bar{position:sticky;top:var(--sb);z-index:5;background:var(--page);display:flex;align-items:center;gap:10px;padding:calc(12px + env(safe-area-inset-top)) 16px 10px}
 .back{width:48px;height:48px;border-radius:999px;border:none;background:var(--card);box-shadow:var(--lift);font-size:22px;color:var(--ink);display:flex;align-items:center;justify-content:center;flex:none}
 .back[disabled]{opacity:.3;cursor:default}
 .count{flex:1;font-size:13px;font-weight:600;color:var(--muted);text-align:center}
@@ -138,9 +155,82 @@ label.q{display:block;font-family:var(--serif);font-weight:500;font-size:24px;li
 .veil{position:fixed;inset:0;background:rgba(57,56,52,.35);display:none;z-index:20;align-items:flex-end;justify-content:center}
 .veil.on{display:flex}
 .sheet{background:var(--surface);width:100%;max-width:420px;border-radius:32px 32px 0 0;padding:28px 22px calc(26px + env(safe-area-inset-bottom));animation:fade .3s ease}
+
+/* desktop-only pieces are hidden in the phone view */
+.rail,.live{display:none}
+
+/* ---------- desktop view: the carer at a laptop ---------- */
+.view-desktop body{font-size:19px}
+.view-desktop .wrap{max-width:1180px;display:block;padding:24px 24px 64px}
+.view-desktop .route{margin:0 0 22px}
+.view-desktop .route dl{display:grid;grid-template-columns:150px minmax(0,1fr) 150px minmax(0,1fr);gap:0 24px;padding:0 26px 22px}
+.view-desktop .route dt,.view-desktop .route dd{margin-top:14px}
+.view-desktop .route dt{padding-top:3px}
+.view-desktop .route summary{padding:18px 26px}
+.view-desktop .phone{display:grid;grid-template-columns:220px minmax(0,1fr) 330px;grid-template-areas:"rail bar bar" "rail main live";column-gap:36px;align-items:start;background:var(--page);border-radius:36px;box-shadow:var(--lift);overflow:visible;min-height:780px;padding:0 36px 40px 0}
+.view-desktop .phone.noLive{grid-template-areas:"rail bar bar" "rail main main"}
+.view-desktop .phone.noLive .live{display:none}
+.view-desktop .rail{grid-area:rail;display:flex;flex-direction:column;gap:6px;align-self:stretch;background:var(--surface);border-radius:36px 0 0 36px;padding:28px 18px 28px 22px}
+.view-desktop .rail .in{position:sticky;top:calc(var(--sb) + 24px);display:flex;flex-direction:column;gap:6px}
+.rail .logo{margin:0 0 8px}
+.rail .logo span{font-size:17px;white-space:nowrap}
+.rail .who{font-size:14px;line-height:1.5;color:var(--muted);margin:0 0 18px}
+.rail .who b{color:var(--ink)}
+.rail .nav{border:none;background:none;text-align:left;border-radius:999px;min-height:50px;padding:0 18px;font-size:16px;font-weight:600;color:var(--ink)}
+.rail .nav:hover{background:var(--nest)}
+.rail .nav[aria-current="page"]{background:var(--sun)}
+.rail .nav small{display:block;font-size:12.5px;font-weight:600;color:var(--muted);margin-top:-14px;padding-bottom:6px}
+.rail .crisis{margin-top:22px;font-size:13.5px}
+.view-desktop .bar{grid-area:bar;background:var(--page);border-radius:0 36px 0 0;padding:20px 0 12px;top:var(--sb)}
+.view-desktop .count{text-align:left;font-size:14px}
+.view-desktop .screen{grid-area:main;padding:6px 0 0;min-width:0}
+.view-desktop .screen > .logo{display:none}
+.view-desktop h1{font-size:48px;margin-top:6px}
+.view-desktop .lead{font-size:21px;max-width:40em}
+.view-desktop .btn{width:auto;min-width:300px;display:inline-flex}
+.view-desktop .btn.text{min-width:0}
+.view-desktop .opt,.view-desktop .task{padding:20px 22px}
+.view-desktop .energy{max-width:560px}
+.view-desktop .split{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:40px;align-items:start}
+.view-desktop .split.r{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}
+.view-desktop .helpgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.view-desktop .helpgrid > *{margin:0 !important}
+.view-desktop .helpgrid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.view-desktop .helpgrid.three .help{flex-direction:column;align-items:flex-start;gap:10px}
+.view-desktop .helpgrid.three .num{margin-left:0}
+.view-desktop .sum .rows{display:grid;grid-template-columns:1fr 1fr;column-gap:32px}
+.view-desktop .sum .row + .row{border-top:none}
+.view-desktop .sum .row{border-bottom:1px solid rgba(57,56,52,.07)}
+.view-desktop .sum{padding:10px 28px}
+.view-desktop .live{grid-area:live;display:block;position:sticky;top:calc(var(--sb) + 84px);margin-top:6px}
+.live .card{padding:22px 24px}
+.live h2{font-size:24px;margin:6px 0 2px}
+.live .lr{padding:12px 0}
+.live .lr + .lr{border-top:1px solid rgba(57,56,52,.07)}
+.live .k{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--deep)}
+.live .v{font-size:17px;color:var(--ink);line-height:1.4;margin-top:3px;font-weight:500}
+.live .v.empty{color:var(--muted);font-style:italic;font-weight:400}
+.live .flash{animation:flash 1.2s ease}
+@keyframes flash{from{background:var(--tSun)}to{background:transparent}}
+.view-desktop .veil{align-items:center}
+.view-desktop .sheet{max-width:540px;border-radius:32px;padding:34px 34px 30px}
+/* inside the coordinator's viewer (iframe): product only, the viewer sets the view class */
+:root.framed{--sb:0px}
+.framed .route,.framed .switchbar{display:none}
+.framed.view-phone .wrap{max-width:none;display:block;padding:0;margin:0}
+.framed.view-phone .phone{border-radius:0;box-shadow:none;min-height:100vh}
+.framed.view-desktop .wrap{padding:16px 16px 40px}
+@media (max-width:1180px){.view-desktop .phone{grid-template-columns:200px minmax(0,1fr) 290px;column-gap:28px;padding-right:28px}.view-desktop h1{font-size:40px}}
 </style>
 </head>
 <body>
+<div class="switchbar" id="switchbar">
+  <div class="sl"><b>Serious News</b> · route 05</div>
+  <div class="seg" role="group" aria-label="Show as">
+    <button type="button" data-view="phone" aria-pressed="false">Phone</button>
+    <button type="button" data-view="desktop" aria-pressed="true">Desktop</button>
+  </div>
+</div>
 <div class="wrap">
 
 <details class="route" id="route" open>
@@ -172,6 +262,18 @@ label.q{display:block;font-family:var(--serif);font-weight:500;font-size:24px;li
 </details>
 
 <div class="phone" id="phone">
+  <nav class="rail" aria-label="Sections"><div class="in">
+    <div class="logo">
+      <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><g opacity=".82"><circle cx="15" cy="15" r="9" fill="#e07a4d"/><circle cx="25" cy="15" r="9" fill="#4a9e90"/><circle cx="15" cy="25" r="9" fill="#9cbf86"/><circle cx="25" cy="25" r="9" fill="#eab64a"/></g></svg>
+      <span>Good Grief Circle</span>
+    </div>
+    <div class="who">For <b>Derek Lowe</b><br>From Elmbrook Hospice · nurse Joanne</div>
+    <button class="nav" data-go="1" data-nav="1">Welcome</button>
+    <button class="nav" data-go="2" data-nav="2">Support</button>
+    <button class="nav" data-go="3" data-nav="3">The four things</button>
+    <button class="nav" data-go="7" data-nav="7">Page for the care team</button>
+    <div class="crisis"><b>Need to talk now?</b> Samaritans, free, any time: <b>116 123</b>.</div>
+  </div></nav>
   <div class="bar">
     <button class="back" id="back" aria-label="Back" disabled>←</button>
     <div class="count" id="count">Screen 1 of 7</div>
@@ -187,10 +289,12 @@ label.q{display:block;font-family:var(--serif);font-weight:500;font-size:24px;li
       <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><g opacity=".82"><circle cx="15" cy="15" r="9" fill="#e07a4d"/><circle cx="25" cy="15" r="9" fill="#4a9e90"/><circle cx="15" cy="25" r="9" fill="#9cbf86"/><circle cx="25" cy="25" r="9" fill="#eab64a"/></g></svg>
       <span>Good Grief Circle</span>
     </div>
+    <div class="split"><div>
     <span class="chip">From Elmbrook Hospice</span>
     <h1>Joanne, your nurse, <i>suggested this.</i></h1>
     <p class="lead">It’s here for when you want it. Nothing has to be done today, most things take a few minutes, and you can stop whenever you need to.</p>
     <div class="nest small" style="margin-bottom:20px">Free for you and your family. <b style="color:var(--ink)">Elmbrook Hospice covers the cost.</b> Set up for Derek Lowe on 16 October.</div>
+    </div><div>
     <h2>Who’s holding the phone?</h2>
     <p class="small" style="margin:0 0 12px">You can do this together or alone, and change it any time.</p>
     <div id="holderOpts">
@@ -200,6 +304,7 @@ label.q{display:block;font-family:var(--serif);font-weight:500;font-size:24px;li
     </div>
     <button class="btn" data-go="2">Begin gently</button>
     <div class="crisis"><b>Need to talk to someone now?</b> Samaritans, free, any time: <b>116 123</b>.</div>
+    </div></div>
   </section>
 
   <!-- 2 · support first -->
@@ -208,11 +313,15 @@ label.q{display:block;font-family:var(--serif);font-weight:500;font-size:24px;li
     <h1>Support <i>comes first.</i></h1>
     <p class="lead">You don’t have to plan anything to use this page. Keep it for the hard days.</p>
     <div class="rs"><div class="hn">Talk to someone now</div><div class="hb">Free, confidential helplines for people living with a serious illness — for you, or the people close to you.</div></div>
+    <div class="helpgrid three">
     <a class="help" href="tel:116123"><span><span class="hn" style="display:block">Samaritans</span><span class="hb" style="display:block">A listening ear any time of day or night, for anyone who is struggling.</span></span><span class="num">116 123</span></a>
     <a class="help" href="tel:08000902309"><span><span class="hn" style="display:block">Marie Curie Support Line</span><span class="hb" style="display:block">For anyone living with a terminal illness, and the people around them.</span></span><span class="num">0800 090 2309</span></a>
     <div class="help"><span><span class="hn" style="display:block">Elmbrook’s 24-hour advice line</span><span class="hb" style="display:block">For symptoms or worries at night. The number is on the card Joanne gave you.</span></span></div>
+    </div>
+    <div class="helpgrid">
     <div class="rs" style="margin-top:14px"><div class="hn">Palliative &amp; hospice care</div><div class="hb">Specialist teams focused on comfort and quality of life — often alongside treatment, not only at the very end.</div></div>
     <div class="rs"><div class="hn">Support for family &amp; carers</div><div class="hb">Guidance and respite for the people caring for you, so they have the strength to keep showing up.</div></div>
+    </div>
     <button class="btn" data-go="3">When you’re ready, the next bit</button>
     <button class="btn text" data-pause>Not today. Keep this for later</button>
   </section>
@@ -349,6 +458,7 @@ label.q{display:block;font-family:var(--serif);font-weight:500;font-size:24px;li
   <section class="screen" data-s="7">
     <span class="eyebrow">One page, for Joanne and the family</span>
     <h1>What matters <i>to Derek.</i></h1>
+    <div class="split r"><div>
     <div class="radiant">
       <div class="eyebrow">Ready for Joanne’s next visit</div>
       <h2>3 of 4 essentials written</h2>
@@ -356,17 +466,31 @@ label.q{display:block;font-family:var(--serif);font-weight:500;font-size:24px;li
       <button class="btn quiet" id="printBtn" style="margin:0">Print for the folder <span class="preview" style="margin-left:8px">Preview</span></button>
     </div>
     <div class="card sum">
+      <div class="rows">
       <div class="row"><div class="k">If things get worse</div><div class="v">Comfort first: quality of life over length.</div><span class="tag" style="background:var(--tGreen);color:#1F6245">In Derek’s words · 14 Oct</span></div>
-      <div class="row"><div class="k">Where I’d want to be cared for</div><div class="v">At home, close to family.</div><span class="tag say">Written by Sandra · Derek said yes · 16 Oct</span></div>
-      <div class="row"><div class="k">Who speaks for me</div><div class="v">Sandra, my wife. And Paul if she can’t.</div><span class="tag say">Written by Sandra · Derek said yes · 16 Oct</span><div class="small" style="margin-top:8px">Health &amp; Care LPA: <b style="color:var(--ink)">not yet</b></div></div>
-      <div class="row"><div class="k">Farewell</div><div class="v">Cremation. Small &amp; private. “Abide With Me”.</div><span class="tag" style="background:var(--tGreen);color:#1F6245">Together · 16 Oct</span></div>
-      <div class="row"><div class="k">Messages</div><div class="v">One, for Paul. Kept private: only Derek decides who reads it.</div></div>
+      <div class="row"><div class="k">Where I’d want to be cared for</div><div class="v" data-f="setting">At home, close to family.</div><span class="tag say">Written by Sandra · Derek said yes · 16 Oct</span></div>
+      <div class="row"><div class="k">Who speaks for me</div><div class="v" data-f="decider">Sandra, my wife. And Paul if she can’t.</div><span class="tag say">Written by Sandra · Derek said yes · 16 Oct</span><div class="small" style="margin-top:8px">Health &amp; Care LPA: <b style="color:var(--ink)" data-f="lpa">not yet</b></div></div>
+      <div class="row"><div class="k">Farewell</div><div class="v" data-f="farewell">Cremation. Small &amp; private. “Abide With Me”.</div><span class="tag" style="background:var(--tGreen);color:#1F6245">Together · 16 Oct</span></div>
+      <div class="row"><div class="k">Messages</div><div class="v" data-f="message">One, for Paul. Kept private: only Derek decides who reads it.</div></div>
+      </div>
     </div>
+    </div><div>
     <button class="btn quiet" data-go="3">Back to the four things</button>
     <div class="bound"><b>Not a legal will, and not an advance decision.</b> This helps your care team and family know what matters to you. For a will, speak to a solicitor. To refuse specific treatments, or for a ReSPECT form, ask Joanne or your GP.</div>
     <div class="nest small"><span class="preview">Preview</span> This wording is waiting for review by palliative care clinicians before any family sees it.</div>
     <div class="crisis"><b>Need to talk to someone now?</b> Samaritans, free, any time: <b>116 123</b>. Or the Marie Curie Support Line: <b>0800 090 2309</b>.</div>
+    </div></div>
   </section>
+  <aside class="live" aria-label="Care-team summary so far">
+    <div class="card">
+      <span class="eyebrow">Beside you as you go</span>
+      <h2>Derek’s page for <i style="color:var(--deep)">Joanne</i></h2>
+      <p class="small" style="margin:0 0 6px">Updates as each answer is saved. Nothing is sent unless you choose.</p>
+      <div id="liveRows"></div>
+      <button class="btn quiet" data-go="7" style="width:100%;min-width:0;margin-top:12px">Open the full page</button>
+    </div>
+    <div class="bound" style="margin-top:0;font-size:14px"><b>Not a legal will.</b> For a will, speak to a solicitor.</div>
+  </aside>
 </div>
 </div>
 
@@ -388,6 +512,69 @@ label.q{display:block;font-family:var(--serif);font-weight:500;font-size:24px;li
   var back = document.getElementById('back');
   var count = document.getElementById('count');
   var holder = 'together';
+  var root = document.documentElement;
+  var phoneEl = document.getElementById('phone');
+
+  // Phone / Desktop switch: one set of state, only the layout class changes
+  var framed = root.classList.contains('framed');
+  // if the viewer replaces the whole class list, keep 'framed' and a view class
+  if (framed && window.MutationObserver) new MutationObserver(function(){
+    if (!root.classList.contains('framed')) root.classList.add('framed');
+    if (!root.classList.contains('view-desktop') && !root.classList.contains('view-phone')) root.classList.add('view-phone');
+  }).observe(root, { attributes: true, attributeFilter: ['class'] });
+  function setView(v){
+    if (framed) return; // the viewer page owns the view class
+    if (window.innerWidth < 600) v = 'phone';
+    root.classList.toggle('view-desktop', v === 'desktop');
+    root.classList.toggle('view-phone', v !== 'desktop');
+    document.querySelectorAll('[data-view]').forEach(function(b){ b.setAttribute('aria-pressed', b.dataset.view === v ? 'true' : 'false'); });
+  }
+  var chosen = null;
+  setView(window.innerWidth >= 900 ? 'desktop' : 'phone');
+  document.querySelectorAll('[data-view]').forEach(function(b){ b.addEventListener('click', function(){ chosen = b.dataset.view; setView(chosen); }); });
+  window.addEventListener('resize', function(){ setView(chosen || (window.innerWidth >= 900 ? 'desktop' : 'phone')); });
+
+  // desktop rail + the care-team summary beside the tasks (screens 3 to 6)
+  function syncFrame(){
+    var navFor = cur >= 3 && cur <= 6 ? 3 : cur;
+    document.querySelectorAll('[data-nav]').forEach(function(b){
+      if (+b.dataset.nav === navFor) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+    });
+    phoneEl.classList.toggle('noLive', !(cur >= 3 && cur <= 6));
+  }
+
+  var SETTING = {'At home':'At home, close to family.','A hospice':'In a hospice, for specialist comfort care.','Hospital':'In hospital, close to medical care.','I’m not sure yet':'Not sure yet, and that’s alright.'};
+  function picked(g){ var b = document.querySelector('[data-group="' + g + '"] [aria-pressed="true"]'); return b ? (b.querySelector('.ol') || b).textContent.trim() : ''; }
+  function esc(t){ return t.replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
+  var last = {};
+  function render(){
+    var music = document.getElementById('music').value.trim();
+    var to = document.getElementById('msgTo').value.trim().replace(/^for\s+/i, '');
+    var f = {
+      setting: SETTING[picked('setting')] || '',
+      decider: document.getElementById('decider').value.trim(),
+      lpa: picked('lpa').toLowerCase(),
+      farewell: [picked('rest'), picked('gathering'), music].filter(Boolean).join('. ') + '.',
+      message: to ? 'One, for ' + to + '. Kept private: only Derek decides who reads it.' : ''
+    };
+    document.querySelectorAll('[data-f]').forEach(function(el){ el.textContent = f[el.dataset.f] || '—'; });
+    var rows = [
+      ['Where I’d want to be cared for', f.setting, 'setting'],
+      ['Who speaks for me', f.decider ? f.decider + ' (LPA: ' + f.lpa + ')' : '', 'decider'],
+      ['Farewell', f.farewell.length > 1 ? f.farewell : '', 'farewell'],
+      ['A message', to ? 'For ' + to + ', kept private' : '', 'message']
+    ];
+    var box = document.getElementById('liveRows');
+    box.innerHTML = rows.map(function(r){
+      return '<div class="lr" data-k="' + r[2] + '"><div class="k">' + r[0] + '</div><div class="v' + (r[1] ? '' : ' empty') + '">' + (r[1] ? esc(r[1]) : 'Not answered yet') + '</div></div>';
+    }).join('');
+    rows.forEach(function(r){
+      if (last[r[2]] !== undefined && last[r[2]] !== r[1]) { var el = box.querySelector('[data-k="' + r[2] + '"]'); if (el) el.classList.add('flash'); }
+      last[r[2]] = r[1];
+    });
+  }
+  document.addEventListener('input', render);
+  document.addEventListener('click', function(e){ if (e.target.closest('[data-group]')) setTimeout(render, 0); });
 
   function show(n, push){
     n = +n;
@@ -397,8 +584,9 @@ label.q{display:block;font-family:var(--serif);font-weight:500;font-size:24px;li
     screens.forEach(function(s){ s.classList.toggle('on', +s.dataset.s === n); });
     count.textContent = 'Screen ' + n + ' of ' + TOTAL;
     back.disabled = hist.length === 0;
+    syncFrame();
     var ph = document.getElementById('phone');
-    try { window.scrollTo({ top: ph.getBoundingClientRect().top + window.scrollY - 8, behavior: 'smooth' }); } catch(e){ window.scrollTo(0,0); }
+    try { window.scrollTo({ top: ph.getBoundingClientRect().top + window.scrollY - 8 - (document.getElementById('switchbar').offsetHeight || 0), behavior: 'smooth' }); } catch(e){ window.scrollTo(0,0); }
   }
   document.addEventListener('click', function(e){
     var go = e.target.closest('[data-go]');
@@ -445,6 +633,8 @@ label.q{display:block;font-family:var(--serif);font-weight:500;font-size:24px;li
   }
   ens.forEach(function(b){ b.addEventListener('click', function(){ setEnergy(+b.dataset.en); }); });
   setEnergy(2);
+  render();
+  syncFrame();
 
   // save on screen 4
   document.getElementById('save4').addEventListener('click', function(){
@@ -469,5 +659,13 @@ label.q{display:block;font-family:var(--serif);font-weight:500;font-size:24px;li
   if (window.matchMedia && window.matchMedia('(max-width: 899px)').matches) document.getElementById('route').removeAttribute('open');
 })();
 </script>
+<a id="ggc-all-routes" href="./" aria-label="All routes" style="position:fixed;z-index:9999;left:calc(12px + env(safe-area-inset-left,0px));
+bottom:calc(12px + env(safe-area-inset-bottom,0px));font:600 13px/1 'Plus Jakarta Sans',-apple-system,sans-serif;
+color:#B23D10;background:#FFFFFF;text-decoration:none;padding:10px 14px;border-radius:999px;
+box-shadow:0 10px 24px rgba(57,56,52,.16)">&larr; All routes</a>
+<script>try { if (window.self !== window.top) document.getElementById('ggc-all-routes').remove(); } catch (e) {}</script>
+<script>if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}</script>
 </body>
 </html>

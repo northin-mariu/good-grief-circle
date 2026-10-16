@@ -3,6 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#FFFBFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GGC Routes">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Twelve Small Steps</title>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,800;1,6..72,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -182,9 +187,165 @@ label.lab{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-b
 .dots i.on{background:var(--accent);width:18px;border-radius:999px}
 .site{background:var(--surface);border-radius:28px;padding:18px;box-shadow:var(--lift)}
 .urlbar{background:var(--nest);border-radius:999px;font-size:12px;color:var(--soft);padding:6px 12px;text-align:center;margin-bottom:14px}
+
+/* ===== Phone / Desktop switch ===== */
+.viewbar{position:sticky;top:0;z-index:30;background:rgba(239,232,220,.94);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.viewbar-in{max-width:1180px;margin:0 auto;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.viewbar .vb-l{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.viewbar .seg{width:200px;background:var(--surface);box-shadow:var(--lift)}
+.viewbar .seg button.on{background:var(--ink);color:#fff}
+@media (max-width:599px){.viewbar{display:none}}
+/* desktop-only pieces stay hidden in the phone view */
+.dlogo,.dnav,.inbox,.rail,.mail-tools{display:none}
+
+/* ===== Desktop view ===== */
+html.view-desktop .wrap{max-width:1180px;padding:20px 24px 56px}
+html.view-desktop .route{margin-bottom:20px}
+html.view-desktop .route summary{padding:16px 26px}
+html.view-desktop .route dl{display:grid;grid-template-columns:170px minmax(0,1fr) 170px minmax(0,1fr);gap:0 24px;padding:0 26px 22px}
+html.view-desktop .route dd{margin-top:10px}
+html.view-desktop .route dt{margin-top:13px}
+html.view-desktop .phone{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr;min-height:720px;border-radius:32px}
+html.view-desktop .phone.m.r{grid-template-columns:262px minmax(0,1fr) 300px}
+html.view-desktop .phone.r:not(.m){grid-template-columns:minmax(0,1fr) 320px}
+html.view-desktop .bar{grid-column:1/-1;gap:12px;padding:14px 22px}
+html.view-desktop .dots{display:none}
+html.view-desktop .dlogo{display:flex;order:0;margin-right:10px}
+html.view-desktop .dnav{display:flex;order:1;flex:1;gap:4px;flex-wrap:wrap;min-width:0}
+html.view-desktop #back{order:2}
+html.view-desktop .counter{order:3;min-width:84px}
+html.view-desktop .counter b{display:none}
+html.view-desktop #next{order:4}
+.dnav button{border:0;background:transparent;border-radius:999px;padding:8px 14px;font-size:13.5px;font-weight:600;color:var(--muted)}
+.dnav button:hover{background:var(--nest)}
+.dnav button.on{background:var(--tA);color:var(--accentDeep)}
+html.view-desktop .screen{padding:28px 32px 44px;min-width:0}
+html.view-desktop .toast{left:auto;right:24px;width:400px}
+
+/* mail client: inbox list */
+html.view-desktop .phone.m .inbox{display:block;background:var(--nest);padding:18px 12px 24px;min-width:0}
+.ib-head{padding:4px 12px 12px}
+.ib-head b{display:block;font-family:var(--serif);font-size:22px;font-weight:500;color:var(--ink)}
+.ib-head span{font-size:12px;color:var(--soft)}
+.ib-item{display:block;width:100%;text-align:left;border:0;background:transparent;border-radius:18px;padding:11px 12px;margin-bottom:4px;color:var(--text)}
+.ib-item:hover{background:rgba(255,255,255,.6)}
+.ib-item.on{background:#fff;box-shadow:var(--lift)}
+.ib-top{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;color:var(--soft)}
+.ib-top span{white-space:nowrap}
+.ib-top b{color:var(--ink);font-size:12.5px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ib-item.unread .ib-top b::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--accent);margin-right:6px;vertical-align:1px}
+.ib-subj{display:block;font-size:13.5px;font-weight:600;color:var(--ink);line-height:1.35;margin-top:3px}
+.ib-snip{display:block;font-size:12.5px;color:var(--muted);line-height:1.4;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ib-item.other .ib-subj{font-weight:500}
+.ib-item.other{opacity:.7}
+.ib-tag{display:inline-block;font-size:10.5px;font-weight:700;border-radius:999px;padding:1px 7px;margin-top:5px;background:var(--tG);color:var(--onMint)}
+.ib-tag.wait{background:var(--tGold);color:var(--onSun)}
+
+/* mail client: reading pane */
+html.view-desktop .mail-tools{display:flex;gap:6px;margin-left:auto}
+.mail-tools button{border:0;background:var(--nest);color:var(--ink);border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:600}
+.mail-tools button.go{background:var(--tA);color:var(--accentDeep)}
+html.view-desktop .phone.m .mail{max-width:760px}
+html.view-desktop .mail-head{padding:20px 26px 16px}
+html.view-desktop .mail-head .subj{font-size:25px;margin-top:14px}
+html.view-desktop .mail-body{padding:22px 26px 28px}
+html.view-desktop #s2 .flip{max-width:540px}
+html.view-desktop #s2 .mail-body>.btn{display:inline-block;width:auto;padding:14px 30px}
+html.view-desktop #s2 .mail-body>.tiny{text-align:left!important}
+html.view-desktop .sms{max-width:440px}
+html.view-desktop #catch{grid-template-columns:1fr 1fr}
+
+/* right rail: twelve stones + the plan building up */
+html.view-desktop .phone.r .rail{display:block;background:var(--nest);padding:22px 18px 28px;min-width:0}
+.r-card{background:var(--card);border-radius:24px;box-shadow:var(--lift);padding:16px 16px 12px}
+.r-card+.r-card,.rail .boundary{margin-top:14px}
+.r-card h3{font-size:18px;margin:2px 0 4px}
+.stones{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px 4px;margin:12px 0 10px}
+.stones .stone{width:34px;height:34px;justify-self:center;border:0;padding:0;font-family:var(--sans)}
+.stones .stone.rest{border:2px dashed rgba(160,147,127,.55)}
+.stones .stone::after{content:"";position:absolute;bottom:-6px;left:50%;width:10px;height:3px;margin-left:-5px;border-radius:999px;background:var(--lane,transparent)}
+.rp{display:flex;justify-content:space-between;gap:10px;padding:7px 4px;font-size:12.5px;line-height:1.4;border-radius:8px}
+.rp+.rp{border-top:1px solid rgba(188,185,179,.18)}
+.rp span:first-child{color:var(--muted);flex:none;max-width:46%}
+.rp span:last-child{color:var(--ink);text-align:right;font-weight:500}
+.rp.wait span:last-child{color:var(--soft);font-weight:400;font-style:italic}
+.rp.fresh{animation:fresh 2s ease}
+@keyframes fresh{0%,40%{background:var(--tGold)}100%{background:transparent}}
+.rail .boundary{font-size:12px;padding:11px 13px}
+html.view-desktop .phone.s3 .rail .r-stones{display:none}
+
+/* screen 1: the website, two columns */
+html.view-desktop #s1{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);column-gap:44px;grid-template-rows:auto auto auto auto auto auto 1fr;grid-template-areas:"url url" "logo form" "chip form" "h1 form" "lede form" "lanes form" ". form";padding:28px 44px 48px}
+html.view-desktop #s1.on{display:grid}
+html.view-desktop .su-url{grid-area:url;max-width:420px;justify-self:center;width:100%;margin-bottom:26px}
+html.view-desktop .su-logo{grid-area:logo}
+html.view-desktop .su-chip{grid-area:chip;justify-self:start}
+html.view-desktop .su-h1{grid-area:h1;font-size:58px;letter-spacing:-1px}
+html.view-desktop .su-lede{grid-area:lede;font-size:17.5px;max-width:520px}
+html.view-desktop .su-form{grid-area:form;align-self:start;margin-top:0!important;padding:26px}
+html.view-desktop .su-lanes{grid-area:lanes;margin-top:26px!important}
+
+/* screen 3: answering */
+html.view-desktop #s3 .flip,html.view-desktop #s3 .boundary,html.view-desktop #s3 .crisis{max-width:700px}
+html.view-desktop #s3 .crisis{text-align:left}
+html.view-desktop #s3 .face.plain{padding:28px 30px}
+html.view-desktop #s3 .face.rad{padding:30px}
+html.view-desktop #s3 h2{font-size:34px}
+html.view-desktop #opts{grid-template-columns:1fr 1fr}
+
+/* screen 4: the path in two columns */
+html.view-desktop #s4 h2{font-size:36px}
+html.view-desktop #s4 .radiant{padding:26px 28px}
+html.view-desktop #s4 .path{columns:2;column-gap:32px}
+html.view-desktop #s4 .step{break-inside:avoid}
+html.view-desktop #s4 .path+.tiny{text-align:left!important}
+
+/* screen 6: the finished plan */
+html.view-desktop #s6{padding:34px 40px 48px}
+html.view-desktop #s6 h1{font-size:50px!important}
+html.view-desktop #s6 .lede{max-width:620px}
+html.view-desktop .plan-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;align-items:start;margin-top:26px!important}
+html.view-desktop .plan-grid>*+*{margin-top:0}
+html.view-desktop .plan-grid>.boundary{grid-column:1/3;grid-row:2}
+html.view-desktop .pg-share{grid-column:1;grid-row:3}
+html.view-desktop .pg-print{grid-column:2;grid-row:3}
+html.view-desktop .pg-member{grid-column:3;grid-row:2/span 3}
+html.view-desktop .pg-crisis{grid-column:1/3;grid-row:4;text-align:left}
+
+/* inside the coordinator's viewer iframe: product only, the viewer draws the device */
+html.framed .viewbar,html.framed .route{display:none!important}
+html.framed body{background:var(--page)}
+html.framed.view-phone .wrap{max-width:none;padding:0}
+html.framed.view-phone .phone{border-radius:0;box-shadow:none;min-height:100vh}
+html.framed.view-desktop .wrap{padding-top:24px}
+
+@media (max-width:1180px){
+  html.view-desktop .phone.m.r{grid-template-columns:228px minmax(0,1fr) 262px}
+  html.view-desktop .phone.r:not(.m){grid-template-columns:minmax(0,1fr) 280px}
+  html.view-desktop .screen{padding:24px 24px 40px}
+  html.view-desktop .route dl{grid-template-columns:200px minmax(0,1fr)}
+  html.view-desktop .dlogo span{display:none}
+  html.view-desktop .dnav button{padding:8px 11px;font-size:13px}
+  html.view-desktop .mail-tools button:not(.go){display:none}
+  html.view-desktop #s1{column-gap:28px;padding:24px 28px 40px}
+  html.view-desktop .su-h1{font-size:46px}
+  html.view-desktop #opts,html.view-desktop #catch{grid-template-columns:1fr}
+}
 </style>
+<script>
+(function(){
+  var d = document.documentElement, framed;
+  try { framed = window.self !== window.top; } catch(e) { framed = true; }
+  if (framed) d.classList.add('framed');
+  try { d.classList.add(window.innerWidth >= 900 ? 'view-desktop' : 'view-phone'); } catch(e) {}
+})();
+</script>
 </head>
 <body>
+<div class="viewbar"><div class="viewbar-in">
+  <span class="vb-l">Route 08 · Twelve Small Steps</span>
+  <div class="seg" id="viewSeg" role="group" aria-label="Show as"><button type="button" data-v="phone">Phone</button><button type="button" data-v="desktop">Desktop</button></div>
+</div></div>
 <div class="wrap">
 
 <details class="route" id="route">
@@ -203,24 +364,43 @@ label.lab{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-b
 
 <div class="phone" id="phone">
   <div class="bar">
+    <div class="dlogo logo"><svg width="30" height="30" viewBox="0 0 40 40" aria-hidden="true"><g opacity=".82"><circle cx="15" cy="15" r="9" fill="#e07a4d"/><circle cx="25" cy="15" r="9" fill="#4a9e90"/><circle cx="15" cy="25" r="9" fill="#9cbf86"/><circle cx="25" cy="25" r="9" fill="#eab64a"/></g></svg><span>Good Grief Circle</span></div>
+    <nav class="dnav" id="dnav" aria-label="Destinations">
+      <button type="button" data-go="0" data-for="0">Sign up</button>
+      <button type="button" data-go="1" data-for="1 4">Inbox</button>
+      <button type="button" data-go="2" data-for="2">This week's step</button>
+      <button type="button" data-go="3" data-for="3">Your path</button>
+      <button type="button" data-go="5" data-for="5">Your plan</button>
+    </nav>
     <button class="navbtn" id="back" type="button">← Back</button>
     <div class="counter"><b id="sname">Sign up</b><span id="count">Screen 1 of 6</span></div>
     <button class="navbtn" id="next" type="button">Next →</button>
   </div>
   <div class="dots" id="dots"></div>
 
+  <!-- desktop only: Jo's inbox, as a mail client shows it -->
+  <aside class="inbox" aria-label="Jo's inbox (preview)">
+    <div class="ib-head"><b>Inbox</b><span>jo.hartley@example.co.uk</span></div>
+    <button class="ib-item unread" type="button" data-go="1" data-for="1"><span class="ib-top"><b>Good Grief Circle</b><span>Sun 14 Feb</span></span><span class="ib-subj">Week 7 of 12 · The feeling in the room</span><span class="ib-snip">Morning Jo. One small one this week. Tap the card…</span></button>
+    <button class="ib-item other" type="button" data-toast="Preview: only the Good Grief Circle emails open here."><span class="ib-top"><b>Ellie</b><span>Sat 13 Feb</span></span><span class="ib-subj">Sunday lunch?</span><span class="ib-snip">Are you and Dad still coming over? Tom says he'll…</span></button>
+    <button class="ib-item other" type="button" data-toast="Preview: only the Good Grief Circle emails open here."><span class="ib-top"><b>Leicester Libraries</b><span>Fri 12 Feb</span></span><span class="ib-subj">Your reservation is ready</span><span class="ib-snip">Collect within 7 days from Knighton library.</span></button>
+    <button class="ib-item" type="button" data-go="4" data-for="4"><span class="ib-top"><b>Good Grief Circle</b><span>Tue 9 Feb</span></span><span class="ib-subj">Week 6 can wait</span><span class="ib-snip">Sunday's step didn't get a reply, which is completely fine.</span></button>
+    <button class="ib-item" type="button" data-toast="Week 6 is resting on your path. Pick it up whenever you like."><span class="ib-top"><b>Good Grief Circle</b><span>Sun 7 Feb</span></span><span class="ib-subj">Week 6 of 12 · Pensions &amp; nominations</span><span class="ib-tag wait">Resting</span></button>
+    <button class="ib-item" type="button" data-toast="Week 5 is answered: Whitby, 2009. It's on your plan."><span class="ib-top"><b>Good Grief Circle</b><span>Sun 31 Jan</span></span><span class="ib-subj">Week 5 of 12 · A memory</span><span class="ib-tag">Answered</span></button>
+  </aside>
+
   <!-- 1 · SIGN-UP on the website -->
-  <section class="screen on" data-name="Sign up">
-    <div class="urlbar">goodgriefcircle.com</div>
-    <div class="logo" style="margin-bottom:18px">
+  <section class="screen on" id="s1" data-name="Sign up">
+    <div class="urlbar su-url">goodgriefcircle.com</div>
+    <div class="logo su-logo" style="margin-bottom:18px">
       <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><g opacity=".82"><circle cx="15" cy="15" r="9" fill="#e07a4d"/><circle cx="25" cy="15" r="9" fill="#4a9e90"/><circle cx="15" cy="25" r="9" fill="#9cbf86"/><circle cx="25" cy="25" r="9" fill="#eab64a"/></g></svg>
       <span>Good Grief Circle</span>
     </div>
-    <span class="chip">The newsletter that does the job</span>
-    <h1 style="margin-top:12px">Sort it one day? <em>Make it</em> <strong>twelve Sundays.</strong></h1>
-    <p class="lede">One small step a week, by email or text. Each one takes under five minutes and you answer by replying. In twelve weeks your family has a plan.</p>
+    <span class="chip su-chip">The newsletter that does the job</span>
+    <h1 class="su-h1" style="margin-top:12px">Sort it one day? <em>Make it</em> <strong>twelve Sundays.</strong></h1>
+    <p class="lede su-lede">One small step a week, by email or text. Each one takes under five minutes and you answer by replying. In twelve weeks your family has a plan.</p>
 
-    <div class="card stack" style="margin-top:20px">
+    <div class="card stack su-form" style="margin-top:20px">
       <div>
         <label class="lab">Send my step by</label>
         <div class="seg" id="chan"><button type="button" class="on" data-v="email">Email</button><button type="button" data-v="text">Text</button></div>
@@ -242,7 +422,7 @@ label.lab{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-b
       <p class="tiny" style="text-align:center">No app, no account, nothing to remember. Stop with one reply: STOP.</p>
     </div>
 
-    <div class="nest" style="margin-top:16px">
+    <div class="nest su-lanes" style="margin-top:16px">
       <p class="eyebrow" style="margin:0">What the twelve weeks cover</p>
       <div class="mini-path"><i class="w"></i><i class="d"></i><i class="l"></i><i class="d"></i><i class="m"></i><i class="l"></i><i class="w"></i><i class="d"></i><i class="w"></i><i class="l"></i><i class="m"></i><i class="w"></i></div>
       <div class="lanes">
@@ -255,7 +435,7 @@ label.lab{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-b
   </section>
 
   <!-- 2 · THE WEEKLY MESSAGE -->
-  <section class="screen" data-name="This week's message">
+  <section class="screen" id="s2" data-name="This week's message">
     <div class="row" style="justify-content:space-between;margin-bottom:12px">
       <p class="eyebrow" style="margin:0">Sun 14 Feb · 8:00</p>
       <div class="toggle" id="viewtog" style="width:150px"><button type="button" class="on" data-v="email">Email</button><button type="button" data-v="text">Text</button></div>
@@ -266,6 +446,7 @@ label.lab{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-b
         <div class="from">
           <div class="av"><svg width="24" height="24" viewBox="0 0 40 40" aria-hidden="true"><g opacity=".82"><circle cx="15" cy="15" r="9" fill="#e07a4d"/><circle cx="25" cy="15" r="9" fill="#4a9e90"/><circle cx="15" cy="25" r="9" fill="#9cbf86"/><circle cx="25" cy="25" r="9" fill="#eab64a"/></g></svg></div>
           <div><b style="color:var(--ink);font-size:14px">Good Grief Circle</b><div class="tiny">to Jo</div></div>
+          <div class="mail-tools"><button type="button" class="go" data-go="2">↩ Reply</button><button type="button" data-toast="Preview: replying LATER leaves week 7 resting on your path.">Reply LATER</button><button type="button" data-toast="Preview: archived. The step stays on your path.">Archive</button></div>
         </div>
         <div class="subj">Week 7 of 12 · The feeling in the room</div>
       </div>
@@ -308,7 +489,7 @@ label.lab{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-b
   </section>
 
   <!-- 3 · ANSWERING -->
-  <section class="screen" data-name="Answer in 5 minutes">
+  <section class="screen" id="s3" data-name="Answer in 5 minutes">
     <div class="row" style="justify-content:space-between">
       <p class="eyebrow" style="margin:0">Week 7 of 12 · Your wishes</p>
       <span class="timer">◷ about 3 min</span>
@@ -347,7 +528,7 @@ label.lab{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-b
   </section>
 
   <!-- 4 · THE PATH -->
-  <section class="screen" data-name="Your twelve steps">
+  <section class="screen" id="s4" data-name="Your twelve steps">
     <p class="eyebrow">Jo Hartley · Leicester</p>
     <h2>Twelve small steps, <em>at your own pace.</em></h2>
 
@@ -377,11 +558,11 @@ label.lab{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-b
   </section>
 
   <!-- 5 · GENTLE CATCH-UP -->
-  <section class="screen" data-name="When a week goes quiet">
+  <section class="screen" id="s5" data-name="When a week goes quiet">
     <p class="eyebrow">Tuesday 9 February · email</p>
     <div class="mail">
       <div class="mail-head">
-        <div class="from"><div class="av" style="background:var(--tGold)">☁︎</div><div><b style="color:var(--ink);font-size:14px">Good Grief Circle</b><div class="tiny">to Jo</div></div></div>
+        <div class="from"><div class="av" style="background:var(--tGold)">☁︎</div><div><b style="color:var(--ink);font-size:14px">Good Grief Circle</b><div class="tiny">to Jo</div></div><div class="mail-tools"><button type="button" class="go" data-toast="Preview: reply with 1, 2, 3 or 4, or just tap one below.">↩ Reply</button><button type="button" data-toast="Preview: archived. Week 6 stays resting on your path.">Archive</button></div></div>
         <div class="subj">Week 6 can wait</div>
       </div>
       <div class="mail-body">
@@ -402,12 +583,12 @@ label.lab{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-b
   </section>
 
   <!-- 6 · WEEK 12: THE FINISHED PLAN -->
-  <section class="screen" data-name="Your plan at week 12">
+  <section class="screen" id="s6" data-name="Your plan at week 12">
     <span class="chip">Week 12 of 12 · Sunday 21 March</span>
     <h1 style="margin-top:12px;font-size:34px">Jo, <em>it's sorted.</em> <strong>Well, mostly.</strong></h1>
     <p class="lede">Eleven of twelve answered, in about 40 minutes all told. Here's what your family will find.</p>
 
-    <div class="stack" style="margin-top:18px">
+    <div class="stack plan-grid" style="margin-top:18px">
       <div class="plan-sec">
         <h3>Your wishes</h3>
         <div class="pl"><span>Laid to rest</span><span>Cremation, Bradgate Park</span></div>
@@ -431,10 +612,10 @@ label.lab{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-b
 
       <div class="boundary"><b>Not a legal will. A human one.</b> This plan tells your family what you'd want and where things are. A will is what decides who inherits; yours is on its way.</div>
 
-      <button class="btn" type="button" data-toast="Preview: Dave would get one email with a link to read this plan. He doesn't need an account.">Share it with Dave</button>
-      <button class="btn quiet" type="button" data-toast="Preview: a printable one-page copy for the kitchen drawer.">Print a copy</button>
+      <button class="btn pg-share" type="button" data-toast="Preview: Dave would get one email with a link to read this plan. He doesn't need an account.">Share it with Dave</button>
+      <button class="btn quiet pg-print" type="button" data-toast="Preview: a printable one-page copy for the kitchen drawer.">Print a copy</button>
 
-      <div class="card" style="background:var(--surface)">
+      <div class="card pg-member" style="background:var(--surface)">
         <p class="eyebrow">Your voucher covered these twelve weeks</p>
         <h3>Keep it current for <em style="color:var(--accentDeep)">£19 a year</em></h3>
         <p class="small" style="margin-top:8px">Plans go stale when life changes. Members get one short check each season ("Anything changed? Reply NO if not"), a nudge after a move or a new grandchild, and the pension step whenever you're ready.</p>
@@ -444,9 +625,25 @@ label.lab{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-b
           <button class="btn quiet" type="button" style="flex:1" data-toast="That's fine. Your plan stays here, and you can join any time.">Not now</button>
         </div>
       </div>
-      <p class="crisis">If any of this has been hard, <b>Samaritans: 116 123</b>, free, any time.</p>
+      <p class="crisis pg-crisis">If any of this has been hard, <b>Samaritans: 116 123</b>, free, any time.</p>
     </div>
   </section>
+
+  <!-- desktop only: the twelve stones and the plan building up -->
+  <aside class="rail" aria-label="Your path and your plan so far">
+    <div class="r-card r-stones">
+      <p class="eyebrow" style="margin:0">Your twelve stones</p>
+      <div class="stones" id="rStones"></div>
+      <p class="tiny" id="rCount"></p>
+    </div>
+    <div class="r-card">
+      <p class="eyebrow" style="margin:0">Your plan, building up</p>
+      <h3>What Dave will find</h3>
+      <div id="rPlan"></div>
+      <p style="margin:10px 0 4px"><button class="link" type="button" data-go="5" style="font-size:13px">See the week 12 plan →</button></p>
+    </div>
+    <div class="boundary"><b>Not a legal will. A human one.</b> Wishes and where things are kept. A will still decides who inherits.</div>
+  </aside>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 </div>
@@ -459,12 +656,88 @@ label.lab{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-b
   var dots = document.getElementById('dots');
   screens.forEach(function(){ dots.appendChild(document.createElement('i')); });
   var phone = document.getElementById('phone');
+  var html = document.documentElement;
+
+  /* Phone / Desktop switch: one set of state, layout changes with the class on <html> */
+  var chosenView = null;
+  var viewSeg = document.getElementById('viewSeg');
+  function applyView(){
+    var w = window.innerWidth;
+    var v = w < 600 ? 'phone' : (chosenView || (w >= 900 ? 'desktop' : 'phone'));
+    html.classList.toggle('view-desktop', v === 'desktop');
+    html.classList.toggle('view-phone', v === 'phone');
+    Array.prototype.forEach.call(viewSeg.children, function(b){ b.classList.toggle('on', b.getAttribute('data-v') === v); });
+  }
+  viewSeg.addEventListener('click', function(e){
+    var b = e.target.closest('button'); if(!b) return;
+    chosenView = b.getAttribute('data-v'); applyView();
+  });
+  /* framed in the viewer: the viewer owns view-desktop / view-phone, so don't fight it on resize */
+  if (!html.classList.contains('framed')) {
+    window.addEventListener('resize', applyView);
+    applyView();
+  }
+
+  /* Desktop rail: the twelve stones and the plan building up */
+  var MAIL = [1, 4], RAIL = [1, 2, 3, 4];
+  var answered = false, gather = 'Small & private, then the pub';
+  var LANE = {w:'#F7C6A9', d:'#BFE0CB', l:'#FFE2A3', m:'#F3CFE0'};
+  var STEPS = [
+    {l:'w', t:"How you'd like to be laid to rest", k:'Laid to rest', a:'Cremation, Bradgate Park'},
+    {l:'d', t:'Will & legal documents', k:'Will', a:'Solicitor call booked, 3 March'},
+    {l:'l', t:'Who should speak for you', k:'Speaks for you', a:'Dave, then Ellie'},
+    {l:'d', t:'Insurance policies', k:'Insurance', a:'Blue folder, back bedroom desk'},
+    {l:'m', t:'A memory you would like remembered', k:'A memory', a:'Whitby, 2009'},
+    {l:'l', t:'Pension & life insurance nominations', k:'Pensions', rest:true},
+    {l:'w', t:'The gathering', k:'The gathering', live:true},
+    {l:'d', t:'Digital accounts'},
+    {l:'w', t:'Songs that should be playing'},
+    {l:'l', t:'Organ & body donation'},
+    {l:'m', t:'A message for someone you love'},
+    {l:'w', t:"How you'd like to be remembered"}
+  ];
+  function renderRail(fresh){
+    var done = answered || cur >= 3;
+    var box = document.getElementById('rStones'); box.textContent = '';
+    var plan = document.getElementById('rPlan'); plan.textContent = '';
+    var n = 0;
+    STEPS.forEach(function(s, k){
+      var st = s.rest ? 'rest' : (k < 6 || (s.live && done)) ? 'done' : (k === (done ? 7 : 6)) ? 'now' : 'later';
+      if (st === 'done') n++;
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'stone ' + st;
+      b.style.setProperty('--lane', LANE[s.l]);
+      b.textContent = st === 'done' ? '✓' : String(k + 1);
+      b.title = 'Week ' + (k + 1) + ' · ' + s.t + (st === 'rest' ? ' (resting)' : st === 'now' ? ' (this week)' : '');
+      b.setAttribute('aria-label', b.title);
+      b.setAttribute('data-go', s.rest ? '4' : (s.live && !done) ? '2' : '3');
+      box.appendChild(b);
+      if (s.k){
+        var row = document.createElement('div');
+        var wait = s.rest || (s.live && !done);
+        row.className = 'rp' + (wait ? ' wait' : '') + (s.live && fresh ? ' fresh' : '');
+        var a = document.createElement('span'); a.textContent = s.k;
+        var c = document.createElement('span');
+        c.textContent = s.rest ? 'Resting, no rush' : s.live ? (done ? gather : 'Waiting for your reply') : s.a;
+        row.appendChild(a); row.appendChild(c); plan.appendChild(row);
+      }
+    });
+    document.getElementById('rCount').textContent = n + ' of 12 done · 1 resting · no streaks';
+  }
 
   function show(i){
     if(i < 0 || i >= screens.length) return;
     screens[cur].classList.remove('on');
     cur = i;
     screens[cur].classList.add('on');
+    for (var s = 0; s < screens.length; s++) phone.classList.remove('s' + s);
+    phone.classList.add('s' + cur);
+    phone.classList.toggle('m', MAIL.indexOf(cur) > -1);
+    phone.classList.toggle('r', RAIL.indexOf(cur) > -1);
+    Array.prototype.forEach.call(document.querySelectorAll('[data-for]'), function(el){
+      el.classList.toggle('on', (' ' + el.getAttribute('data-for') + ' ').indexOf(' ' + cur + ' ') > -1);
+    });
+    renderRail(false);
     document.getElementById('count').textContent = 'Screen ' + (cur + 1) + ' of ' + screens.length;
     document.getElementById('sname').textContent = screens[cur].getAttribute('data-name');
     document.getElementById('back').disabled = cur === 0;
@@ -516,7 +789,7 @@ label.lab{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-b
   });
   opts.children[2].classList.add('on');
   document.getElementById('saveAns').addEventListener('click', function(){
-    var chosen = opts.querySelector('.on b');
+    var chosen = opts.querySelector('.opt.on b');
     var note = document.getElementById('note').value.trim();
     var h = document.querySelector('#doneFace h3');
     h.textContent = '';
@@ -524,6 +797,9 @@ label.lab{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-b
     var em = document.createElement('span'); em.style.fontStyle = 'italic'; em.textContent = 'Noted.';
     h.appendChild(em);
     document.getElementById('flip2').classList.add('turned');
+    answered = true;
+    gather = (chosen ? chosen.textContent : 'Saved') + (note ? ', ' + note.replace(/^and /i, '').replace(/\.$/, '') : '');
+    renderRail(true);
   });
 
   var route = document.getElementById('route');
@@ -531,5 +807,13 @@ label.lab{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-b
   show(0);
 })();
 </script>
+<a id="ggc-all-routes" href="./" aria-label="All routes" style="position:fixed;z-index:9999;left:calc(12px + env(safe-area-inset-left,0px));
+bottom:calc(12px + env(safe-area-inset-bottom,0px));font:600 13px/1 'Plus Jakarta Sans',-apple-system,sans-serif;
+color:#B23D10;background:#FFFFFF;text-decoration:none;padding:10px 14px;border-radius:999px;
+box-shadow:0 10px 24px rgba(57,56,52,.16)">&larr; All routes</a>
+<script>try { if (window.self !== window.top) document.getElementById('ggc-all-routes').remove(); } catch (e) {}</script>
+<script>if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}</script>
 </body>
 </html>

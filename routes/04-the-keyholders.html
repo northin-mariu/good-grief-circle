@@ -3,6 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#FFFBFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GGC Routes">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>The Keyholders</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -141,9 +146,101 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
 .wish .q{font-size:12px;font-weight:700;color:var(--soft);text-transform:uppercase;letter-spacing:.06em}
 .wish .a{font-family:var(--serif);font-size:18px;line-height:1.35;color:var(--ink);margin-top:3px}
 .foot{padding:0 20px 22px}
+
+/* ---- view switch (Phone / Desktop) ---- */
+.viewbar{position:sticky;top:0;z-index:20;background:rgba(247,243,236,.92);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:0 8px 24px rgba(57,56,52,.05)}
+.viewbar .in{max-width:1120px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.viewbar .lbl{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.viewbar .lbl em{font-family:var(--serif);font-style:italic;font-weight:500;font-size:15px;letter-spacing:0;text-transform:none;color:var(--deep)}
+.vt{display:flex;background:var(--field);border-radius:999px;padding:4px;gap:2px;flex:none}
+.vt button{border:none;background:none;border-radius:999px;padding:7px 16px;font-size:13px;font-weight:700;color:var(--soft)}
+.vt button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:var(--lift)}
+@media (max-width:599px){.viewbar{display:none}}
+.tabs,.side{display:none}
+.ringdefs{position:absolute;width:0;height:0;overflow:hidden}
+
+/* ---- desktop web-app layout ---- */
+html.view-desktop .wrap{max-width:1120px;padding:20px 16px 56px}
+html.view-desktop .route{padding:18px 26px;margin-bottom:22px}
+html.view-desktop .route dl{grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 26px}
+html.view-desktop .phone{display:grid;grid-template-columns:minmax(0,1fr) 340px;grid-template-areas:"bar bar" "tabs tabs" "nav side" "main side" "foot side";grid-template-rows:auto auto auto auto 1fr;column-gap:32px;align-items:start;border-radius:28px;min-height:0;padding:0 32px 32px;box-shadow:var(--lift);overflow:visible}
+html.view-desktop .bar{grid-area:bar;padding:22px 0 12px}
+html.view-desktop .logo span{font-size:20px}
+html.view-desktop .logo svg{width:38px;height:28px}
+html.view-desktop .tabs{grid-area:tabs;display:flex;flex-wrap:wrap;align-items:center;gap:6px;background:var(--nest);border-radius:999px;padding:6px;margin:0 0 14px}
+.tabs .tg{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);padding:0 6px 0 12px}
+.tabs .tg+button{margin-left:0}
+.tabs .sep{width:10px}
+.tabs button{border:none;background:none;border-radius:999px;padding:8px 14px;font-size:13.5px;font-weight:700;color:var(--soft);white-space:nowrap}
+.tabs button:hover{color:var(--ink)}
+.tabs button.on{background:#fff;color:var(--deep);box-shadow:var(--lift)}
+.tabs button.past{color:var(--text)}
+html.view-desktop .nav{grid-area:nav;padding:0 0 4px}
+html.view-desktop .dots{display:none}
+html.view-desktop .screen{grid-area:main;padding:6px 0 10px;min-width:0}
+html.view-desktop .foot{grid-area:foot;padding:6px 0 0;display:flex;justify-content:flex-end}
+html.view-desktop .foot .btn2{width:auto;display:inline-block;padding:13px 28px}
+html.view-desktop .screen .ringwrap{display:none}
+html.view-desktop h1{font-size:46px;line-height:1.05;max-width:16em}
+html.view-desktop .lead{font-size:17px;max-width:40em}
+html.view-desktop .btn{display:inline-block;width:auto;min-width:300px;padding:16px 34px}
+html.view-desktop .btn2{display:inline-block;width:auto;padding:14px 28px;margin-left:8px}
+html.view-desktop .screen p.small[style*="center"]{text-align:left!important}
+html.view-desktop .dgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-items:start;margin:0 0 14px}
+html.view-desktop .dgrid>*{margin:0}
+html.view-desktop .dgrid .bubble{margin:0}
+html.view-desktop .radiant{padding:26px 30px}
+html.view-desktop .ownerbox{display:flex;align-items:center;gap:20px;padding:20px 24px}
+html.view-desktop .ownerbox p{margin:0;flex:1}
+html.view-desktop .ownerbox .eyebrow{flex:none;max-width:120px}
+html.view-desktop .ownerbox button{flex:none}
+html.view-desktop .side{grid-area:side;display:block;position:sticky;top:74px;margin-top:0}
+.side .card{padding:20px 22px}
+.side .ringwrap{width:230px;height:230px;margin:2px auto 10px}
+.side .person{padding:10px 0}
+.side .av{width:36px;height:36px;font-size:13px}
+.side .person .nm{font-size:14px}
+.side .person .rl{font-size:12px}
+.side .st{font-size:11px}
+.st.lit2{background:var(--grad);color:#fff}
+.st.no{background:var(--field);color:var(--faint)}
+.tl{list-style:none;margin:4px 0 6px;padding:0;position:relative}
+.tl li{position:relative;padding:0 0 14px 30px}
+.tl li::before{content:"";position:absolute;left:8px;top:20px;bottom:-2px;width:2px;border-radius:2px;background:#EFE7DA}
+.tl li:last-child::before{display:none}
+.tl li.done::before{background:var(--green);opacity:.45}
+.tl .mk{position:absolute;left:0;top:2px;width:18px;height:18px;border-radius:99px;background:var(--nest);box-shadow:inset 0 0 0 2px #E2D9CB;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
+.tl li.done .mk{background:var(--green);box-shadow:none}
+.tl li.now .mk{background:var(--grad);box-shadow:0 0 0 4px var(--tA)}
+.tl li.stop .mk{background:var(--sun);box-shadow:0 0 0 4px var(--tS)}
+.tl b{display:block;font-size:13.5px;color:var(--ink);line-height:1.35}
+.tl span{display:block;font-size:12px;color:var(--soft);line-height:1.45;margin-top:1px}
+.tl li.todo b{color:var(--soft)}
+/* inside the coordinator's viewer iframe: product only, the viewer owns the frame and the view class */
+html.framed .viewbar,html.framed .route{display:none!important}
+html.framed body{background:var(--page)}
+html.framed.view-desktop .side{top:16px}
+html.framed.view-phone .wrap{max-width:none;padding:0}
+html.framed.view-phone .phone{border-radius:0;box-shadow:none;min-height:100vh}
+@media (max-width:1180px){html.view-desktop .phone{grid-template-columns:minmax(0,1fr) 300px;column-gap:24px;padding:0 24px 24px}html.view-desktop h1{font-size:40px}}
+@media (max-width:899px){
+  html.view-desktop .phone{grid-template-columns:minmax(0,1fr);grid-template-areas:"bar" "tabs" "nav" "main" "foot" "side"}
+  html.view-desktop .side{position:static;margin-top:18px}
+  html.view-desktop .route dl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  html.view-desktop .dgrid{grid-template-columns:minmax(0,1fr)}
+}
 </style>
+<script>(function(){var f;try{f=window.self!==window.top}catch(e){f=true}document.documentElement.className=(window.innerWidth>=900?'view-desktop':'view-phone')+(f?' framed':'');})();</script>
 </head>
 <body>
+<svg class="ringdefs" aria-hidden="true" focusable="false"><defs><linearGradient id="kg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B23D10"/><stop offset="1" stop-color="#FF794A"/></linearGradient><radialGradient id="hg"><stop offset="0" stop-color="#FF794A" stop-opacity=".6"/><stop offset="1" stop-color="#FF794A" stop-opacity="0"/></radialGradient></defs></svg>
+<div class="viewbar"><div class="in">
+  <span class="lbl">Route 04 · <em>The Keyholders</em></span>
+  <div class="vt" role="group" aria-label="Preview as">
+    <button type="button" data-view="phone" aria-pressed="false">Phone</button>
+    <button type="button" data-view="desktop" aria-pressed="false">Desktop</button>
+  </div>
+</div></div>
 <div class="wrap">
 
 <details class="route" id="route">
@@ -167,6 +264,10 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
       <span>Good Grief Circle</span>
     </div>
     <span class="who owner" id="who">Helen's side</span>
+  </div>
+  <div class="tabs" id="tabs" role="navigation" aria-label="Screens">
+    <span class="tg">Helen</span><button type="button" data-go="0">Choose three</button><button type="button" data-go="1">The rule</button><button type="button" data-go="2">Invite</button>
+    <span class="sep"></span><span class="tg">Keyholders</span><button type="button" data-go="3">Bev is asked</button><button type="button" data-go="4">Lucy tells us</button><button type="button" data-go="5">The wait</button><button type="button" data-go="6">Opened</button>
   </div>
   <div class="nav">
     <button class="back" id="back" aria-label="Back">‹ Back</button>
@@ -205,6 +306,7 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
       <div class="nest"><p class="eyebrow" style="margin:0">Now</p><ul><li>That you chose them</li><li>Who the other two are</li><li>How the release works</li></ul></div>
       <div class="nest" style="background:var(--tS)"><p class="eyebrow" style="margin:0;color:var(--onSun)">After release</p><ul><li>Your wishes for the farewell</li><li>Where things are kept</li><li>Your note to them</li></ul></div>
     </div>
+    <div class="dgrid">
     <div class="card">
       <h2>How long should the wait be?</h2>
       <p class="small" style="margin:0 0 12px">After two keyholders confirm, we wait this long and message you every day. If you're alive and well, one tap stops it.</p>
@@ -218,6 +320,7 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
       <div class="person"><div class="av" style="background:var(--tG);color:var(--onMint)">⌂</div><div><div class="nm">Where things are kept</div><div class="rl">6 places noted</div></div></div>
       <div class="person"><div class="av" style="background:var(--tS);color:var(--onSun)">✉</div><div><div class="nm">A note to the three of them</div><div class="rl">Written 2 Dec</div></div></div>
     </div>
+    </div>
     <div class="note"><b>Not a legal will.</b> This tells the people you trust what you'd like and where to look. It can't decide who inherits — for that you need a will. Write down where yours is kept, so they can find it.</div>
     <button class="btn" data-next>Keep 7 days</button>
   </section>
@@ -227,11 +330,13 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
     <span class="chip">Invitations</span>
     <h1>Ask them <em>in your own words.</em></h1>
     <p class="lead">Each keyholder gets a short message from you and one link. They say yes in a tap — no account needed until it matters.</p>
+    <div class="dgrid">
     <div class="bubble"><div class="from">To Bev · by WhatsApp</div><span id="msg" contenteditable="true" spellcheck="false">Bev, I've written down a few things for when I go — what I'd like, and where the paperwork is. Would you be one of the three people who can open it? Tom and Lucy are the other two. Love, H x</span></div>
     <div class="card">
       <div class="person"><div class="av" style="background:var(--tA);color:var(--deep)">T</div><div><div class="nm">Tom</div><div class="rl">Said yes · 3 Dec</div></div><span class="st held">Holds a key</span></div>
       <div class="person"><div class="av" style="background:var(--tG);color:var(--onMint)">L</div><div><div class="nm">Lucy</div><div class="rl">Said yes · 3 Dec</div></div><span class="st held">Holds a key</span></div>
       <div class="person"><div class="av" style="background:var(--nest);color:var(--soft)">B</div><div><div class="nm">Bev</div><div class="rl" id="bevRl">Not sent yet</div></div><span class="st wait" id="bevSt">Waiting</span></div>
+    </div>
     </div>
     <div class="radiant">
       <p class="eyebrow">The release · one-off</p>
@@ -246,6 +351,7 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
   <section class="screen" data-who="kh" data-name="Bev's side">
     <span class="chip">You've been asked</span>
     <h1>Helen would like you to <em>hold a key.</em></h1>
+    <div class="dgrid">
     <div class="bubble"><div class="from">From Helen Ashworth</div><span id="msgIn">Bev, I've written down a few things for when I go — what I'd like, and where the paperwork is. Would you be one of the three people who can open it? Tom and Lucy are the other two. Love, H x</span></div>
     <div class="card">
       <p class="eyebrow">What it means</p>
@@ -254,6 +360,7 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
         <li><div><b>If Helen dies, tell us</b><span>When two of the three of you have told us, we check, then wait 7 days. Helen is messaged every day of that wait.</span></div></li>
         <li><div><b>Then it opens</b><span>Her wishes, where things are kept and her note to you open to all three keyholders at once.</span></div></li>
       </ol>
+    </div>
     </div>
     <p class="small">You don't need a password or an account to say yes. We'll only write to you if Helen changes something, or once a year to check this number still reaches you.</p>
     <button class="btn" id="bevYes">Yes, I'll hold a key</button>
@@ -284,6 +391,7 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
     <span class="chip">Two of three</span>
     <h1>Two keys turned. <em>Now we wait.</em></h1>
     <div class="ringwrap" data-ring="6"></div>
+    <div class="dgrid">
     <div class="radiant" id="waitPanel">
       <p class="eyebrow">Opens on 22 March, unless Helen stops it</p>
       <h2 style="margin:0">Waiting 7 days</h2>
@@ -297,6 +405,7 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
         <li><div><b>A person at Good Grief Circle checks</b><span>We match the registration with the General Register Office before the wait ends.</span></div></li>
         <li><div><b>Helen is messaged every day</b><span>By text and email. Bev doesn't need to do anything.</span></div></li>
       </ol>
+    </div>
     </div>
     <div class="ownerbox" id="ownerBox">
       <p class="eyebrow">What Helen sees, if she's here</p>
@@ -315,6 +424,7 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
       <p class="eyebrow">Her note to the three of you</p>
       <p style="font-family:var(--serif);font-size:19px;line-height:1.4;color:#fff">"Don't argue about the hymns. Have the do at the cricket club, put Bev in charge of the sandwiches, and go for a walk up Werneth Low afterwards. I loved you all very much. Mum (and H)."</p>
     </div>
+    <div class="dgrid">
     <div class="card">
       <p class="eyebrow">Wishes for the farewell</p>
       <div class="wish"><div class="q">Burial or cremation</div><div class="a">Cremation, ashes scattered on Werneth Low.</div></div>
@@ -327,6 +437,7 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
       <div class="wish"><div class="q">Insurance policies</div><div class="a">Funeral plan letter in the same box, blue folder.</div></div>
       <div class="wish"><div class="q">Digital accounts &amp; passwords</div><div class="a">Lucy is my Apple legacy contact. Nothing else is written down here, on purpose.</div></div>
     </div>
+    </div>
     <div class="note"><b>Not a legal will.</b> These are Helen's wishes, not her will. Her will names the executor, who is responsible for her estate.</div>
     <div class="card">
       <p class="eyebrow">First steps</p>
@@ -338,6 +449,20 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
     </div>
     <div class="note w">Samaritans: <b>116 123</b>, free, any time. Cruse Bereavement Support offers a free helpline and one-to-one support.</div>
   </section>
+
+  <aside class="side" aria-label="The ring, keyholders and release timeline">
+    <div class="card">
+      <p class="eyebrow">The ring</p>
+      <div class="ringwrap" id="sideRing" data-ring="1"></div>
+      <p class="eyebrow" style="margin-top:4px">Keyholders</p>
+      <div id="sideKh"></div>
+    </div>
+    <div class="card">
+      <p class="eyebrow">Release timeline</p>
+      <ol class="tl" id="sideTl"></ol>
+      <p class="small" style="margin:0">Two of three keys, a person checks, then a wait Helen can stop with one tap.</p>
+    </div>
+  </aside>
 
   <div class="foot"><button class="btn2" id="next">Next screen ›</button></div>
 </div>
@@ -363,6 +488,7 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
     if(ring===5){ if(i===1 && S.lucy) return 'lit'; return 'held'; }
     if(ring===6){ if(S.stopped) return 'held'; if(i===1||i===0) return 'lit'; return 'held'; }
     if(ring===7){ return i===2?'held':'lit'; }
+    if(ring===2){ if(i<2) return 'held'; return S.bevYes?'held':'chosen'; }
     return 'held';
   }
   function centre(ring){
@@ -370,6 +496,7 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
     if(ring===5) return [S.lucy?'1':'0','of two needed'];
     if(ring===6) return S.stopped?['—','stopped by Helen']:['2','of two needed'];
     if(ring===7) return ['Open','to all three'];
+    if(ring===2) return [S.bevYes?'3':'2','of three hold a key'];
     return ['',''];
   }
   function sub(i,st,ring){
@@ -383,7 +510,7 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
   }
   function drawRing(el){
     var ring=+el.getAttribute('data-ring'), R=92, c=125;
-    var svg='<svg viewBox="0 0 250 250" role="img" aria-label="Ring of three keyholders"><defs><linearGradient id="kg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B23D10"/><stop offset="1" stop-color="#FF794A"/></linearGradient><radialGradient id="hg"><stop offset="0" stop-color="#FF794A" stop-opacity=".6"/><stop offset="1" stop-color="#FF794A" stop-opacity="0"/></radialGradient></defs>';
+    var svg='<svg viewBox="0 0 250 250" role="img" aria-label="Ring of three keyholders">';
     svg+='<circle cx="'+c+'" cy="'+c+'" r="'+R+'" fill="none" stroke="#EFE7DA" stroke-width="10"/>';
     // arcs light between lit keys
     var lit=people.map(function(p,i){return keyState(i,ring)==='lit';});
@@ -421,7 +548,8 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
     back.disabled=cur===0;
     next.textContent=cur===total-1?'Start again ›':'Next screen ›';
     if(cur===3){document.getElementById("msgIn").textContent=document.getElementById("msg").textContent;}
-    drawAll();
+    [].forEach.call(tabs,function(t){var g=+t.getAttribute('data-go');t.className=g===cur?'on':(g<cur?'past':'');if(g===cur)t.setAttribute('aria-current','step');else t.removeAttribute('aria-current');});
+    side();
     window.scrollTo(0,0);
   }
   back.onclick=function(){show(cur-1);};
@@ -439,15 +567,15 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
     document.getElementById('third').innerHTML='<div class="av" style="background:var(--tS);color:var(--onSun)">'+v.charAt(0).toUpperCase()+'</div><div><div class="nm"></div><div class="rl">Friend · next door</div></div>';
     document.querySelector('#third .nm').textContent=v;
     addThird.textContent='Next: how the release works';
-    drawAll();
+    side();
   };
 
   // 2 · wait pills
-  var waitBtn=document.querySelector('#waitPills').parentNode.parentNode.querySelector('[data-next]');
+  var waitBtn=document.querySelector('#waitPills').closest('.screen').querySelector('[data-next]');
   [].forEach.call(document.querySelectorAll('#waitPills .pill'),function(p){
     p.onclick=function(){
       [].forEach.call(document.querySelectorAll('#waitPills .pill'),function(q){q.classList.remove('on');});
-      p.classList.add('on'); S.wait=+p.getAttribute('data-d'); waitBtn.textContent='Keep '+S.wait+' days';
+      p.classList.add('on'); S.wait=+p.getAttribute('data-d'); waitBtn.textContent='Keep '+S.wait+' days'; side();
     };
   });
 
@@ -460,12 +588,13 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
     document.getElementById('bevSt').textContent='Invited';
     sendBev.textContent='See what Bev receives';
     sendBev.classList.add('done');
+    side();
   };
 
   // 4 · Bev says yes / no
   document.getElementById('bevYes').onclick=function(){
     if(S.bevYes){show(4);return;}
-    S.bevYes=true; this.textContent='Done — you hold one of three keys'; this.classList.add('done');
+    S.bevYes=true; this.textContent='Done — you hold one of three keys'; this.classList.add('done'); side();
     document.getElementById('bevNo').classList.add('hide');
     var t=this; setTimeout(function(){t.textContent='See the day it’s needed ›';t.classList.remove('done');},1400);
   };
@@ -474,7 +603,7 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
   // 5 · Lucy confirms
   document.getElementById('lucyConfirm').onclick=function(){
     if(S.lucy){show(5);return;}
-    S.lucy=true; drawAll();
+    S.lucy=true; side();
     document.getElementById('lucyDone').classList.remove('hide');
     this.textContent='Next: when Tom confirms ›';
   };
@@ -485,7 +614,7 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
     document.getElementById('waitPanel').classList.toggle('hide',S.stopped);
     document.getElementById('stoppedNote').classList.toggle('hide',!S.stopped);
     this.textContent=S.stopped?'Undo (prototype only)':'I’m here — stop this';
-    drawAll();
+    side();
   };
 
   function reset(){
@@ -497,8 +626,82 @@ label.lb{font-size:13px;font-weight:700;color:var(--ink)}
     document.getElementById('stopIt').textContent='I’m here — stop this';
   }
 
+  // ---- desktop side panel: the ring, each keyholder's status, the release timeline ----
+  var tabs=document.querySelectorAll('#tabs [data-go]');
+  [].forEach.call(tabs,function(t){t.onclick=function(){show(+t.getAttribute('data-go'));};});
+  var RING_FOR=[1,2,2,2,5,6,7];
+  var roles=['Son · Leeds','Daughter · Stockport','Friend · next door'];
+  var avs=[['var(--tA)','var(--deep)'],['var(--tG)','var(--onMint)'],['var(--tS)','var(--onSun)']];
+  function esc(t){return String(t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function khStatus(i){
+    var c=cur;
+    if(c===6) return ['Can see it','lit'];
+    if(c===5){ if(i===2) return ['Holds a key','held']; if(S.stopped) return ['Key back as it was','held']; return [i===0?'Confirmed 15 Mar':'Confirmed 14 Mar','lit2']; }
+    if(c===4){ if(i===1&&S.lucy) return ['Confirmed 14 Mar','lit2']; return ['Holds a key','held']; }
+    if(c===0){ if(i<2) return ['Chosen','wait']; return S.third?['Chosen','wait']:['Not chosen yet','no']; }
+    if(i<2) return c===1?['Holds a key','held']:['Said yes · 3 Dec','held'];
+    if(S.bevYes) return ['Said yes','held'];
+    if(c===1) return ['Chosen','wait'];
+    return S.bevInvited?['Invited','wait']:['Not asked yet','no'];
+  }
+  function phase(){
+    var c=cur;
+    if(c===0) return S.third?1:0;
+    if(c<=2) return 1;
+    if(c===3) return S.bevYes?2:1;
+    if(c===4) return 2;
+    if(c===5) return 3;
+    return 5;
+  }
+  function side(){
+    var r=document.getElementById('sideRing'); r.setAttribute('data-ring',RING_FOR[cur]);
+    drawAll();
+    var h='';
+    people.forEach(function(p,i){
+      var open3=(i===2&&!S.third), st=khStatus(i), nm=open3?'A third person':p.n;
+      h+='<div class="person"><div class="av" style="background:'+(open3?'var(--nest)':avs[i][0])+';color:'+(open3?'var(--faint)':avs[i][1])+'">'+(open3?'+':esc(nm.charAt(0)))+'</div><div style="min-width:0"><div class="nm">'+esc(nm)+'</div><div class="rl">'+roles[i]+'</div></div><span class="st '+st[1]+'">'+st[0]+'</span></div>';
+    });
+    document.getElementById('sideKh').innerHTML=h;
+    var P=phase(), d=S.wait;
+    var steps=[
+      ['Three keyholders chosen',S.third?'Tom, Lucy and '+esc(people[2].n)+'.':'Tom, Lucy and one more.'],
+      ['All three say yes','One tap each, no account needed.'],
+      ['Two of them tell us','Any two of the three, with the registration.'],
+      ['A person checks, then '+d+' days\u2019 wait','Helen is messaged every day and can stop it.'],
+      ['It opens to all three','Wishes, where things are kept, her note.']
+    ];
+    var t='';
+    steps.forEach(function(s,i){
+      var cls=i<P?'done':(i===P?'now':'todo'), mk=i<P?'\u2713':'';
+      if(S.stopped&&cur===5){ if(i===3){cls='stop';s=['Stopped by Helen','Nothing opened. Keys are back as they were.'];} if(i===4){cls='todo';s=['Won\u2019t open','Unless two keyholders tell us again.'];} }
+      t+='<li class="'+cls+'"><span class="mk">'+mk+'</span><b>'+s[0]+'</b><span>'+s[1]+'</span></li>';
+    });
+    document.getElementById('sideTl').innerHTML=t;
+  }
+
+  // ---- Phone / Desktop switch ----
+  var root=document.documentElement, choice=null, vbtns=document.querySelectorAll('.vt [data-view]');
+  function applyView(){
+    if(root.classList.contains('framed')) return; // the viewer sets view-desktop / view-phone itself
+    var w=window.innerWidth, v=w<600?'phone':(choice||(w>=900?'desktop':'phone'));
+    root.classList.toggle('view-desktop',v==='desktop');
+    root.classList.toggle('view-phone',v==='phone');
+    [].forEach.call(vbtns,function(b){b.setAttribute('aria-pressed',b.getAttribute('data-view')===v?'true':'false');});
+  }
+  [].forEach.call(vbtns,function(b){b.onclick=function(){choice=b.getAttribute('data-view');applyView();drawAll();};});
+  window.addEventListener('resize',applyView);
+  applyView();
+
   show(0);
 })();
 </script>
+<a id="ggc-all-routes" href="./" aria-label="All routes" style="position:fixed;z-index:9999;left:calc(12px + env(safe-area-inset-left,0px));
+bottom:calc(12px + env(safe-area-inset-bottom,0px));font:600 13px/1 'Plus Jakarta Sans',-apple-system,sans-serif;
+color:#B23D10;background:#FFFFFF;text-decoration:none;padding:10px 14px;border-radius:999px;
+box-shadow:0 10px 24px rgba(57,56,52,.16)">&larr; All routes</a>
+<script>try { if (window.self !== window.top) document.getElementById('ggc-all-routes').remove(); } catch (e) {}</script>
+<script>if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}</script>
 </body>
 </html>
